@@ -6,12 +6,17 @@ body {
 }
 
 legend {
-    font-size: x-large;
-    
+	width: 49%;
+	float: none;
+    font-size: x-large;    
 }
 
 .radio-options{
-    padding-bottom: 10px;
+	display: flex;
+	flex-direction:row;
+	justify-content: space-between;
+    padding-bottom: 25px;
+	
 }
 
 .navbar-container {
@@ -19,7 +24,8 @@ legend {
 }
 
 
-.my-field {    
+.my-field {
+	position: relative;    
     margin: 75px auto;
     padding-top: 100px;
     width: 750px;
