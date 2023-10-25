@@ -106,16 +106,19 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
 const moreThanTwoLessThanTwotwo = (birthDate) => {
     textBox.value = ""
     const lastPE = new Date(lastPEValue);
+    const lastPEYear = lastPE.getFullYear();
     const lastPEMonth = lastPE.getMonth();
-    const lastPEDay = lastPE.getDay();
-    const oneDay = 24 * 60 * 60 * 1000; 
+    const lastPEDay = lastPE.getDay();    
     const birthMonth = birthDate.getMonth();
-    const birthDay = birthDate.getDate();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const currentDay = currentDate.getDate();
+    const birthDay = birthDate.getDate();    
+    const currentYear = currentDate.getFullYear();    
     const ageTWO = currentYear - birthDate.getFullYear()    
     const nextEligibleDate = new Date(currentYear, birthMonth, birthDay);
+    const dateOfService = DOS.value;    
+    const dateOfServiceDayArray = dateOfService.split("-");
+    const dateOfServiceMonth = dateOfServiceDayArray[1];
+    const dateOfServiceDay = dateOfServiceDayArray[2];
+    
     if(ageTWO === 2){
         if((lastPE - birthDate) >= 2){
             nextEligibleDate.setFullYear(currentYear + 1);
@@ -123,18 +126,16 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
         } else {
             textBox.value += `Check PE: ELIGIBLE W/ OV`;
         }
-    }else if(lastPEMonth > birthMonth || 
+    }else if(currentYear > lastPEYear || currentYear === lastPEYear && lastPEMonth > birthMonth || 
         lastPEMonth === birthMonth && lastPEDay >= birthDay ){
             nextEligibleDate.setFullYear(currentYear + 1);
             textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
     }
-    else if (
-        (currentMonth > birthMonth) ||
-        (currentMonth === birthMonth && currentDay >= birthDay)) {
-        if (Math.floor((lastPE - birthDate) / oneDay / 30.4) > 1) {
+    else if (        
+        (dateOfServiceMonth > birthMonth || dateOfServiceMonth === birthMonth) &&  (dateOfServiceDay >= birthDay)) {
             textBox.value += `PE: ELIGIBLE W/ OV`;
-        }
     } else {
+        console.log(dateOfServiceDay + " " + birthDay)
         if (nextEligibleDate <= currentDate) {
             nextEligibleDate.setFullYear(currentYear + 1);
         }
