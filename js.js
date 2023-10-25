@@ -118,24 +118,26 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     const dateOfServiceDayArray = dateOfService.split("-");
     const dateOfServiceMonth = dateOfServiceDayArray[1];
     const dateOfServiceDay = dateOfServiceDayArray[2];
+    const timeDifference = currentDate - lastPE;
+    const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
     
     if(ageTWO === 2){
         if((lastPE - birthDate) >= 2){
             nextEligibleDate.setFullYear(currentYear + 1);
             textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
         } else {
-            textBox.value += `Check PE: ELIGIBLE W/ OV`;
+            textBox.value += `PE: ELIGIBLE W/ OV`;
         }
-    }else if(currentYear > lastPEYear || currentYear === lastPEYear && lastPEMonth > birthMonth || 
-        lastPEMonth === birthMonth && lastPEDay >= birthDay ){
-            nextEligibleDate.setFullYear(currentYear + 1);
+    } else if (timeDifference > oneYearInMilliseconds) {        
+        textBox.value += `PE: ELIGIBLE W/ OV`;
+    }else if((currentYear > lastPEYear || currentYear === lastPEYear) && (lastPEMonth > birthMonth || 
+        lastPEMonth === birthMonth) && lastPEDay >= birthDay ){            
+            nextEligibleDate.setFullYear(currentYear);
             textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
-    }
-    else if (        
+    }else if (        
         (dateOfServiceMonth > birthMonth || dateOfServiceMonth === birthMonth) &&  (dateOfServiceDay >= birthDay)) {
             textBox.value += `PE: ELIGIBLE W/ OV`;
-    } else {
-        console.log(dateOfServiceDay + " " + birthDay)
+    } else {        
         if (nextEligibleDate <= currentDate) {
             nextEligibleDate.setFullYear(currentYear + 1);
         }
