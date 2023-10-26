@@ -342,13 +342,14 @@ submitButton.addEventListener('click', () => {
         } else if(radioCommerical.checked){
             commercialPE();
         } else{
+            textBox.value = "";
             textBox.style.color = 'red';
-            textBox.value += 'Please choose an insurance type.';        
+            textBox.value = 'Please choose an insurance type.';        
         }
     }else {
         textBox.value = "";
         textBox.style.color = "red";
-        return textBox.value += "Check dates!";
+        return textBox.value = "Check dates!";
         }    
     })
 
