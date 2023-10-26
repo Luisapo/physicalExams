@@ -296,24 +296,63 @@ DOS.value = formattedNextDay;
 
 
 
+//-------------------Special radio features--------------------//
+radioAHCCCS.addEventListener("change", () => {
+    if(radioAHCCCS.checked) {
+        textBox.placeholder ='';
+    }
+} )
+
+radioMedicare.addEventListener("change", () => {
+    if(radioMedicare.checked){
+        textBox.value = "";
+        textBox.placeholder = "Remember to check correct GCODE for PE in Noridian or medical summary.";
+    }
+})
+
+radioMedicareReplacement.addEventListener("change", () => {
+    if(radioMedicareReplacement.checked) {
+        textBox.value = "";
+        textBox.placeholder =  "Remember to check correct GCODE for PE in Noridian or medical summary.";
+    }
+})
+
+
+radioCommerical.addEventListener("change", ()=>{
+    if(radioCommerical.checked) {
+        textBox.placeholder = '';
+    }
+})
+
+
 //-------------------Sumbit data values for results--------------------//
 
 
 submitButton.addEventListener('click', () => {
     textBox.style.color = 'black';
-    if(radioAHCCCS.checked){
-        ahcccsPE();
-    }else if(radioMedicare.checked){
-        Overtwentyone();
-    }else if(radioMedicareReplacement.checked) {
-        replacementPE();        
-    } else if(radioCommerical.checked){
-        commercialPE();
-    } else{
-        textBox.style.color = 'red';
-        textBox.value += 'Please choose an insurance type.';        
-    }
-})
+    
+
+    if (dateOfBirthChecker(dateBirthInput.value) ===true ){
+        if(radioAHCCCS.checked){
+            ahcccsPE();
+        }else if(radioMedicare.checked){
+            Overtwentyone();
+        }else if(radioMedicareReplacement.checked) {
+            replacementPE();        
+        } else if(radioCommerical.checked){
+            commercialPE();
+        } else{
+            textBox.style.color = 'red';
+            textBox.value += 'Please choose an insurance type.';        
+        }
+    }else {
+        textBox.value = "";
+        textBox.style.color = "red";
+        return textBox.value += "Check dates!";
+        }    
+    })
+
+//-------------------Copy data values--------------------//
 
 copyButton.addEventListener('click', () => {
     textBox.select();
@@ -333,3 +372,30 @@ copyButton.addEventListener('click', () => {
 resetButton.addEventListener('click', () => {
     location.reload();
 })
+
+
+const dateOfBirthChecker = (dateString) => {
+    
+    const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!datePattern.test(dateString)) {
+        return false;
+    }
+
+    // Parse the date components
+    const dateParts = dateString.split('/');
+    const month = parseInt(dateParts[0], 10);
+    const day = parseInt(dateParts[1], 10);
+    const year = parseInt(dateParts[2], 10);
+
+    // Check if the month, day, and year are within valid ranges
+    if (
+        month >= 1 && month <= 12 &&
+        day >= 1 && day <= 31 &&
+        year >= 1900 && year <= new Date().getFullYear()
+    ) {
+        // Additional custom validation can be added here if needed
+        return true;
+    }
+
+    return false;
+}
