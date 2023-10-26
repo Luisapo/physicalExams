@@ -117,17 +117,18 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     const currentYear = currentDate.getFullYear();     
     const dateOfService = DOS.value;
     const dateOfServiceFormattted = new Date(dateOfService)
+    const dateOfServiceFormatttedActualDate =  dateOfServiceFormattted.setDate(dateOfServiceFormattted.getDate() + 1);
     const dateOfServiceDayArray = dateOfService.split("-");
     const dateOfServiceMonth = parseInt(dateOfServiceDayArray[1]);
-    const dateOfServiceDay = parseInt(dateOfServiceDayArray[2]);
+    const dateOfServiceDay = parseInt(dateOfServiceDayArray[2])+1;
     const timeDifference = currentDate - lastPE;
-    const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
+    const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;    
 
     let nextEligibleDate = ''
     if (
         lastPEYear <= currentYear &&
         (
-            dateOfServiceMonth < birthMonthFormatted ||
+            dateOfServiceMonth > birthMonthFormatted ||
             (dateOfServiceMonth === birthMonthFormatted && dateOfServiceDay < birthDay)
         )
     ) {
@@ -139,10 +140,10 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     if (timeDifference > oneYearInMilliseconds) {        
         textBox.value += `PE: ELIGIBLE W/ OV`;
 
-    }else if (nextEligibleDate > dateOfServiceFormattted) {                 
+    }else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {        
         textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
 
-    }else if (nextEligibleDate < dateOfServiceFormattted) {
+    }else if (nextEligibleDate <= dateOfServiceFormatttedActualDate) {
         textBox.value += `PE: ELIGIBLE W/ OV`;
 
 
@@ -291,15 +292,18 @@ DOS.value = formattedNextDay;
 
 
 submitButton.addEventListener('click', () => {
+    textBox.style.color = 'black';
     if(radioAHCCCS.checked){
         ahcccsPE();
     }else if(radioMedicare.checked){
         Overtwentyone();
     }else if(radioMedicareReplacement.checked) {
-        replacementPE();
-        textBox.style.place
+        replacementPE();        
     } else if(radioCommerical.checked){
         commercialPE();
+    } else{
+        textBox.style.color = 'red';
+        textBox.value += 'Please choose an insurance type.';        
     }
 })
 
