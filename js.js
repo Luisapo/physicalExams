@@ -142,13 +142,12 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
         nextEligibleDate = new Date(currentYear, birthMonth, birthDay);
     } else {
         nextEligibleDate = new Date(nextPEYear, birthMonth, birthDay);
-    }
-    
-    console.log(nextEligibleDate)
+    }   
  
     if (timeDifference > oneYearInMilliseconds) {        
         textBox.value += `PE: ELIGIBLE W/ OV`;
-
+    }else if(lastPEMonth < birthMonth && lastPEDay < birthDay && lastPEYear < currentYear) {
+        textBox.value += `PE: ELIGIBLE W/ OV`;
     }else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {        
         textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
 
