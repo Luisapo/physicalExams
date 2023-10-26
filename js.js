@@ -103,45 +103,57 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
 
 //-------------------For patient less than 22 years old / Also used for Medicare Part B / Also used for Commercial over 2 y/o--------------------//
 
-const moreThanTwoLessThanTwotwo = (birthDate) => {
+
+const moreThanTwoLessThanTwotwo = (birthDate) => {    
     textBox.value = ""
     const lastPE = new Date(lastPEValue);
     const lastPEYear = lastPE.getFullYear();
+    const nextPEYear = lastPE.getFullYear() + 1;
     const lastPEMonth = lastPE.getMonth();
     const lastPEDay = lastPE.getDay();
     const birthMonth = birthDate.getMonth();
+    const birthMonthFormatted = birthDate.getMonth()+1;
     const birthDay = birthDate.getDate();    
-    const currentYear = currentDate.getFullYear();    
-    const ageTWO = currentYear - birthDate.getFullYear()    
-    const nextEligibleDate = new Date(currentYear, birthMonth, birthDay);
-    const dateOfService = DOS.value;    
+    const currentYear = currentDate.getFullYear();     
+    const dateOfService = DOS.value;
+    const dateOfServiceFormattted = new Date(dateOfService)
     const dateOfServiceDayArray = dateOfService.split("-");
-    const dateOfServiceMonth = dateOfServiceDayArray[1];
-    const dateOfServiceDay = dateOfServiceDayArray[2];
+    const dateOfServiceMonth = parseInt(dateOfServiceDayArray[1]);
+    const dateOfServiceDay = parseInt(dateOfServiceDayArray[2]);
     const timeDifference = currentDate - lastPE;
     const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
-    
-    if(ageTWO === 2){
-        if((lastPE - birthDate) >= 2){
-            nextEligibleDate.setFullYear(currentYear + 1);
-            textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
-        } else {
-            textBox.value += `PE: ELIGIBLE W/ OV`;
-        }
-    } else if (timeDifference > oneYearInMilliseconds) {        
+
+    let nextEligibleDate = ''
+    if (
+        lastPEYear <= currentYear &&
+        (
+            dateOfServiceMonth < birthMonthFormatted ||
+            (dateOfServiceMonth === birthMonthFormatted && dateOfServiceDay < birthDay)
+        )
+    ) {
+        nextEligibleDate = new Date(currentYear, birthMonth, birthDay);
+    } else {
+        nextEligibleDate = new Date(nextPEYear, birthMonth, birthDay);
+    }    
+ 
+    if (timeDifference > oneYearInMilliseconds) {        
         textBox.value += `PE: ELIGIBLE W/ OV`;
-    }else if((currentYear > lastPEYear || currentYear === lastPEYear) && (lastPEMonth > birthMonth || 
-        lastPEMonth === birthMonth) && lastPEDay >= birthDay ){            
-            nextEligibleDate.setFullYear(currentYear);
-            textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
-    }else if (        
-        (dateOfServiceMonth > birthMonth || dateOfServiceMonth === birthMonth) &&  (dateOfServiceDay >= birthDay)) {
-            textBox.value += `PE: ELIGIBLE W/ OV`;
-    } else {        
-        if (nextEligibleDate <= currentDate) {
-            nextEligibleDate.setFullYear(currentYear + 1);
-        }
+
+    }else if (nextEligibleDate > dateOfServiceFormattted) {                 
         textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
+
+    }else if (nextEligibleDate < dateOfServiceFormattted) {
+        textBox.value += `PE: ELIGIBLE W/ OV`;
+
+
+
+    }else if((currentYear > lastPEYear || currentYear === lastPEYear) && (lastPEMonth < birthMonth || 
+        lastPEMonth === birthMonth) && lastPEDay <= birthDay ){            
+            nextEligibleDate.setFullYear(currentYear) +1;
+            textBox.value += `PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
+
+    } else {
+        
     }
 }
 
@@ -208,10 +220,12 @@ const OvertwentyoneCommerical = () => {
 
 //---------------------------Beginning of AHCCCS Section----------------------------------//
 
-const ahcccsPE = () => {
-    textBox.value = ""
-    const birthDate = new Date(dateOfBirthValue);    
-    const age = currentDate.getFullYear() - birthDate.getFullYear();
+const ahcccsPE = () => {    
+    const birthDate = new Date(dateOfBirthValue);        
+    const oneDay = 24 * 60 * 60 * 1000;     
+    const ageInMilliseconds = currentDate - birthDate;    
+    const ageInDays = Math.floor(ageInMilliseconds / oneDay);
+    const age = ageInDays/30.4 /12    
 
     if(age < 2){        
         calculateAgeInMonths(birthDate);
@@ -251,8 +265,12 @@ const replacementPE = () => {
 
 
 const commercialPE = () => {
-    const birthDate = new Date(dateOfBirthValue);    
-    const age = currentDate.getFullYear() - birthDate.getFullYear();
+    const birthDate = new Date(dateOfBirthValue);        
+    const oneDay = 24 * 60 * 60 * 1000;     
+    const ageInMilliseconds = currentDate - birthDate;    
+    const ageInDays = Math.floor(ageInMilliseconds / oneDay);
+    const age = ageInDays/30.4 /12
+     
     if(age < 2){        
         calculateAgeInMonths(birthDate);
     } else {
@@ -279,6 +297,7 @@ submitButton.addEventListener('click', () => {
         Overtwentyone();
     }else if(radioMedicareReplacement.checked) {
         replacementPE();
+        textBox.style.place
     } else if(radioCommerical.checked){
         commercialPE();
     }
