@@ -128,14 +128,23 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     if (
         lastPEYear <= currentYear &&
         (
-            dateOfServiceMonth > birthMonthFormatted ||
-            (dateOfServiceMonth === birthMonthFormatted && dateOfServiceDay < birthDay)
+            (
+                lastPEMonth < birthMonth &&
+                (lastPEDay < birthDay || lastPEMonth === birthMonth) ||
+                dateOfServiceMonth < birthMonthFormatted
+            ) ||
+            (
+                dateOfServiceMonth === birthMonthFormatted &&
+                dateOfServiceDay < birthDay
+            )
         )
     ) {
         nextEligibleDate = new Date(currentYear, birthMonth, birthDay);
     } else {
         nextEligibleDate = new Date(nextPEYear, birthMonth, birthDay);
-    }    
+    }
+    
+    console.log(nextEligibleDate)
  
     if (timeDifference > oneYearInMilliseconds) {        
         textBox.value += `PE: ELIGIBLE W/ OV`;
