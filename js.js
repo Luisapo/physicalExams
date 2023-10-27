@@ -299,6 +299,7 @@ DOS.value = formattedNextDay;
 //-------------------Special radio features--------------------//
 radioAHCCCS.addEventListener("change", () => {
     if(radioAHCCCS.checked) {
+        textBox.value = "";
         textBox.placeholder ='';
     }
 } )
@@ -320,6 +321,7 @@ radioMedicareReplacement.addEventListener("change", () => {
 
 radioCommerical.addEventListener("change", ()=>{
     if(radioCommerical.checked) {
+        textBox.value = "";
         textBox.placeholder = '';
     }
 })
