@@ -101,6 +101,43 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
     }
 }
 
+
+
+const calculateAgeInMonthsCommerical = (birthdate) => {    
+    const birthDate = new Date(birthdate);     
+    const lastPE = new Date(lastPEValue);
+    const dateOfServiceValue = new Date(DOS.value);
+    const oneDay = 24 * 60 * 60 * 1000; 
+    
+    const ageInMilliseconds = dateOfServiceValue - birthDate;
+    
+    const ageInDays = Math.floor(ageInMilliseconds / oneDay);
+
+    const totalMonthsLastPE = Math.floor((lastPE - birthDate) / (oneDay * 30.4));
+    getNextPhysicalExaminationCommercial(ageInDays, totalMonthsLastPE, birthDate);
+}
+
+const getNextPhysicalExaminationCommercial = (totalDays, lastPhysicalAge, birthDate) => {
+    textBox.value = ""
+
+    const schedule = [1, 2, 4, 6, 9, 12, 15, 18, 24]; // The schedule for physical examinations
+    
+    let nextIndex = schedule.findIndex(months => months > lastPhysicalAge); // Find the index of the next scheduled examination
+    
+    if (nextIndex === -1) {        
+        return textBox.value += "Recheck Dates!";
+    }  
+    const nextPhysicalAge = schedule[nextIndex]; // Check at which the next examination is due
+
+    if (totalDays > (nextPhysicalAge * 30.4)) { // If the patient is already eligible for the next examination, return the date
+        textBox.value += `PE: ELIGIBLE W/O OV`;
+    } else {
+        const nextExaminationDate = new Date(birthDate);
+        nextExaminationDate.setMonth(nextExaminationDate.getMonth() + nextPhysicalAge);
+        textBox.value += `PE: ELIGIBLE ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.`;
+    }
+}
+
 //-------------------For patient less than 22 years old / Also used for Medicare Part B / Also used for Commercial over 2 y/o--------------------//
 
 
@@ -281,7 +318,7 @@ const commercialPE = () => {
     const age = ageInDays/30.4 /12
      
     if(age < 2){        
-        calculateAgeInMonths(birthDate);
+        calculateAgeInMonthsCommerical(birthDate);
     } else {
         OvertwentyoneCommerical()
     }
