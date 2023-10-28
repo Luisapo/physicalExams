@@ -371,7 +371,10 @@ submitButton.addEventListener('click', () => {
     textBox.style.color = 'black';
     
 
-    if (dateOfBirthChecker(dateBirthInput.value) ===true ){
+    if (dateOfBirthChecker(dateBirthInput.value) ===true && 
+        dateOfBirthChecker(lastPhysicalServiceDate.value) === true &&
+        dateValidation(dateBirthInput.value) === true &&
+        dateValidation(lastPhysicalServiceDate.value) === true){
         if(radioAHCCCS.checked){
             ahcccsPE();
         }else if(radioMedicare.checked){
@@ -438,4 +441,12 @@ const dateOfBirthChecker = (dateString) => {
     }
 
     return false;
+}
+
+
+const dateValidation = (dateString) => {
+    const dateInquiry = new Date(dateString)
+    if(dateInquiry <= currentDate){
+        return true
+    }
 }
