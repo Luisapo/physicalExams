@@ -583,7 +583,7 @@ const originalValues = {
   planTypeFour: planTypeInputFour.value,
   networkFour: networkInputFour.value,
   primarycareCommericalFour: primarycareCommericalInputFour.value,
-  otherInsFour: otherIns4Input.value,
+  otherInsFour: primarycareCommericalInputFour.value,
   policyHolderFour: policyHolderInputFour.value,
   groupFour: groupInputFour.value,
   oopFour: oopInputFour.value,
@@ -640,7 +640,7 @@ function resetInputValues() {
   planTypeInputFour.value = originalValues.planTypeFour;
   networkInputFour.value = originalValues.networkFour;
   primarycareCommericalInputFour.value = originalValues.primarycareCommericalFour;
-  otherIns4Input.value = originalValues.otherIns
+  otherIns4Input.value = originalValues.primarycareCommericalFour
 }
 
 
