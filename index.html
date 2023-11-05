@@ -26,97 +26,391 @@
         </div>
       </nav>
 
+    <div class="container-main">
+        <div class="physicalExams">
+            <fieldset class="my-field">
+                <legend>Check Physical Exam Eligibility</legend>
+                    <div class="radio-options">
+                        <div class="option-1">
+                        <input 
+                            type="radio"
+                            id="AHCCCS"
+                            name="insurance"
+                            value="AHCCCS"
+                        />
+                        <label for="AHCCCS">AHCCCS</label>
+                        </div>
+                        <div>
+                        <input 
+                            type="radio"
+                            id="medicarePartB"
+                            name="insurance"
+                            value="MEDICARE-PART-B"
+                        />
+                        
 
-    
-    <fieldset class="my-field">
-        <legend>Check Physical Exam Eligibility</legend>
-        <div class="radio-options">
-            <div class="option-1">
-            <input 
-                type="radio"
-                id="AHCCCS"
-                name="insurance"
-                value="AHCCCS"
-            />
-            <label for="AHCCCS">AHCCCS</label>
+                        <label for="medicarePartB">MEDICARE PART B</label>
+                        </div>
+                        <div>
+                        <input 
+                            placeholder="Remember to Look up GCODE"
+                            type="radio"
+                            id="medicareReplacement"
+                            name="insurance"
+                            value="MEDICARE-REPLACEMENT"
+                        />
+                        <label for="medicareReplacement">MEDICARE REPLACEMENT</label>
+                    </div>
+                    <div>
+                        <input 
+                            placeholder="Remember to Look up GCODE"
+                            type="radio"
+                            id="commercial"
+                            name="insurance"
+                            value="COMMERCIAL"
+                        />
+                        <label for="commercial">COMMERCIAL</label> 
+                    </div>
+                </div>
+                <p class="dates-chosen">
+                    <label for="dateOfBirth">Date of Birth:
+                    <strong> <span aria-label="required"></span></strong>
+                    </label>
+                    <input 
+                    type="text"
+                    id="dateOfBirth" 
+                    placeholder="MM/DD/YYYY"
+                    pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
+                </p>
+                
+                <p class="dates-chosen">
+                    <label for="dateOfService">Date of Service:
+                    <strong> <span aria-label="required"></span></strong>
+                    </label>
+                    <input 
+                    type="date"             
+                    id="dateOfService" 
+                    placeholder="MM/DD/YYYY"
+                    pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />       
+                </p>
+                <p class="dates-chosen">
+                    <label for="lastPhysicalDone">Date of Last Physical Done:
+                    <strong> <span aria-label="required"></span></strong>
+                    </label>
+                    <input 
+                    type="text"             
+                    id="lastPhysicalDone" 
+                    placeholder="MM/DD/YYYY"
+                    pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
+                </p>
+                <p>
+                    <textarea id="output" name="output" class="output" cols="81" rows="4"></textarea>        
+                </p>
+                <div class="buttons">
+                    <div class="buttons-left">
+                        <button class="submit">Submit</button>
+                        <button id="copyText" class="copyButton">Copy</button>
+                    </div>
+                    <div class="buttons-right">
+                        <button class="reset">Reset All</button>
+                    </div>    
+                </div>    
+            </fieldset>
+        </div>
+        
+    <!--------------- Verification template ------------->
+        <div id="verifications">
+        <fieldset class="my-field">
+            <legend class="verification-legend">Verification Template</legend>
+            <div class="checkbox-options">
+                <div>
+                <input 
+                    type="radio"
+                    id="verification1"
+                    name="checkboxes"
+                    value="AHCCCS"
+                />
+                <label for="verification1">AHCCCS</label>
+                </div>
+                <div>
+                <input 
+                    type="radio"
+                    id="verification2"
+                    name="checkboxes"
+                    value="MEDICARE-PART-B"
+                />
+                <label for="verification2">MEDICARE PART B</label>
+                </div>
+                <div>
+                <input                     
+                    type="radio"
+                    id="verification3"
+                    name="checkboxes"
+                    value="MEDICARE-REPLACEMENT"
+                />
+                <label for="verification3">MEDICARE REPLACEMENT</label>
             </div>
             <div>
-            <input 
-                type="radio"
-                id="medicarePartB"
-                name="insurance"
-                value="MEDICARE-PART-B"
-            />
-            <label for="medicarePartB">MEDICARE PART B</label>
+                <input                     
+                    type="radio"
+                    id="verification4"
+                    name="checkboxes"
+                    value="COMMERCIAL"
+                />
+                <label for="verification4">COMMERCIAL</label> 
             </div>
-            <div>
-            <input 
-                placeholder="Remember to Look up GCODE"
-                type="radio"
-                id="medicareReplacement"
-                name="insurance"
-                value="MEDICARE-REPLACEMENT"
-            />
-            <label for="medicareReplacement">MEDICARE REPLACEMENT</label>
         </div>
-        <div>
-            <input 
-                placeholder="Remember to Look up GCODE"
-                type="radio"
-                id="commercial"
-                name="insurance"
-                value="COMMERCIAL"
-            />
-            <label for="commercial">COMMERCIAL</label> 
+        <div class="verificationDate">
+            <p>
+                <label for="dateVerfied">Date Verified:
+                <strong> <span aria-label="required"></span></strong>
+                </label>
+                <input 
+                type="date"             
+                id="verificationDate" 
+                placeholder="MM/DD/YYYY"
+                pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
+
+                <div><input 
+                    type="text" 
+                    name="initals" 
+                    id="initals"
+                    placeholder="Initials">                    
+                </div>
+                <div>
+                    <input 
+                    type="checkbox" 
+                    id="isVO" 
+                    >
+                    <label for="isVO" >Is VO?</label> 
+                </div>
+            </p>    
         </div>
+
+        <!----------- verifcation templates for all insurances -------------->
+        <div class="verificationTemplates">
+            <!------------- AHCCCS------------->
+                <div id="template1">
+                    <div>
+                        <label for="Eff:">EFF:</label>
+                        <input type="text" name="effectiveDate" id="effectiveDate">
+                    </div>
+                    <div>
+                        <label for="Sick:">SICK:</label>
+                        <input type="text" name="sick" id="sick">
+                    </div>
+                    <div>                
+                        <label for="thirdParty">TPL:</label>
+                        <input type="text" name="thirdParty" id="thirdParty" value="NONE">
+                    </div>
+                    <div>
+                        <label for="medicareBox">MEDICARE: </label>
+                        <input type="text" name="medicareBox" id="medicareBox" value="NONE">
+                    </div>
+                    <div>
+                        <label for="Spoke:">SPOKE:</label>
+                        <input type="text" name="spoke" id="spoke" value="ONLINE">
+                    </div>
+                    <div>
+                        <label for="primaryCarePhysician">PCP:</label>
+                        <input type="text" name="pcp" id="primaryCarePhysician">
+                    </div>
+            </div>
+            <!---------- Medicare Part B---------->
+            <div id="template2">
+                <div>
+                    <label for="effectiveDate">EFF:</label>
+                    <input type="text" name="effectiveDate" id="effectiveDate2">
+                </div>
+                <div>
+                    <label for="coins2">COINS:</label>
+                    <input type="text" name="coins2" id="coins2">
+                </div>
+                <div>                
+                    <label for="ded2">DED:</label>
+                    <input type="text" name="ded2" id="ded2">
+                </div>
+                <div>
+                    <label for="dedMet2">REMAINING:</label>
+                    <input type="text" name="dedMet2" id="dedMet2">
+                </div>
+                <div class="ineligiblePeriod">
+                    <label for="Ineligble Period:">INELIGIBLE PERIOD:</label>
+                    <input type="text" name="ineligible" id="ineligiblePeriod">
+                </div>
+                <div>
+                    <label for="hmo">HMO:</label>
+                    <input type="text" name="hmo" id="hmo">
+                </div>
+                <div>
+                    <label for="msp">MSP:</label>
+                    <input type="text" name="msp" id="msp">
+                </div>
+                <div>
+                    <label for="Spoke:">SPOKE:</label>
+                    <input type="text" name="spoke" id="spoke2" value="ONLINE">
+                </div>
+
+            </div>
+
+
+            <!---------- Medicare Replacement---------->
+            <div id="template3">
+                <div class="contractedIns">
+                    <label for="contracted3">CONTRACTED:</label>
+                    <input type="text" name="contracted3" id="contracted3">
+                </div>
+                <div>
+                    <label for="effectiveDate3">EFF:</label>
+                    <input type="text" name="effectiveDate3" id="effectiveDate3">
+                </div>
+                <div>                
+                    <label for="plan3">PLAN:</label>
+                    <input type="text" name="plan" id="plan3">
+                </div>                        
+                <div>
+                    <label for="group3">GROUP#:</label>
+                    <input type="text" name="group3" id="group3">
+                </div>
+                <div>
+                    <label for="sick3">SICK:</label>
+                    <input type="text" name="sick3" id="sick3">
+                </div>
+                <div>
+                    <label for="verifiedOnline3">VERIFIED:</label>
+                    <input type="text" name="verifiedOnline3" id="verifiedOnline3" value="ONLINE">
+                </div>                        
+                <div>
+                    <label for="primaryCarePhysician3">PCP:</label>
+                    <input type="text" name="pcp" id="primaryCarePhysician3">
+                </div>                    
+            </div>
+
+
+
+            <!---------- Commercial Template ---------->
+            <div id="template4">
+                <div class="contractedIns">
+                    <label for="contracted4">CONTRACTED:</label>
+                    <input type="text" name="contracted4" id="contracted4">
+                </div>
+                <div>
+                    <label for="sick4">SICK:</label>
+                    <input type="text" name="sick4" id="sick4">
+                </div>
+                <div>
+                    <label for="hsahra4">HSA/HRA:</label>
+                    <input type="text" name="hsahra4" id="hsahra4">
+                </div>
+                <div>
+                    <label for="telehealth4">TELEHEALTH:</label>
+                    <input type="text" name="telehealth4" id="telehealth4">
+                </div>
+                <div>
+                    <label for="pExams4">PE:</label>
+                    <input type="text" name="pExams4" id="pExams4">
+                </div>
+                <div>
+                    <label for="procedures4">PROCEDURES:</label>
+                    <input type="text" name="procedures4" id="procedures4">
+                </div>
+                <div>
+                    <label for="labs4">DX-LABS:</label>
+                    <input type="text" name="labs4" id="labs4">
+                </div>
+                <div>
+                    <label for="immunizations4">FLU(90686/90662):</label>
+                    <input type="text" name="immunizations4" id="immunizations4">
+                </div>
+                <div>
+                    <label for="covid4">C19 ANTIGEN(87426):</label>
+                    <input type="text" name="covid4" id="covid4">
+                </div>
+                <div>
+                    <label for="spoke4">SPOKE:</label>
+                    <input type="text" name="spoke4" id="spoke4">
+                </div>
+                <div>
+                    <label for="reference4">REF:</label>
+                    <input type="text" name="reference4" id="reference4">
+                </div>
+                <div>
+                    <label for="effectiveDate4">EFF:</label>
+                    <input type="text" name="effectiveDate4" id="effectiveDate4">
+                </div>
+                <div>
+                    <label for="planType4">PLAN TYPE:</label>
+                    <input type="text" name="planType4" id="planType4">
+                </div>
+                <div>                
+                    <label for="plan4">NETWORK:</label>
+                    <input type="text" name="plan4" id="plan4">
+                </div>  
+                <div>
+                    <label for="primarycareCommerical4">PCP:</label>
+                    <input type="text" name="primarycareCommerical4" id="primarycareCommerical4">
+                </div>   
+                <div>
+                    <label for="otherIns4">OTHER INS?:</label>
+                    <input type="text" name="otherIns4" id="otherIns4">
+                </div>  
+                <div>
+                    <label for="policyHolder4:">POLICY HOLDER?:</label>
+                    <input type="text" name="policyHolder4" id="policyHolder4">
+                </div>
+                <div>
+                    <label for="group4">GROUP#:</label>
+                    <input type="text" name="group4" id="group4">
+                </div>
+                <div>
+                    <label for="oop4">OOP:</label>
+                    <input type="text" name="oop4" id="oop4">
+                </div>
+                <div>
+                    <label for="oopMet">MET:</label>
+                    <input type="text" name="oopMet" id="oopMet4">
+                </div>
+                <div>
+                    <label for="deductible4">DED:</label>
+                    <input type="text" name="deductible4" id="deductible4">
+                </div>
+                <div>
+                    <label for="dedMet4">MET:</label>
+                    <input type="text" name="dedMet4" id="dedMet4">
+                </div>
+                <div>
+                    <label for="claimAddress4">CLAIM ADDRESS:</label>
+                    <input type="text" name="claimAddress4" id="claimAddress4">
+                </div>
+                <div>
+                    <label for="payorID4">PAYOR ID:</label>
+                    <input type="text" name="payorID4" id="payorID4">
+                </div>
+                
+                <div>
+                    <label for="verifiedOnline4">VERIFIED:</label>
+                    <input type="text" name="verifiedOnline4" id="verifiedOnline4" value="ONLINE">
+                </div> 
+                                  
+            </div>
+
+        </div>
+        <p>
+            <textarea name="output" class="output" cols="81" rows="4"></textarea>        
+        </p>
+        <div class="buttons">
+            <div class="buttons-left">
+                <button class="submit">Submit</button>
+                <button id="copyVerficationText" class="copyButton">Copy</button>
+            </div>
+            <div class="buttons-right">
+                <button class="reset">Clear All</button>
+            </div>    
+        </div> 
+        </fieldset>
     </div>
-    <p class="dates-chosen">
-        <label for="dateOfBirth">Date of Birth:
-          <strong> <span aria-label="required"></span></strong>
-        </label>
-        <input 
-          type="text"
-          id="dateOfBirth" 
-          placeholder="MM/DD/YYYY"
-          pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
-      </p>
-      
-    <p class="dates-chosen">
-        <label for="dateOfService">Date of Service:
-        <strong> <span aria-label="required"></span></strong>
-        </label>
-        <input 
-        type="date"             
-        id="dateOfService" 
-        placeholder="MM/DD/YYYY"
-        pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />       
-    </p>
-    <p class="dates-chosen">
-        <label for="lastPhysicalDone">Date of Last Physical Done:
-        <strong> <span aria-label="required"></span></strong>
-        </label>
-        <input 
-        type="text"             
-        id="lastPhysicalDone" 
-        placeholder="MM/DD/YYYY"
-        pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
-    </p>
-    <p>
-        <textarea name="output" id="output" cols="81" rows="8"></textarea>        
-    </p>
-    <div class="buttons">
-        <div class="buttons-left">
-            <button id="submit">Submit</button>
-            <button id="copyText">Copy</button>
-        </div>
-        <div class="buttons-right">
-            <button id="reset">Reset All</button>
-        </div>    
-    </div>    
-</fieldset>    
 
-
-
+    </div>
     <script src="js.js"></script>
 </body>
 </html>

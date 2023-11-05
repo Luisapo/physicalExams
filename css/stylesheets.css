@@ -4,8 +4,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;    
 	object-fit: fill;
-    margin: 0;
-	overflow: hidden;
+    margin: 0;	
 }
 
 /* .video-container{
@@ -27,6 +26,18 @@ video {
 	object-fit: fill
 } */
 
+.container-main{	
+	display: flex;
+	justify-content: space-evenly;
+}
+
+@media (max-width: 1500px) {
+	
+	.container-main {		
+	  display: block;
+	  height: auto;
+	}
+  }
 
 legend {
 	width: 49%;
@@ -38,8 +49,7 @@ legend {
 	display: flex;
 	flex-direction:row;
 	justify-content: space-between;
-    padding-bottom: 25px;
-	
+    padding-bottom: 25px;	
 }
 
 .navbar-container {
@@ -58,7 +68,7 @@ legend {
     font-weight: bold;
   }
 
-  #submit {
+  .submit {
 	box-shadow:inset 0px 1px 0px 0px #9fb4f2;
 	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
 	background-color:#7892c2;
@@ -73,17 +83,17 @@ legend {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
 }
-#submit:hover {
+.submit:hover {
 	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
 	background-color:#476e9e;
 }
-#submit:active {
+.submit:active {
 	position:relative;
 	top:1px;
 }
 
 
-#copyText {
+.copyButton {
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
 	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
 	background-color:#eae0c2;
@@ -98,18 +108,18 @@ legend {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
 }
-#copyText:hover {
+.copyButton:hover {
 	background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
 	background-color:#ccc2a6;
 }
-#copyText:active {
+.copyButton:active {
 	position:relative;
 	top:1px;
 }
 
 
 
-#reset {
+.reset {
 	box-shadow:inset 0px 1px 0px 0px #cf866c;
 	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
 	background-color:#d0451b;
@@ -127,11 +137,12 @@ legend {
 	
 	
 }
-#reset:hover {
+.reset:hover {
 	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
 	background-color:#bc3315;
 }
-#reset:active {
+
+.reset:active {
 	position:relative;
 	top:1px;
 }
@@ -142,4 +153,77 @@ legend {
 }
 
 
- 
+.verification-legend{
+	float: none;
+	font-size: x-large;
+	width: 34%;
+}
+
+.checkbox-options{
+	display: flex;
+	flex-direction:row;
+	justify-content: space-between;
+    padding-bottom: 25px;
+}
+
+.verificationDate {
+	display: flex;
+	gap: 20px;
+}
+
+#initals{
+	width: 65px;
+}
+
+
+#template1{
+	display: none;
+	gap: 15px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));		
+	padding: 10px;
+	grid-auto-flow: row;
+
+}
+
+
+#template2{
+	display: none;
+	gap: 15px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));		
+	padding: 10px;
+	grid-auto-flow: row;
+	
+}
+
+
+#template3{
+	display: none;
+	gap: 15px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));		
+	padding: 10px;
+	grid-auto-flow: row;
+	
+}
+
+
+
+#template4{
+	display: none;
+	gap: 15px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));		
+	padding: 10px;
+	grid-auto-flow: row;
+}
+
+#template4 input{
+	width: 200px;
+}
+#primarycareCommerical{
+	width: 200px;	
+}
+
+
+.invalid {
+	border: 2px solid red;
+  }
+
