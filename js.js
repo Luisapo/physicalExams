@@ -723,8 +723,10 @@ const medicareVerification = () => {
         theVO = ".VO";
     }
     let metAmount = parseInt(dedInputTwo.value) - parseInt((dedMetInputTwo.value.trim()));
-    if(metAmount <= 0){
+    if(parseInt((dedMetInputTwo.value.trim())) < 1){
         metAmount = "FULLY MET";
+    }else if(parseInt((dedMetInputTwo.value.trim()) > 225)){
+        metAmount = "0";
     }
 
     textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInputTwo.value).trim()} |  COINS: ${coinsInput2.value}  | DED:  ${(dedInputTwo.value).trim()}/ MET: ${metAmount} | INELIGIBLE PERIOD: ${ineligibleInput.value} |  HMO: ${hmoInput.value} |  MSP: ${mspInput.value} |  SPOKE: ${spokeInputTwo.value}`
