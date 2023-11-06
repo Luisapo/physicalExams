@@ -641,6 +641,15 @@ function resetInputValues() {
   networkInputFour.value = originalValues.networkFour;
   primarycareCommericalInputFour.value = originalValues.primarycareCommericalFour;
   otherIns4Input.value = originalValues.primarycareCommericalFour
+  policyHolderInputFour.value = originalValues.primarycareCommericalFour
+  groupInputFour.value = originalValues.primarycareCommericalFour
+  oopInputFour.value = originalValues.primarycareCommericalFour
+  oopMetInputFour.value = originalValues.primarycareCommericalFour
+  dedMetInputFour.value = originalValues.primarycareCommericalFour
+  dedMetInputFour.value = originalValues.primarycareCommericalFour
+  claimAddressInputFour.value = originalValues.primarycareCommericalFour
+  payorIDInputFour.value = originalValues.primarycareCommericalFour
+  
 }
 
 
