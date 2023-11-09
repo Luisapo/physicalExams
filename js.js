@@ -89,12 +89,12 @@ const verifiedOnlineInputFour = document.getElementById('verifiedOnline4');
 
 dateBirthInput.addEventListener("input", function() {
     let input = this.value;
-    if(input.length > 10) {             // makes sure length does not exceed 10
+    if(input.length > 30) {             // makes sure length does not exceed 10
         this.value = input.substring(0, 10); 
         return;
     }
 
-    input = input.replace(/\D/g, '');   // Only allow numbers
+    input = input.replace(/\s*\D\s*/g, '');   // Only allow numbers
 
     if(input.length > 1) {
         input = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
@@ -109,12 +109,12 @@ dateBirthInput.addEventListener("input", function() {
 
 lastPhysicalServiceDate.addEventListener("input", function() {
     let input = this.value;
-    if(input.length > 10) {
+    if(input.length > 30) {
         this.value = input.substring(0, 10); 
         return;
     }
 
-    input = input.replace(/\D/g, '');
+    input = input.replace(/\s*\D\s*/g, '');
 
     if(input.length > 1) {
         input = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
@@ -776,5 +776,3 @@ document.addEventListener('DOMContentLoaded', function () {
       
     });
   });
-  
-
