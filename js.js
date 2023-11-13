@@ -218,7 +218,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     const lastPEYear = lastPE.getFullYear();
     const nextPEYear = lastPE.getFullYear() + 1;
     const lastPEMonth = lastPE.getMonth();
-    const lastPEDay = lastPE.getDay();
+    const lastPEDay = lastPE.getDate();
     const birthMonth = birthDate.getMonth();
     const birthMonthFormatted = birthDate.getMonth()+1;
     const birthDay = birthDate.getDate();    
@@ -256,6 +256,9 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
         textBox.value += ` PE: ELIGIBLE W/ OV`;
     }else if(lastPEMonth < birthMonth && lastPEDay < birthDay && lastPEYear < currentYear) {
         textBox.value += ` PE: ELIGIBLE W/ OV`;
+    }else if(lastPEMonth === birthMonth && lastPEDay < birthDay && lastPEYear === currentYear) {
+        textBox.value += ` PE: ELIGIBLE W/ OV`;
+        console.log(lastPEDay, birthDay)
     }else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {        
         textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
 
