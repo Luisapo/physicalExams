@@ -52,6 +52,8 @@ const effectiveDateInputThree = document.getElementById('effectiveDate3');
 const planInputThree = document.getElementById('plan3');
 const groupInputThree = document.getElementById('group3');
 const sickInputThree = document.getElementById('sick3');
+const dedinputThree = document.getElementById('ded3');
+const otherInsThree = document.getElementById('otherIns3')
 const verifiedOnlineInputThree = document.getElementById('verifiedOnline3');
 const pcpInputThree = document.getElementById('primaryCarePhysician3');
 
@@ -159,7 +161,7 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
     let nextIndex = schedule.findIndex(months => months > lastPhysicalAge); // Find the index of the next scheduled examination
     
     if (nextIndex === -1) {        
-        return textBox.value += "Recheck Dates!";
+        return moreThanTwoLessThanTwotwo(birthDate);
     }  
     const nextPhysicalAge = schedule[nextIndex]; // Check at which the next examination is due
 
@@ -347,7 +349,7 @@ const ahcccsPE = () => {
     const ageInDays = Math.floor(ageInMilliseconds / oneDay);
     const age = ageInDays/30.4 /12    
 
-    if(age < 2){        
+    if(age < 3){        
         calculateAgeInMonths(birthDate);
     } else if(age < 22) {
         moreThanTwoLessThanTwotwo(birthDate);
@@ -624,6 +626,8 @@ function resetInputValues() {
   planInputThree.value = originalValues.planThree;
   groupInputThree.value = originalValues.groupThree;
   sickInputThree.value = originalValues.sickThree;
+  dedinputThree.value =  originalValues.sickThree;
+  otherInsThree.value =  originalValues.sickThree; 
   verifiedOnlineInputThree.value = originalValues.verifiedOnlineThree;
   pcpInputThree.value = originalValues.primaryCarePhysicianThree;
 
@@ -648,7 +652,7 @@ function resetInputValues() {
   groupInputFour.value = originalValues.primarycareCommericalFour
   oopInputFour.value = originalValues.primarycareCommericalFour
   oopMetInputFour.value = originalValues.primarycareCommericalFour
-  dedMetInputFour.value = originalValues.primarycareCommericalFour
+  deductibleInputFour.value = originalValues.primarycareCommericalFour
   dedMetInputFour.value = originalValues.primarycareCommericalFour
   claimAddressInputFour.value = originalValues.primarycareCommericalFour
   payorIDInputFour.value = originalValues.primarycareCommericalFour
@@ -742,7 +746,7 @@ const replacementVerification = () => {
     if(isVirtualOffice.checked) {
         theVO = ".VO";
     }
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputThree.value} |  EFF: ${(effectiveDateInputThree.value).trim()} | PLAN: ${(planInputThree.value).trim()}  |  GROUP# : ${(groupInputThree.value).trim()} | SICK: ${sickInputThree.value} | VERIFIED: ${verifiedOnlineInputThree.value} | PCP: ${(pcpInputThree.value).trim()} ` 
+    textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputThree.value} |  EFF: ${(effectiveDateInputThree.value).trim()} | PLAN: ${(planInputThree.value).trim()}  |  GROUP# : ${(groupInputThree.value).trim()} | SICK: ${sickInputThree.value} | DED: ${dedinputThree.value} | OTHER INS: ${otherInsThree.value} | VERIFIED: ${verifiedOnlineInputThree.value} | PCP: ${(pcpInputThree.value).trim()} ` 
 }
 
 const commercialVerificationText = () => {    
