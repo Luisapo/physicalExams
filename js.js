@@ -234,7 +234,6 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     const timeDifference = currentDate - lastPE;
     const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;    
 
-
     let nextEligibleDate = ''
     if (
         lastPEYear <= currentYear &&
@@ -259,14 +258,13 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
         textBox.value += ` PE: ELIGIBLE W/ OV`;
     }else if(lastPEMonth < birthMonth && lastPEDay < birthDay && lastPEYear < currentYear) { // last PE month, day less then DOB and done last year
         textBox.value += ` PE: ELIGIBLE W/ OV`;
-    }else if(lastPEYear === currentYear && birthMonth < (currentDate.getMonth() + 1) && (lastPEMonth < birthMonth && lastPEDay < birthDay)) { //last PE done current year and PE month before DOB        
+    }else if(lastPEYear === currentYear && birthMonth < dateOfServiceMonth && lastPEMonth < birthMonth) { //last PE done current year and PE month before DOB        
         textBox.value += ` PE: ELIGIBLE W/ OV`;
     }else if(lastPEYear === currentYear && birthMonth === dateOfServiceMonth && birthDay < dateOfServiceDay && lastPEMonth < birthMonth) { //last PE done current year and PE month before DOB        
         textBox.value += ` PE: ELIGIBLE W/ OV`;        
     }else if(lastPEYear === currentYear && lastPEMonth === birthMonth && lastPEDay < birthDay) { //last PE done current year and PE donde in curreny month and pt had DOB 
         textBox.value += ` PE: ELIGIBLE W/ OV`;        
-    }else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {
-        console.log(lastPEYear, currentYear, birthMonth, dateOfServiceMonth, birthDay, dateOfServiceDay, lastPEMonth, birthMonth)
+    }else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {        
         textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
     }else if (nextEligibleDate <= dateOfServiceFormatttedActualDate) {
         textBox.value += ` PE: ELIGIBLE W/ OV`;
