@@ -721,7 +721,7 @@ const AHCCCSVerification = () => {
     if(isVirtualOffice.checked) {
         theVO = ".VO";
     }    
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInput.value).trim()} |  SICK: ${sickInput.value}  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${medicareBoxInput.value} |  SPOKE: ${spokeInput.value}  | PCP: ${(pcpInput.value).trim()}`
+    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInput.value).trim()} |  SICK: ${sickInput.value}  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${medicareBoxInput.value} |  SPOKE: ${spokeInput.value}  | PCP: ${(pcpInput.value).trim()} `).toLocaleUpperCase() 
 }
 
 const medicareVerification = () => {
@@ -738,7 +738,7 @@ const medicareVerification = () => {
         metAmount = "0";
     }
 
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInputTwo.value).trim()} |  COINS: ${coinsInput2.value}  | DED:  ${(dedInputTwo.value).trim()}/ MET: ${metAmount} | INELIGIBLE PERIOD: ${ineligibleInput.value} |  HMO: ${hmoInput.value} |  MSP: ${mspInput.value} |  SPOKE: ${spokeInputTwo.value}`
+    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInputTwo.value).trim()} |  COINS: ${coinsInput2.value}  | DED:  ${(dedInputTwo.value).trim()}/ MET: ${metAmount} | INELIGIBLE PERIOD: ${ineligibleInput.value} |  HMO: ${hmoInput.value} |  MSP: ${mspInput.value} |  SPOKE: ${spokeInputTwo.value} `).toLocaleUpperCase()
 }
 
 const replacementVerification = () => {
@@ -748,7 +748,7 @@ const replacementVerification = () => {
     if(isVirtualOffice.checked) {
         theVO = ".VO";
     }
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputThree.value} |  EFF: ${(effectiveDateInputThree.value).trim()} | PLAN: ${(planInputThree.value).trim()}  |  GROUP# : ${(groupInputThree.value).trim()} | SICK: ${sickInputThree.value} | DED: ${dedinputThree.value} | OTHER INS: ${otherInsThree.value} | VERIFIED: ${verifiedOnlineInputThree.value} | PCP: ${(pcpInputThree.value).trim()} ` 
+    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputThree.value} |  EFF: ${(effectiveDateInputThree.value).trim()} | PLAN: ${(planInputThree.value).trim()}  |  GROUP# : ${(groupInputThree.value).trim()} | SICK: ${sickInputThree.value} | DED: ${dedinputThree.value} | OTHER INS: ${otherInsThree.value} | VERIFIED: ${verifiedOnlineInputThree.value} | PCP: ${(pcpInputThree.value).trim()} `).toLocaleUpperCase() 
 }
 
 const commercialVerificationText = () => {    
@@ -758,7 +758,7 @@ const commercialVerificationText = () => {
     if(isVirtualOffice.checked) {
         theVO = ".VO";
     }
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${sickInputFour.value} | HSA/HRA: ${hsahraInputFour.value} | TELEHEALTH: ${telehealthInputFour.value}  | PE: ${pExamsInputFour.value} | PROCEDURES: ${proceduresInputFour.value} | DX-LABS: ${labsInputFour.value} | FLU(90686/90662): ${immunizationsInputFour.value} | C19 ANTIGEN(87426): ${covidInputFour.value}  | SPOKE: ${spokeInputFour.value} | REF: ${referenceInputFour.value}\nEFF: ${(effectiveDateInputFour.value).trim()} | PLAN TYPE: ${(planTypeInputFour.value).trim()} |  NETWORK: ${(networkInputFour.value).trim()} | PCP: ${(primarycareCommericalInputFour.value).trim()} | OTHER INS: ${otherIns4Input.value} | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${(groupInputFour.value).trim()} | OOP: ${(oopInputFour.value).trim()} / MET: ${(oopMetInputFour.value).trim()} | DED: ${(deductibleInputFour.value).trim()} / MET: ${(dedMetInputFour.value).trim()} | CLAIM ADDRESS: ${(claimAddressInputFour.value).trim()} | PAYOR ID: ${(payorIDInputFour.value).trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} ` 
+    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${sickInputFour.value} | HSA/HRA: ${hsahraInputFour.value} | TELEHEALTH: ${telehealthInputFour.value}  | PE: ${pExamsInputFour.value} | PROCEDURES: ${proceduresInputFour.value} | DX-LABS: ${labsInputFour.value} | FLU(90686/90662): ${immunizationsInputFour.value} | C19 ANTIGEN(87426): ${covidInputFour.value}  | SPOKE: ${spokeInputFour.value} | REF: ${referenceInputFour.value}\nEFF: ${(effectiveDateInputFour.value).trim()} | PLAN TYPE: ${(planTypeInputFour.value).trim()} |  NETWORK: ${(networkInputFour.value).trim()} | PCP: ${(primarycareCommericalInputFour.value).trim()} | OTHER INS: ${otherIns4Input.value} | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${(groupInputFour.value).trim()} | OOP: ${(oopInputFour.value).trim()} / MET: ${(oopMetInputFour.value).trim()} | DED: ${(deductibleInputFour.value).trim()} / MET: ${(dedMetInputFour.value).trim()} | CLAIM ADDRESS: ${(claimAddressInputFour.value).trim()} | PAYOR ID: ${(payorIDInputFour.value).trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `).toLocaleUpperCase()
 }
 
 

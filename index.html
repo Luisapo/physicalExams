@@ -304,98 +304,171 @@
             <div id="template4">
                 <div class="contractedIns">
                     <label for="contracted4">CONTRACTED:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Is the provider {name of provider} contracted with this patient's plan?</span>
                     <input type="text" name="contracted4" id="contracted4">
-                </div>
-                <div>
+                </div>                  
+                <div class="sickAmount">
                     <label for="sick4">SICK:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Does this patient have a copay or deductible for an office visit with a PCP (Primary Care Physician)?</span>
                     <input type="text" name="sick4" id="sick4">
                 </div>
-                <div>
+                <div class="hsra">
                     <label for="hsahra4">HSA/HRA:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Does the patient have an HSA (Health Savings Account) or HRA (Health Reimbursement Account)?<br>
+                                              *(If pt has HRA) How much in funds does the patient have?<br>
+                                              *(If funds >90) Do we bill the insurance directly?</span>
                     <input type="text" name="hsahra4" id="hsahra4">
                 </div>
-                <div>
+                <div class="telemedicine">
                     <label for="telehealth4">TELEHEALTH:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Are Telehealth (Virtual) visits covered? If no, NOT COVERED <br>
+                                               If yes: <br>
+                                               Can we use our own platform?<br>
+                                               (If cost is different to SICK, write cost, else YES)
+                                                </span>
                     <input type="text" name="telehealth4" id="telehealth4">
                 </div>
-                <div>
+                <div class="wellVisit">
                     <label for="pExams4">PE:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Are Routine Physical or Preventive Exams (Well Exams / Annual Wellness Visit) Covered At 100%? <br>
+                    *If new patient: <br>
+                    Has the patient done a Physical Exam in the last 12 months?  (In case CPT is requested, use CPT code in the patient's age range)
+                    </span>
                     <input type="text" name="pExams4" id="pExams4">
                 </div>
-                <div>
+                <div class="surgery">
                     <label for="procedures4">PROCEDURES:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Is surgery done in office with a PCP covered under a copay or deductible? <br>
+                         (If copay ask, "is it additional to OV or is it per visit?") <br>
+                         (If asked, we do not have Procedure or Diagnoses codes, we just need general benefits)
+                        </span>
                     <input type="text" name="procedures4" id="procedures4">
                 </div>
-                <div>
+                <div class="laboratories">
                     <label for="labs4">DX-LABS:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Are diagnostic labs done in office with a PCP covered under a copay or deductible? <br>
+                        (If copay ask, "is it additional to OV or is it per visit?") <br>
+                        (If asked, we do not have Procedure or Diagnoses codes, we just need general benefits)</span>
                     <input type="text" name="labs4" id="labs4">
                 </div>
-                <div>
+                <div class="cptCodes">
                     <label for="immunizations4">FLU(90686/90662):</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">I have a couple CPT codes, could you check them for me? I want to see if they are covered at 100%, the codes are 90686, 90662, 87426 <br>
+                        (Code Descriptions) The first two are for immunizations, the last one is for covid test done in office and is only going to be done if medically necessary</span>
                     <input type="text" name="immunizations4" id="immunizations4">
                 </div>
-                <div>
+                <div class="corona">
                     <label for="covid4">C19 ANTIGEN(87426):</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Included in immunizations question</span>
                     <input type="text" name="covid4" id="covid4">
                 </div>
-                <div>
+                <div class="nombre">
                     <label for="spoke4">SPOKE:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is your name?</span>
                     <input type="text" name="spoke4" id="spoke4">
                 </div>
-                <div>
+                <div class="referenceNumber">
                     <label for="reference4">REF:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Those are all my questions what is the reference number? <br>
+                                                 (Until end of all questions)</span>
                     <input type="text" name="reference4" id="reference4">
                 </div>
-                <div>
+                <div class="startDate">
                     <label for="effectiveDate4">EFF:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is the effective date?</span>
                     <input type="text" name="effectiveDate4" id="effectiveDate4">
                 </div>
-                <div>
+                <div class="typeOfPlan">
                     <label for="planType4">PLAN TYPE:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What Plan type is this? PPO, POS, HMO?</span>
                     <input type="text" name="planType4" id="planType4">
                 </div>
-                <div>                
+                <div class="productName">                
                     <label for="plan4">NETWORK:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is the plan/product/network name?</span>
                     <input type="text" name="plan4" id="plan4">
                 </div>  
-                <div>
+                <div class="primaryCare">
                     <label for="primarycareCommerical4">PCP:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Is a PCP or referral requiered? <br>
+                        TYPES OF PLANS: <br>
+                        HMO - Always needs a PCP <br>
+                        EPO - Always needs a PCP <br>
+                        POS - If Insurance is UHC it is always required <br>
+                        POS - If website and card state not required, PCP not required <br>
+                        PPO - PCP not required <br>
+                        ASO - PCP not required</span>
                     <input type="text" name="primarycareCommerical4" id="primarycareCommerical4">
                 </div>   
-                <div>
+                <div class="coordination">
                     <label for="otherIns4">OTHER INS?:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Do you show another insurance on file?</span>
                     <input type="text" name="otherIns4" id="otherIns4">
                 </div>  
-                <div>
+                <div class="holderDependent">
                     <label for="policyHolder4:">POLICY HOLDER?:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Is patient the policy holder? (if over 18) <br>
+                                               Is this patient a dependent? (if under 18)</span>
                     <input type="text" name="policyHolder4" id="policyHolder4">
                 </div>
-                <div>
+                <div class="groupNumber">
                     <label for="group4">GROUP#:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Can I have the group number or group ID for billing purposes?</span>
                     <input type="text" name="group4" id="group4">
                 </div>
-                <div>
+                <div class="outOfPocket">
                     <label for="oop4">OOP:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">May I have the Out of Pocket Amounts?</span>
                     <input type="text" name="oop4" id="oop4">
                 </div>
-                <div>
+                <div class="outOfPocketMet">
                     <label for="oopMet">MET:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is the met or accumulated amounts?</span>
                     <input type="text" name="oopMet" id="oopMet4">
                 </div>
-                <div>
+                <div class="deductibleAmount">
                     <label for="deductible4">DED:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">May I have the Deductible Amounts?</span>
                     <input type="text" name="deductible4" id="deductible4">
                 </div>
-                <div>
+                <div class="outOfPocketMet">
                     <label for="dedMet4">MET:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is the met or accumulated amounts?</span>
                     <input type="text" name="dedMet4" id="dedMet4">
                 </div>
-                <div>
+                <div class="claimAddress">
                     <label for="claimAddress4">CLAIM ADDRESS:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is the claim address? <br>
+                        (only need the po box number)</span>
                     <input type="text" name="claimAddress4" id="claimAddress4">
                 </div>
-                <div>
+                <div class="claimAddress">
                     <label for="payorID4">PAYOR ID:</label>
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">What is the payor ID? </span>
                     <input type="text" name="payorID4" id="payorID4">
                 </div>
                 

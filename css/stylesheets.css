@@ -227,3 +227,125 @@ legend {
 	border: 2px solid red;
   }
 
+
+  /* ------------------ Tooltip style ---------------- */
+
+.tooltip-icon {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: white;
+  cursor: pointer;
+}
+  
+  .tooltip-text {
+	display: none;
+	position: absolute;
+	top: calc(100% + 5px);
+	left: 0;
+	color: #ffffff;
+	background-color: #040404;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .tooltip-icon:hover + .tooltip-text {
+	display: block;
+	width: 300px;
+	z-index: 1;
+  }
+  
+
+  .contractedIns {
+	position: relative;
+  }
+
+  .sickAmount{
+	position: relative;
+  }
+
+  .hsra{
+	position: relative;
+  }
+
+  .telemedicine {
+	position: relative;
+  }
+
+  .wellVisit {
+	position: relative;
+  }
+
+  .surgery {
+	position: relative;
+  }
+
+  .laboratories{
+	position: relative;
+  }
+
+  .cptCodes{
+	position: relative;
+  }
+
+  .corona{
+	position: relative;
+  }
+
+  .nombre{
+	position: relative;
+  }
+
+  .referenceNumber{
+	position: relative;
+  }
+
+  .startDate{
+	position: relative;
+  }
+
+  .typeOfPlan{
+	position: relative;
+  }
+
+  .productName{
+	position: relative;
+  }
+
+  .primaryCare{
+	position: relative;
+  }
+
+  .coordination{
+	position: relative;
+  }
+
+  .holderDependent{
+	position: relative;
+  }
+
+  .groupNumber{
+	position: relative;
+  }
+
+  .outOfPocket{
+	position: relative;
+  }
+
+  .outOfPocketMet{
+	position: relative;
+  }
+
+  .deductibleAmount{
+	position: relative;
+  }
+
+  .claimAddress{
+	position: relative;;
+  }
