@@ -1,12 +1,10 @@
 body {    
-    background-image: url(../images/christmasBackground.svg);	
+    background-image: url(../images/backgroundImage.png);	
 	height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;    
 	object-fit: fill;
     margin: 0;
-	background-color: #040404;
-	color: white;
 	overflow: hidden;
 }
 
