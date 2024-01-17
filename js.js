@@ -256,7 +256,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
  
     if (timeDifference > oneYearInMilliseconds) {        //Last PE more than a year ago
         textBox.value += ` PE: ELIGIBLE W/ OV`;
-    }else if(lastPEMonth < birthMonth && lastPEDay < birthDay && lastPEYear < currentYear) { // last PE month, day less then DOB and done last year
+    }else if(lastPEMonth < birthMonth && lastPEDay < birthDay && lastPEYear < currentYear) { // last PE month, day less then DOB and done last year        
         textBox.value += ` PE: ELIGIBLE W/ OV`;
     }else if(lastPEYear === currentYear && birthMonth < dateOfServiceMonth && lastPEMonth < birthMonth) { //last PE done current year and PE month before DOB        
         textBox.value += ` PE: ELIGIBLE W/ OV`;
@@ -265,12 +265,9 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     }else if(lastPEYear === currentYear && lastPEMonth === birthMonth && lastPEDay < birthDay) { //last PE done current year and PE donde in curreny month and pt had DOB 
         textBox.value += ` PE: ELIGIBLE W/ OV`;        
     }else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {        
-        textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
-    }else if (nextEligibleDate <= dateOfServiceFormatttedActualDate) {
+        textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;        
+    }else if (nextEligibleDate <= dateOfServiceFormatttedActualDate) {        
         textBox.value += ` PE: ELIGIBLE W/ OV`;
-
-
-
     }else if((currentYear > lastPEYear || currentYear === lastPEYear) && (lastPEMonth < birthMonth || 
         lastPEMonth === birthMonth) && lastPEDay <= birthDay ){            
             nextEligibleDate.setFullYear(currentYear) +1;
@@ -286,8 +283,8 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
 const Overtwentyone = () => {
     textBox.value = ""
     const lastPE = new Date(lastPEValue);    
-    const timeDifference = currentDate - lastPE;
-    const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
+    const timeDifference = currentDate.getFullYear() - lastPE.getFullYear();
+    const oneYearInMilliseconds = 1 * 365 * 24 * 60 * 60 * 1000;     
     const dateOfService = new Date(DOS.value) - lastPE; 
     
 
@@ -316,9 +313,9 @@ const Overtwentyone = () => {
 const OvertwentyoneCommerical = () => {
     textBox.value = ""
     const lastPE = new Date(lastPEValue);
-    const timeDifference = currentDate - lastPE;
+    const timeDifference = currentDate.getFullYear() - lastPE.getFullYear();
+    const oneYearInMilliseconds = 1 * 365 * 24 * 60 * 60 * 1000;     
     const dateOfService = new Date(DOS.value) - lastPE;
-    const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
 //    const oneDayInMilliseconds = 24 * 60 * 60 * 1000; 
 
     if (timeDifference > oneYearInMilliseconds) {
