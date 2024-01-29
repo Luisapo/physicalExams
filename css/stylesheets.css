@@ -27,10 +27,7 @@ video {
 	object-fit: fill
 } */
 
-.container-main{	
-	display: flex;
-	justify-content: space-evenly;
-}
+
 
 @media (max-width: 1500px) {
 	
@@ -38,7 +35,23 @@ video {
 	  display: block;
 	  height: 100vh;	  	  
 	  overflow: auto;
-	  margin: 0;
+	  margin: 0;	  
+	}
+
+	#verifications{
+		display: block;
+	}
+
+	#physicalExams{
+		display: block;
+	}
+  }
+
+  @media (min-width: 1501px) {
+	
+	.middleFormsForSmallWindow{	
+		display: flex;
+		justify-content: space-evenly;
 	}
   }
 
@@ -120,7 +133,31 @@ legend {
 	top:1px;
 }
 
+.copyBothTextBoxes{
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background-color:#ffec64;
+	border-radius:3px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 35px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
 
+.copyBothTextBoxes:hover{
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background-color:#ffab23;
+}
+
+.copyBothTextBoxes:active{
+	position:relative;
+	top:1px;
+}
 
 .reset {
 	box-shadow:inset 0px 1px 0px 0px #cf866c;
@@ -352,3 +389,63 @@ legend {
   .claimAddress{
 	position: relative;;
   }
+
+.arrow-button{
+	display: none;
+}
+
+#verifications, #physicalExams{
+	display: block;
+}
+
+@media (max-height: 900px) {
+
+	.middleFormsForSmallWindow{
+		display: grid;
+	}
+
+	#physicalExams{
+		display: none;
+    	grid-row: 2;		
+	}
+
+	#verifications{
+		grid-row: 1;
+	}
+
+  
+	.arrow-button {
+	  box-shadow: 0px 1px 0px 0px #899599;
+	  opacity: 50%;
+	  background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	  background-color: #ededed;
+	  display: inline-block;
+	  cursor: pointer;
+	  color: #000000;
+	  font-family: Arial;
+	  font-size: 20px;
+	  font-weight: bold;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  text-shadow: 0px 1px 0px #e1e2ed;
+	  height: 100vh;
+	  transition: opacity 0.5s ease;
+	}
+
+	.arrow-button:hover{
+		opacity: 1;
+	}
+  
+	#verifications {
+	  overflow: auto;
+	  height: 100vh;
+	}
+  
+	.container-main {
+	  display: grid;
+	  grid-auto-flow: column;
+	  grid-template-columns: 1fr 7fr 1fr;
+	}
+  }  
+
+  

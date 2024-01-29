@@ -8,6 +8,7 @@ nextDay.setDate(nextDay.getDate() + 1);
 const formattedNextDay = nextDay.toISOString().substring(0,10);
 const submitButton = document.getElementsByClassName('submit');
 const copyButtons = document.getElementsByClassName('copyButton');
+const verificationAndPE = document.getElementsByClassName('copyBothTextBoxes');
 let textBoxes = document.getElementsByClassName('output');
 const resetButtons = document.getElementsByClassName('reset');
 const radioAHCCCS = document.getElementById('AHCCCS');
@@ -230,7 +231,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     const dateOfServiceFormatttedActualDate =  dateOfServiceFormattted.setDate(dateOfServiceFormattted.getDate() + 1);
     const dateOfServiceDayArray = dateOfService.split("-");
     const dateOfServiceMonth = parseInt(dateOfServiceDayArray[1]);
-    const dateOfServiceDay = parseInt(dateOfServiceDayArray[2])+1;
+    const dateOfServiceDay = parseInt(dateOfServiceDayArray[2]);
     const timeDifference = currentDate - lastPE;
     const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;    
 
@@ -443,6 +444,76 @@ radioCommerical.addEventListener("change", ()=>{
 //-------------------Sumbit data values for results--------------------//
 
 
+for(let i = 0; i < verificationAndPE.length; i++){
+    verificationAndPE[i].addEventListener('click', () =>{
+        if(verificationAndPE[i] === verificationAndPE[0] || verificationAndPE[i] === verificationAndPE[1]) {
+        textBox.style.color = 'black';
+        textBoxes[1].style.color = 'black';
+        
+
+        if (dateOfBirthChecker(dateBirthInput.value) ===true && 
+            dateOfBirthChecker(lastPhysicalServiceDate.value) === true &&
+            dateValidation(dateBirthInput.value) === true &&
+            dateValidation(lastPhysicalServiceDate.value) === true){
+            if(radioAHCCCS.checked && ahcccsInputBoxes.checked){
+                ahcccsPE();
+                AHCCCSVerification();
+                textBox.value = textBoxes[1].value + textBox.value;
+                textBoxes[1].value = textBox.value                
+            }else if(radioMedicare.checked && medicareInputBoxes.checked){
+                Overtwentyone();
+                medicareVerification();
+                textBox.value = textBoxes[1].value + textBox.value;
+                textBoxes[1].value = textBox.value
+            }else if(radioMedicareReplacement.checked && replacementInputBoxes.checked) {
+                replacementPE();
+                replacementVerification();
+                textBox.value = textBoxes[1].value + textBox.value;
+                textBoxes[1].value = textBox.value
+            } else if(radioCommerical.checked && commericalInputBoxes.checked){
+                commercialPE();
+                commercialVerificationText();
+                textBox.value = textBoxes[1].value + textBox.value;
+                textBoxes[1].value = textBox.value
+            } else{
+                textBox.style.color = 'red';
+                textBox.value = 'Insurances Do not Match';
+                textBoxes[1].value = "";
+                textBoxes[1].style.color = 'red';
+                textBoxes[1].value = 'Insurances Do not Match'
+                return  
+            }
+        }else {
+            textBox.value = "";
+            textBox.style.color = "red";
+            return textBox.value = "Check dates!";
+            }        
+  
+            textBoxes[i].select();
+            document.execCommand('copy');
+            textBoxes[1].setSelectionRange(0, 0);
+
+            verificationAndPE[0].innerText = 'Copied';
+            verificationAndPE[0].style.color = "#ffffff";
+            verificationAndPE[0].style.background = '#32936f';
+            verificationAndPE[1].innerText = 'Copied';
+            verificationAndPE[1].style.color = "#ffffff";
+            verificationAndPE[1].style.background = '#32936f';
+            setTimeout(() => {
+                verificationAndPE[0].innerText = 'Verifcation+PE';
+                verificationAndPE[0].style.background = 'linear-gradient(to bottom, #ffec64 5%, #ffab23 100%)';
+                verificationAndPE[0].style.color = "#000000";
+                verificationAndPE[1].innerText = 'Verifcation+PE';
+                verificationAndPE[1].style.background = 'linear-gradient(to bottom, #ffec64 5%, #ffab23 100%)';
+                verificationAndPE[1].style.color = "#000000";
+            }, 1000);
+
+        }
+        
+    })
+}
+
+
 for(let i = 0; i < submitButton.length; i++){
     submitButton[i].addEventListener('click', () =>{
         if(submitButton[i] === submitButton[0] ) {
@@ -542,6 +613,8 @@ for (let i = 0; i < resetButtons.length; i++) {
         })  
     }
 }
+  
+
 
 const originalValues = {
   // ahcccs input boxes
@@ -758,9 +831,10 @@ const commercialVerificationText = () => {
     textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${sickInputFour.value} | HSA/HRA: ${hsahraInputFour.value} | TELEHEALTH: ${telehealthInputFour.value}  | PE: ${pExamsInputFour.value} | PROCEDURES: ${proceduresInputFour.value} | DX-LABS: ${labsInputFour.value} | FLU(90686/90662): ${immunizationsInputFour.value} | C19 ANTIGEN(87426): ${covidInputFour.value}  | SPOKE: ${spokeInputFour.value} | REF: ${referenceInputFour.value}\nEFF: ${(effectiveDateInputFour.value).trim()} | PLAN TYPE: ${(planTypeInputFour.value).trim()} |  NETWORK: ${(networkInputFour.value).trim()} | PCP: ${(primarycareCommericalInputFour.value).trim()} | OTHER INS: ${otherIns4Input.value} | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${(groupInputFour.value).trim()} | OOP: ${(oopInputFour.value).trim()} / MET: ${(oopMetInputFour.value).trim()} | DED: ${(deductibleInputFour.value).trim()} / MET: ${(dedMetInputFour.value).trim()} | CLAIM ADDRESS: ${(claimAddressInputFour.value).trim()} | PAYOR ID: ${(payorIDInputFour.value).trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `).toLocaleUpperCase()
 }
 
-
+const form = document.getElementById('verifications');
+const secondForm = document.getElementById('physicalExams')
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('verifications');
+    
     const inputFields = form.querySelectorAll('input');
     
   
@@ -780,5 +854,77 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
       
+    })
+    
+    verificationAndPE[0].addEventListener('click', function (event) {
+        let isFormValid = true;
+    
+        // double check each input fields
+        inputFields.forEach((input) => {
+          if (input.value.trim() === '') {
+            isFormValid = false;
+            input.classList.add('invalid');
+    
+            // Remove the "invalid" class after 3 second
+            setTimeout(() => {
+              input.classList.remove('invalid');
+            }, 3000);
+          }
+        });
+        
+      });
+
+      verificationAndPE[1].addEventListener('click', function (event) {
+        let isFormValid = true;
+    
+        // double check each input fields
+        inputFields.forEach((input) => {
+          if (input.value.trim() === '') {
+            isFormValid = false;
+            input.classList.add('invalid');
+    
+            // Remove the "invalid" class after 3 second
+            setTimeout(() => {
+              input.classList.remove('invalid');
+            }, 3000);
+          }
+        });
+        
+      });
+
+
+      //-------------This little section flips between the two forms-------------//
+
+      const buttons = document.querySelectorAll('.arrow-button');
+      const computedStyle = window.getComputedStyle(form);
+      
+
+buttons.forEach(button => {
+    button.addEventListener('click', function () {
+        if (computedStyle.display !== 'none') {            
+            form.style.display = 'none';
+            secondForm.style.display = 'block';
+            secondForm.style.gridRow = 1;
+        } else {
+            form.style.display = 'block';
+            secondForm.style.gridRow = 2;
+            secondForm.style.display = 'none';
+        }
     });
-  });
+});
+
+window.addEventListener('resize', function () {
+    // Check if the height is greater than 900 pixels
+    if (window.innerHeight > 900) {
+        form.style.display = 'block';
+        secondForm.style.display = 'block';
+    } else{
+        form.style.display = 'block';
+        secondForm.style.gridRow = 2;
+        secondForm.style.display = 'none';
+    }
+});
+
+});
+
+
