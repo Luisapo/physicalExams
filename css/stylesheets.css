@@ -68,6 +68,55 @@ legend {
     padding-bottom: 25px;	
 }
 
+.data-validation{
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 2fr 1fr;
+}
+
+#assignGcode{
+	display: none;
+}
+
+.gcodes input[type="radio"] {
+	display: none;
+  }
+  
+  
+  .gcodes label {
+	position: relative;
+	padding-left: 10%; 
+	cursor: pointer;	
+  }
+  
+  .gcodes label::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 16px;
+	height: 16px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	background-color: white;
+	transition: background-color 0.3s ease;
+  }  
+  
+  .gcodes label:hover::before {
+	background-color: rgb(155, 158, 155); /* Change the color on hover */
+  }
+  
+  /* Change the color when the custom radio button is checked */
+  .gcodes input[type="radio"]:checked + label::before {
+	background-color: rgb(113, 143, 202); /* Change the color when checked */
+  }
+
+
+input[type="radio"]:hover{
+	cursor: pointer;
+}
+
 .navbar-container {
 	padding-left: 10px;
 }

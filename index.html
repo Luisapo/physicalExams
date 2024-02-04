@@ -74,41 +74,61 @@
                                 <label for="commercial">COMMERCIAL</label>
                             </div>
                         </div>
-                        <p class="dates-chosen">
-                            <label for="dateOfBirth">Date of Birth:
-                            <strong> <span aria-label="required"></span></strong>
-                            </label>
-                            <input
-                            type="text"
-                            id="dateOfBirth"
-                            placeholder="MM/DD/YYYY"
-                            pattern="^\s*(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$"
-                            />
-                
-                        </p>
-                
-                        <p class="dates-chosen">
-                            <label for="dateOfService">Date of Appointment:
-                            <strong> <span aria-label="required"></span></strong>
-                            </label>
-                            <input
-                            type="date"
-                            id="dateOfService"
-                            placeholder="MM/DD/YYYY"
-                            pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$"
-                            />
-                        </p>
-                        <p class="dates-chosen">
-                            <label for="lastPhysicalDone">Date of Last Physical Done:
-                            <strong> <span aria-label="required"></span></strong>
-                            </label>
-                            <input
-                            type="text"
-                            id="lastPhysicalDone"
-                            placeholder="MM/DD/YYYY"
-                            pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
-                        </p>
-                        <p>
+                        <div class="data-validation">
+                            <div class="date-section">
+                                <p class="dates-chosen">
+                                    <label for="dateOfBirth">Date of Birth:
+                                    <strong> <span aria-label="required"></span></strong>
+                                    </label>
+                                    <input
+                                    type="text"
+                                    id="dateOfBirth"
+                                    placeholder="MM/DD/YYYY"
+                                    pattern="^\s*(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$"
+                                    />
+                                </p>
+                                <p class="dates-chosen">
+                                    <label for="dateOfService">Date of Appointment:
+                                    <strong> <span aria-label="required"></span></strong>
+                                    </label>
+                                    <input
+                                    type="date"
+                                    id="dateOfService"
+                                    placeholder="MM/DD/YYYY"
+                                    pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$"
+                                    />
+                                </p>
+                                <p class="dates-chosen">
+                                    <label for="lastPhysicalDone">Date of Last Physical Done:
+                                    <strong> <span aria-label="required"></span></strong>
+                                    </label>
+                                    <input
+                                    type="text"
+                                    id="lastPhysicalDone"
+                                    placeholder="MM/DD/YYYY"
+                                    pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$" />
+                                </p>
+                            </div>
+                            <div id="assignGcode">
+                                <p class="gcodes">                                    
+                                    <input type="radio" id="firstGcode" name="gcode" class="gcode">
+                                    <label for="firstGcode">G0402</label>
+                                </p>
+                                <p class="gcodes">                                    
+                                    <input type="radio" id="secondGcode" name="gcode" class="gcode">
+                                    <label for="secondGcode">G0438</label>
+                                </p>
+                                <p class="gcodes">                                    
+                                    <input type="radio" id="thirdGcode" name="gcode" class="gcode">
+                                    <label for="thirdGcode">G0439</label>
+                                </p>
+                            </div>
+                            
+                        </div>
+
+
+                        <p>                           
+
                             <textarea id="output" name="output" class="output" cols="81" rows="4"></textarea>
                         </p>
                         <div class="buttons">

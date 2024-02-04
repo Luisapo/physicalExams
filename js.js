@@ -14,6 +14,8 @@ const resetButtons = document.getElementsByClassName('reset');
 const radioAHCCCS = document.getElementById('AHCCCS');
 const radioAHCCCSVerification = document.getElementById('AHCCCSVerification');
 const radioMedicare = document.getElementById('medicarePartB');
+const medicareGcodes = document.getElementById('assignGcode');
+const medicareGcodeButtons =  document.querySelectorAll('.gcodes input[type="radio"]');
 const radioMedicareVerification = document.getElementById('medicarePartBVerification');
 const radioMedicareReplacement = document.getElementById('medicareReplacement');
 const radioMedicareReplacementVerification = document.getElementById('medicareReplacementVerification');
@@ -342,6 +344,34 @@ const OvertwentyoneCommerical = () => {
     }
 }
 
+
+const medicarePartBPhysical = () => {
+    textBox.value = ""
+    const lastPE = new Date(lastPEValue);
+    const timeDifference = currentDate.getFullYear() - lastPE.getFullYear();
+    const oneYearInMilliseconds = 1 * 365 * 24 * 60 * 60 * 1000;     
+    const dateOfService = new Date(DOS.value) - lastPE;
+//    const oneDayInMilliseconds = 24 * 60 * 60 * 1000; 
+
+    if (timeDifference > oneYearInMilliseconds) {
+        textBox.value += ` PE: ELIGIBLE W/ OV ${selectedRadioButton}`;
+    } else if (dateOfService > oneYearInMilliseconds) {
+        textBox.value += ` PE: ELIGIBLE W/ OV ${selectedRadioButton}`; 
+    } else {
+        
+        const nextEligibleDate = new Date(lastPE);
+        nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1); // Date one year after lastPE
+        
+        nextEligibleDate.setDate(nextEligibleDate.getDate() + 1); // Date one day after the date one year after lastPE
+
+        const month = (nextEligibleDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = nextEligibleDate.getDate().toString().padStart(2, '0');
+        const year = nextEligibleDate.getFullYear();
+
+        const formattedDate = `${month}/${day}/${year}`;
+        textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate} ${selectedRadioButton}`;
+    }
+}
 //---------------------------Beginning of AHCCCS Section----------------------------------//
 
 const ahcccsPE = () => {    
@@ -373,9 +403,9 @@ const replacementPE = () => {
     const lastPEYear = lastPE.getFullYear();
     const currentYear = currentDate.getFullYear();
     if(lastPEYear === currentYear) {
-        textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON 01/01/${currentYear + 1}`;
+        textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON 01/01/${currentYear + 1} ${selectedRadioButton}`;
     }else if(lastPEYear < currentYear) {
-        textBox.value += ` PE: ELIGIBLE W/ OV`;
+        textBox.value += ` PE: ELIGIBLE W/ OV ${selectedRadioButton}`;
     } else {
         textBox.value += ` Recheck Dates!`;
     }
@@ -415,28 +445,32 @@ dateVerified.value = currentDate.toISOString().substring(0,10);
 //-------------------Special radio features--------------------//
 radioAHCCCS.addEventListener("change", () => {
     if(radioAHCCCS.checked) {
+        medicareGcodes.style.display = 'none';
         textBox.value = "";
         textBox.placeholder ='';
     }
 } )
 
-radioMedicare.addEventListener("change", () => {
+radioMedicare.addEventListener("change", () => {    
     if(radioMedicare.checked){
+        medicareGcodes.style.display = 'block';
         textBox.value = "";
         textBox.placeholder = "Remember to check correct GCODE for PE in Noridian or medical summary.";
     }
 })
 
-radioMedicareReplacement.addEventListener("change", () => {
+radioMedicareReplacement.addEventListener("change", () => {    
     if(radioMedicareReplacement.checked) {
+        medicareGcodes.style.display = 'inline-block';
         textBox.value = "";
         textBox.placeholder =  "Remember to check correct GCODE for PE in Noridian or medical summary.";
     }
 })
 
 
-radioCommerical.addEventListener("change", ()=>{
+radioCommerical.addEventListener("change", ()=>{    
     if(radioCommerical.checked) {
+        medicareGcodes.style.display = 'none';
         textBox.value = "";
         textBox.placeholder = '';
     }
@@ -463,7 +497,7 @@ for(let i = 0; i < verificationAndPE.length; i++){
                 textBox.value = textBoxes[1].value + textBox.value;
                 textBoxes[1].value = textBox.value                
             }else if(radioMedicare.checked && medicareInputBoxes.checked){
-                Overtwentyone();
+                medicarePartBPhysical();
                 medicareVerification();
                 textBox.value = textBoxes[1].value + textBox.value;
                 textBoxes[1].value = textBox.value
@@ -528,7 +562,7 @@ for(let i = 0; i < submitButton.length; i++){
             if(radioAHCCCS.checked){
                 ahcccsPE();
             }else if(radioMedicare.checked){
-                Overtwentyone();
+                medicarePartBPhysical();
             }else if(radioMedicareReplacement.checked) {
                 replacementPE();        
             } else if(radioCommerical.checked){
@@ -930,3 +964,17 @@ window.addEventListener('resize', function () {
 });
 
 
+
+
+let selectedRadioButton = null;
+function updateOutputBox() {
+    const checkedRadio = document.querySelector('.gcodes input[type="radio"]:checked');    
+    if (checkedRadio) {        
+        selectedRadioButton = checkedRadio.parentElement.querySelector('label').textContent;        
+    }
+}
+medicareGcodeButtons.forEach((radio) => {
+    radio.addEventListener('change', () => {       
+        updateOutputBox();
+    });
+});
