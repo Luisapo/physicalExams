@@ -133,6 +133,12 @@ input[type="radio"]:hover{
     font-weight: bold;
   }
 
+  .greyedOut{
+	background-color: #eee;
+	color: #999;
+	cursor: not-allowed;
+  }
+
   .submit {
 	box-shadow:inset 0px 1px 0px 0px #9fb4f2;
 	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
