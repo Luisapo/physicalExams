@@ -445,6 +445,8 @@ dateVerified.value = currentDate.toISOString().substring(0,10);
 //-------------------Special radio features--------------------//
 radioAHCCCS.addEventListener("change", () => {
     if(radioAHCCCS.checked) {
+        dateBirthInput.classList.remove('greyedOut');
+        dateBirthInput.readOnly = false;
         medicareGcodes.style.display = 'none';
         textBox.value = "";
         textBox.placeholder ='';
@@ -453,6 +455,9 @@ radioAHCCCS.addEventListener("change", () => {
 
 radioMedicare.addEventListener("change", () => {    
     if(radioMedicare.checked){
+        dateBirthInput.classList.add('greyedOut');
+        dateBirthInput.value = "01/01/1900";
+        dateBirthInput.readOnly = true;
         medicareGcodes.style.display = 'block';
         textBox.value = "";
         textBox.placeholder = "Remember to check correct GCODE for PE in Noridian or medical summary.";
@@ -461,6 +466,9 @@ radioMedicare.addEventListener("change", () => {
 
 radioMedicareReplacement.addEventListener("change", () => {    
     if(radioMedicareReplacement.checked) {
+        dateBirthInput.classList.add('greyedOut');
+        dateBirthInput.value = "01/01/1900";
+        dateBirthInput.readOnly = true;
         medicareGcodes.style.display = 'inline-block';
         textBox.value = "";
         textBox.placeholder =  "Remember to check correct GCODE for PE in Noridian or medical summary.";
@@ -470,6 +478,8 @@ radioMedicareReplacement.addEventListener("change", () => {
 
 radioCommerical.addEventListener("change", ()=>{    
     if(radioCommerical.checked) {
+        dateBirthInput.classList.remove('greyedOut');
+        dateBirthInput.readOnly = false;
         medicareGcodes.style.display = 'none';
         textBox.value = "";
         textBox.placeholder = '';
