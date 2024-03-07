@@ -383,7 +383,7 @@ const ahcccsPE = () => {
 
     if(age < 3){        
         calculateAgeInMonths(birthDate);
-    } else if(age < 22) {
+    } else if(age < 21) {
         moreThanTwoLessThanTwotwo(birthDate);
     }else {
         Overtwentyone()
