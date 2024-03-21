@@ -151,8 +151,15 @@ const calculateAgeInMonths = (birthdate) => {
     const ageInMilliseconds = dateOfServiceValue - birthDate;
     
     const ageInDays = Math.floor(ageInMilliseconds / oneDay);
-
-    const totalMonthsLastPE = Math.floor((lastPE - birthDate) / (oneDay * 30.4));
+    
+    
+    let totalMonthsLastPE = (lastPE - birthDate) / (oneDay * 30.4)
+    
+    if(totalMonthsLastPE>0.7 && totalMonthsLastPE<0.99){
+        totalMonthsLastPE = Math.ceil((lastPE - birthDate) / (oneDay * 30.4));
+    } else {
+        totalMonthsLastPE = Math.floor((lastPE - birthDate) / (oneDay * 30.4));
+    }    
     getNextPhysicalExamination(ageInDays, totalMonthsLastPE, birthDate);
 }
 
