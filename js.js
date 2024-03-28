@@ -15,10 +15,10 @@ const radioAHCCCS = document.getElementById('AHCCCS');
 const radioAHCCCSVerification = document.getElementById('AHCCCSVerification');
 const radioMedicare = document.getElementById('medicarePartB');
 const medicareGcodes = document.getElementById('assignGcode');
-const medicareGcodeButtons =  document.querySelectorAll('.gcodes input[type="radio"]');
+const medicareGcodeButtons =  document.querySelectorAll('.radioStyle input[type="radio"]');
 const radioMedicareVerification = document.getElementById('medicarePartBVerification');
 const radioMedicareReplacement = document.getElementById('medicareReplacement');
-const radioMedicareReplacementVerification = document.getElementById('medicareReplacementVerification');
+//const radioMedicareReplacementVerification = document.getElementById('medicareReplacementVerification');
 const radioCommerical = document.getElementById('commercial')
 const radioCommericalVerification = document.getElementById('commercialVerification');
 let textBox = document.getElementById('output');
@@ -38,6 +38,10 @@ const thirdPartyInput = document.getElementById('thirdParty');
 const medicareBoxInput = document.getElementById('medicareBox');
 const spokeInput = document.getElementById('spoke');
 const pcpInput = document.getElementById('primaryCarePhysician');
+const mercyCareOptions = document.getElementById('mercyCare');
+const mercyCareCheck = document.getElementById('mercyCarePlan')
+const mercyCarelabel = document.getElementById('mercyCarelabel');
+const rateGroupInput = document.getElementById('mercyCareAdditional');
 
 // medicare input boxes
 const effectiveDateInputTwo = document.getElementById('effectiveDate2');
@@ -381,7 +385,7 @@ const medicarePartBPhysical = () => {
 }
 //---------------------------Beginning of AHCCCS Section----------------------------------//
 
-const ahcccsPE = () => {    
+const ahcccsPE = () => {
     const birthDate = new Date(dateOfBirthValue);        
     const oneDay = 24 * 60 * 60 * 1000;     
     const ageInMilliseconds = currentDate - birthDate;    
@@ -450,11 +454,15 @@ dateVerified.value = currentDate.toISOString().substring(0,10);
 
 
 //-------------------Special radio features--------------------//
+
+
+
 radioAHCCCS.addEventListener("change", () => {
-    if(radioAHCCCS.checked) {
+    if(radioAHCCCS.checked) {        
         dateBirthInput.classList.remove('greyedOut');
-        dateBirthInput.readOnly = false;
+        dateBirthInput.readOnly = false;        
         medicareGcodes.style.display = 'none';
+        dateBirthInput.value = "";
         textBox.value = "";
         textBox.placeholder ='';
     }
@@ -488,6 +496,7 @@ radioCommerical.addEventListener("change", ()=>{
         dateBirthInput.classList.remove('greyedOut');
         dateBirthInput.readOnly = false;
         medicareGcodes.style.display = 'none';
+        dateBirthInput.value = "";
         textBox.value = "";
         textBox.placeholder = '';
     }
@@ -677,6 +686,7 @@ const originalValues = {
   medicareBox: medicareBoxInput.value,
   spoke: spokeInput.value,
   primaryCarePhysician: pcpInput.value,
+  rateGroup: rateGroupInput.value,
 
   // medicare input boxes
   effectiveDateTwo: effectiveDateInputTwo.value,
@@ -734,6 +744,7 @@ function resetInputValues() {
   medicareBoxInput.value = originalValues.medicareBox;
   spokeInput.value = originalValues.spoke;
   pcpInput.value = originalValues.primaryCarePhysician;
+  rateGroupInput.value = originalValues.rateGroup;
 
   // Reset medicare input boxes
   effectiveDateInputTwo.value = originalValues.effectiveDateTwo;
@@ -822,6 +833,7 @@ const dateValidation = (dateString) => {
     }
 };
 
+//------------make the appropriate template section show------------//
 
 verificationTemplateOptions.forEach((verificationOption, index) => {
     verificationOption.addEventListener('change', () => {
@@ -829,6 +841,11 @@ verificationTemplateOptions.forEach((verificationOption, index) => {
         if (contentIndex === index) {
           contentElement.style.display = 'grid';
           textBoxes[1].value = "";
+          if(contentIndex === 0){
+            mercyCareOptions.style.display = "block";            
+          }else{
+            mercyCareOptions.style.display = "none";
+          }          
         } else {
           contentElement.style.display = 'none';
         }
@@ -837,14 +854,32 @@ verificationTemplateOptions.forEach((verificationOption, index) => {
   });
 
 
+  mercyCareCheck.addEventListener('change', () => {    
+    if (mercyCareCheck.checked) { // If checked display the label        
+        mercyCarelabel.style.display = 'block';
+    } else {        
+        mercyCarelabel.style.display = 'none';
+    }
+});
+
+
+
 const AHCCCSVerification = () => {
     actualVerificationDate = dateVerified.value
     actualVerificationDateFormatted = actualVerificationDate.substring(5,7) +"/"+actualVerificationDate.substring(8,10)+"/" +actualVerificationDate.substring(0,4)
     let theVO = '';
     if(isVirtualOffice.checked) {
         theVO = ".VO";
-    }    
-    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInput.value).trim()} |  SICK: ${sickInput.value}  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${medicareBoxInput.value} |  SPOKE: ${spokeInput.value}  | PCP: ${(pcpInput.value).trim()} `).toLocaleUpperCase() 
+    }
+
+    if(mercyCareCheck.checked){
+        textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInput.value).trim()} |  SICK: ${sickInput.value}  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${medicareBoxInput.value}  | RATE GROUP: ${(rateGroupInput.value).trim()} |  SPOKE: ${spokeInput.value}  | PCP: ${(pcpInput.value).trim()} `).toLocaleUpperCase() 
+
+    } else {
+        textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} EFF: ${(effectiveDateInput.value).trim()} |  SICK: ${sickInput.value}  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${medicareBoxInput.value} |  SPOKE: ${spokeInput.value}  | PCP: ${(pcpInput.value).trim()} `).toLocaleUpperCase() 
+    }
+  
+    
 }
 
 const medicareVerification = () => {
@@ -983,13 +1018,24 @@ window.addEventListener('resize', function () {
 
 
 
-let selectedRadioButton = null;
+let selectedRadioButton = 'CHOOSE A GCODE';
 function updateOutputBox() {
-    const checkedRadio = document.querySelector('.gcodes input[type="radio"]:checked');    
+    const checkedRadio = document.querySelector('#assignGcode input[type="radio"]:checked');
     if (checkedRadio) {        
         selectedRadioButton = checkedRadio.parentElement.querySelector('label').textContent;        
     }
+
+    if(selectedRadioButton === 'G0402'){
+        lastPhysicalServiceDate.classList.add('greyedOut');
+        lastPhysicalServiceDate.value = '01/01/1900';
+        lastPEValue = '01/01/1900';
+        lastPhysicalServiceDate.readOnly = true;
+    } else {
+        lastPhysicalServiceDate.classList.remove('greyedOut');
+        lastPhysicalServiceDate.readOnly = false;
+    }
 }
+
 medicareGcodeButtons.forEach((radio) => {
     radio.addEventListener('change', () => {       
         updateOutputBox();

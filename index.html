@@ -110,15 +110,15 @@
                                 </p>
                             </div>
                             <div id="assignGcode">
-                                <p class="gcodes">                                    
+                                <p class="radioStyle">                                    
                                     <input type="radio" id="firstGcode" name="gcode" class="gcode">
                                     <label for="firstGcode">G0402</label>
                                 </p>
-                                <p class="gcodes">                                    
+                                <p class="radioStyle">                                    
                                     <input type="radio" id="secondGcode" name="gcode" class="gcode">
                                     <label for="secondGcode">G0438</label>
                                 </p>
-                                <p class="gcodes">                                    
+                                <p class="radioStyle">                                    
                                     <input type="radio" id="thirdGcode" name="gcode" class="gcode">
                                     <label for="thirdGcode">G0439</label>
                                 </p>
@@ -209,6 +209,13 @@
                             >
                             <label for="isVO" >Is VO?</label>
                         </div>
+                        <div id="mercyCare">
+                            <input
+                            type="checkbox"
+                            id="mercyCarePlan"
+                            >
+                            <label for="mercyCarePlan">Mercy Care Plans</label>
+                        </div>
                     </p>
                 </div>
                 <!----------- verifcation templates for all insurances -------------->
@@ -231,6 +238,10 @@
                                 <label for="medicareBox">MEDICARE: </label>
                                 <input type="text" name="medicareBox" id="medicareBox" value="NONE">
                             </div>
+                            <div id="mercyCarelabel">
+                                <label for="mercyCareAdditional">RATE GROUP:</label>
+                                <input type="text" name="mcpAdditional" id="mercyCareAdditional">
+                            </div>
                             <div>
                                 <label for="Spoke:">SPOKE:</label>
                                 <input type="text" name="spoke" id="spoke" value="ONLINE">
@@ -239,6 +250,7 @@
                                 <label for="primaryCarePhysician">PCP:</label>
                                 <input type="text" name="pcp" id="primaryCarePhysician">
                             </div>
+
                     </div>
                     <!---------- Medicare Part B---------->
                     <div id="template2">

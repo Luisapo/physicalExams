@@ -78,18 +78,27 @@ legend {
 	display: none;
 }
 
-.gcodes input[type="radio"] {
+#mercyCare{
+	display: none;
+}
+
+
+#mercyCarelabel{
+	display: none;
+}
+
+.radioStyle input[type="radio"] {
 	display: none;
   }
   
   
-  .gcodes label {
+  .radioStyle label {
 	position: relative;
 	padding-left: 10%; 
 	cursor: pointer;	
   }
   
-  .gcodes label::before {
+  .radioStyle label::before {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -103,12 +112,12 @@ legend {
 	transition: background-color 0.3s ease;
   }  
   
-  .gcodes label:hover::before {
+  .radioStyle label:hover::before {
 	background-color: rgb(155, 158, 155); /* Change the color on hover */
   }
   
   /* Change the color when the custom radio button is checked */
-  .gcodes input[type="radio"]:checked + label::before {
+  .radioStyle input[type="radio"]:checked + label::before {
 	background-color: rgb(113, 143, 202); /* Change the color when checked */
   }
 
@@ -503,4 +512,9 @@ input[type="radio"]:hover{
 	}
   }  
 
-  
+  @media (max-height: 1050px) {
+    #verifications {
+        overflow-y: auto;
+        max-height: 950px;		
+    }
+}
