@@ -30,6 +30,9 @@ const ahcccsInputBoxes = document.getElementById('verification1');
 const medicareInputBoxes = document.getElementById('verification2');
 const replacementInputBoxes = document.getElementById('verification3');
 const commericalInputBoxes = document.getElementById('verification4');
+const newPatientCheckLabel = document.getElementById('newPatient');
+const newPatientCheckCheckBox = document.getElementById('autoEligible');
+
 
 // ahcccs input boxes
 const effectiveDateInput = document.getElementById('effectiveDate');
@@ -457,48 +460,61 @@ dateVerified.value = currentDate.toISOString().substring(0,10);
 
 
 
+
 radioAHCCCS.addEventListener("change", () => {
-    if(radioAHCCCS.checked) {        
-        dateBirthInput.classList.remove('greyedOut');
-        dateBirthInput.readOnly = false;        
+    if(radioAHCCCS.checked) {
+        cleanSlatePE()
+        newPatientCheckCheckBox.checked = false;
+        newPatientCheckLabel.style.display = 'block';    
         medicareGcodes.style.display = 'none';
-        dateBirthInput.value = "";
-        textBox.value = "";
-        textBox.placeholder ='';
     }
 } )
 
 radioMedicare.addEventListener("change", () => {    
     if(radioMedicare.checked){
+        cleanSlatePE()    
+        newPatientCheckLabel.style.display = 'none';
         dateBirthInput.classList.add('greyedOut');
         dateBirthInput.value = "01/01/1900";
         dateBirthInput.readOnly = true;
         medicareGcodes.style.display = 'block';
         textBox.value = "";
         textBox.placeholder = "Remember to check correct GCODE for PE in Noridian or medical summary.";
+        if(selectedRadioButton === 'G0402'){
+            lastPhysicalServiceDate.classList.add('greyedOut');
+            lastPhysicalServiceDate.value = '01/01/1900';
+            lastPEValue = '01/01/1900';
+            lastPhysicalServiceDate.readOnly = true;
+        }    
     }
 })
 
 radioMedicareReplacement.addEventListener("change", () => {    
-    if(radioMedicareReplacement.checked) {
+    if(radioMedicareReplacement.checked) {        
+        cleanSlatePE()    
+        newPatientCheckLabel.style.display = 'none';
         dateBirthInput.classList.add('greyedOut');
         dateBirthInput.value = "01/01/1900";
         dateBirthInput.readOnly = true;
-        medicareGcodes.style.display = 'inline-block';
+        medicareGcodes.style.display = 'block';
         textBox.value = "";
-        textBox.placeholder =  "Remember to check correct GCODE for PE in Noridian or medical summary.";
+        textBox.placeholder = "Remember to check correct GCODE for PE in Noridian or medical summary.";
+        if(selectedRadioButton === 'G0402'){
+            lastPhysicalServiceDate.classList.add('greyedOut');
+            lastPhysicalServiceDate.value = '01/01/1900';
+            lastPEValue = '01/01/1900';
+            lastPhysicalServiceDate.readOnly = true;
+        }    
     }
 })
 
 
 radioCommerical.addEventListener("change", ()=>{    
     if(radioCommerical.checked) {
-        dateBirthInput.classList.remove('greyedOut');
-        dateBirthInput.readOnly = false;
+        cleanSlatePE()
+        newPatientCheckCheckBox.checked = false;
+        newPatientCheckLabel.style.display = 'block';    
         medicareGcodes.style.display = 'none';
-        dateBirthInput.value = "";
-        textBox.value = "";
-        textBox.placeholder = '';
     }
 })
 
@@ -1015,6 +1031,33 @@ window.addEventListener('resize', function () {
 
 });
 
+const cleanSlatePE = () =>{
+    dateBirthInput.classList.remove('greyedOut')
+    dateBirthInput.readOnly = false;
+    dateBirthInput.value = '';
+    dateOfBirthValue = '';
+    lastPhysicalServiceDate.classList.remove('greyedOut');
+    lastPhysicalServiceDate.readOnly = false;
+    lastPhysicalServiceDate.value = '';
+    lastPEValue = '';
+
+}
+
+newPatientCheckCheckBox.addEventListener('change', () => {
+    if(newPatientCheckCheckBox.checked){
+        dateBirthInput.classList.add('greyedOut')
+        dateBirthInput.readOnly = true;
+        dateBirthInput.value = '01/01/1900';
+        dateOfBirthValue = '01/01/1900';
+        
+        lastPhysicalServiceDate.classList.add('greyedOut');
+        lastPhysicalServiceDate.value = '01/01/1900';
+        lastPEValue = '01/01/1900';
+        lastPhysicalServiceDate.readOnly = true;
+    }else{
+        cleanSlatePE()
+     }   
+})
 
 
 
