@@ -8,6 +8,13 @@ body {
 	overflow: hidden;
 }
 
+:root{
+	--roboto-font-family: "Roboto", sans-serif;
+	--roboto-font-weight: 400;
+	--roboto-font-style: normal;
+}
+
+
 /* .video-container{
 	position: fixed;
 	right: 0;
@@ -84,6 +91,10 @@ legend {
 
 
 #mercyCarelabel{
+	display: none;
+}
+
+#newPatient{
 	display: none;
 }
 
@@ -224,23 +235,21 @@ input[type="radio"]:hover{
 }
 
 .reset {
+	display: hidden;
 	box-shadow:inset 0px 1px 0px 0px #cf866c;
 	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
 	background-color:#d0451b;
 	border-radius:3px;
-	border:1px solid #942911;
-	display:inline-block;
+	border:1px solid #942911;	
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
 	font-size:13px;
 	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #854629;
-	
-	
-	
+	text-shadow:0px 1px 0px #854629;	
 }
+
 .reset:hover {
 	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
 	background-color:#bc3315;
@@ -256,11 +265,25 @@ input[type="radio"]:hover{
 	justify-content: space-between;
 }
 
+.CheckPhysicalLegend{
+	font-family: var(--roboto-font-family);
+	font-weight: var(--roboto-font-weight);
+	background-color: #000000;
+	color: #d9d9f6;
+	padding-left: 1%;
+	border-radius: 12px;
+}
 
 .verification-legend{
 	float: none;
 	font-size: x-large;
-	width: 34%;
+	padding-left: 1%;
+	font-family: var(--roboto-font-family);
+	font-weight: var(--roboto-font-weight);
+	width: 35%;
+	border-radius: 12px;
+	background-color: #000000;
+	color: rgb(255, 238, 0);
 }
 
 .checkbox-options{
@@ -274,6 +297,7 @@ input[type="radio"]:hover{
 	display: flex;
 	gap: 20px;
 }
+  
 
 #initals{
 	width: 65px;
@@ -329,6 +353,22 @@ input[type="radio"]:hover{
 
 .invalid {
 	border: 2px solid red;
+  }
+
+  .radio-selector {
+	box-shadow: 1px 1px 0px 0px;
+	opacity: 0.70; /* initial Opacity */
+	cursor: pointer;
+	color: #000000;
+	font-family: Arial;    
+	font-weight: bold;
+	padding: 2px 6px;
+	text-decoration: none;	
+	transition: opacity 0.3s ease;
+  }
+  
+  .radio-selector:hover {
+	opacity: 1; /* Opacity when mouse over */
   }
 
 
@@ -476,7 +516,7 @@ input[type="radio"]:hover{
 	#verifications{
 		grid-row: 1;
 	}
-
+	  
   
 	.arrow-button {
 	  box-shadow: 0px 1px 0px 0px #899599;
