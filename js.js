@@ -219,7 +219,7 @@ const getNextPhysicalExaminationCommercial = (totalDays, lastPhysicalAge, birthD
     }  
     const nextPhysicalAge = schedule[nextIndex]; // Check at which the next examination is due
 
-    if (totalDays > (nextPhysicalAge * 30.4)) { // If the patient is already eligible for the next examination, return the date
+    if (totalDays > (nextPhysicalAge * 30.33)) { // If the patient is already eligible for the next examination, return the date
         textBox.value += ` PE: ELIGIBLE W/O OV`;
     } else {
         const nextExaminationDate = new Date(birthDate);
