@@ -464,6 +464,7 @@ dateVerified.value = currentDate.toISOString().substring(0,10);
 radioAHCCCS.addEventListener("change", () => {
     if(radioAHCCCS.checked) {
         cleanSlatePE()
+        textBox.placeholder = "";
         newPatientCheckCheckBox.checked = false;
         newPatientCheckLabel.style.display = 'block';    
         medicareGcodes.style.display = 'none';
@@ -512,6 +513,7 @@ radioMedicareReplacement.addEventListener("change", () => {
 radioCommerical.addEventListener("change", ()=>{    
     if(radioCommerical.checked) {
         cleanSlatePE()
+        textBox.placeholder = "";
         newPatientCheckCheckBox.checked = false;
         newPatientCheckLabel.style.display = 'block';    
         medicareGcodes.style.display = 'none';
