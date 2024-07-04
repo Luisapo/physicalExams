@@ -8,6 +8,7 @@ nextDay.setDate(nextDay.getDate() + 1);
 const formattedNextDay = nextDay.toISOString().substring(0,10);
 const submitButton = document.getElementsByClassName('submit');
 const copyButtons = document.getElementsByClassName('copyButton');
+const undoButton = document.getElementById('undoButton');
 const verificationAndPE = document.getElementsByClassName('copyBothTextBoxes');
 let textBoxes = document.getElementsByClassName('output');
 const resetButtons = document.getElementsByClassName('reset');
@@ -594,6 +595,8 @@ for(let i = 0; i < verificationAndPE.length; i++){
 }
 
 
+
+
 for(let i = 0; i < submitButton.length; i++){
     submitButton[i].addEventListener('click', () =>{
         if(submitButton[i] === submitButton[0] ) {
@@ -654,8 +657,6 @@ for(let i = 0; i < submitButton.length; i++){
         
     })
 }
-
-
     
 
 //-------------------Copy data values--------------------//
@@ -689,13 +690,19 @@ for (let i = 0; i < resetButtons.length; i++) {
     }else if(resetButtons[i] === resetButtons[1]){
         resetButtons[i].addEventListener('click', () => {
         textBoxes[1].value = "";
+        let inputs = [effectiveDateInput.value, effectiveDateInputTwo.value, effectiveDateInputThree.value, effectiveDateInputFour.value]
+        if(inputs.every(input => input === "")){
+        }else{
+            getLastValuesEntered();
+        }
+
         resetInputValues();
         })  
     }
 }
   
 
-
+// Set up a function to reset the input boxes
 const originalValues = {
   // ahcccs input boxes
   effectiveDate: effectiveDateInput.value,
@@ -753,7 +760,7 @@ const originalValues = {
   verifiedOnlineFour: verifiedOnlineInputFour.value
 };
 
-// Set up a function to reset the input boxes
+
 function resetInputValues() {
   // Reset ahcccs input boxes
   effectiveDateInput.value = originalValues.effectiveDate;
@@ -814,7 +821,240 @@ function resetInputValues() {
 }
 
 
+const previousValuesEntered = {
+    currentEffectiveDateInput : effectiveDateInput.value,
+    currentSickInput : sickInput.value,
+    currentThirdPartyInput : thirdPartyInput.value,
+    currentMedicareBoxInput : medicareBoxInput.value,
+    currentSpokeInput : spokeInput.value,
+    currentPcpInput : pcpInput.value,
+    currentRateGroupInput : rateGroupInput.value,
 
+    // Medicare  input boxes
+    currentEffectiveDateInputTwo : effectiveDateInputTwo.value,
+    currentCoinsInput2 : coinsInput2.value,
+    currentDedInputTwo : dedInputTwo.value,
+    currentDedMetInputTwo : dedMetInputTwo.value,
+    currentIneligibleInput : ineligibleInput.value,
+    currentHmoInput : hmoInput.value,
+    currentMspInput : mspInput.value,
+    currentSpokeInputTwo : spokeInputTwo.value,
+
+    // Medicare Replacement input boxes
+    currentContractedInputThree : contractedInputThree.value,
+    currentEffectiveDateInputThree : effectiveDateInputThree.value,
+    currentPlanInputThree : planInputThree.value,
+    currentGroupInputThree : groupInputThree.value,
+    currentSickInputThree : sickInputThree.value,
+    currentDedinputThree : dedinputThree.value,
+    currentOtherInsThree : otherInsThree.value,
+    currentVerifiedOnlineInputThree : verifiedOnlineInputThree.value,
+    currentPcpInputThree : pcpInputThree.value,
+
+    // Commercial input boxes
+    currentEffectiveDateInput : effectiveDateInput.value,
+    currentSickInput : sickInput.value,
+    currentThirdPartyInput : thirdPartyInput.value,
+    currentMedicareBoxInput : medicareBoxInput.value,
+    currentSpokeInput : spokeInput.value,
+    currentPcpInput : pcpInput.value,
+    currentRateGroupInput : rateGroupInput.value,
+
+    // Medicare  input boxes
+    currentEffectiveDateInputTwo : effectiveDateInputTwo.value,
+    currentCoinsInput2 : coinsInput2.value,
+    currentDedInputTwo : dedInputTwo.value,
+    currentDedMetInputTwo : dedMetInputTwo.value,
+    currentIneligibleInput : ineligibleInput.value,
+    currentHmoInput : hmoInput.value,
+    currentMspInput : mspInput.value,
+    currentSpokeInputTwo : spokeInputTwo.value,
+
+    // Medicare Replacement input boxes
+    currentContractedInputThree : contractedInputThree.value,
+    currentEffectiveDateInputThree : effectiveDateInputThree.value,
+    currentPlanInputThree : planInputThree.value,
+    currentGroupInputThree : groupInputThree.value,
+    currentSickInputThree : sickInputThree.value,
+    currentDedinputThree : dedinputThree.value,
+    currentOtherInsThree : otherInsThree.value,
+    currentVerifiedOnlineInputThree : verifiedOnlineInputThree.value,
+    currentPcpInputThree : pcpInputThree.value,
+
+    // Commercial input boxes
+    currentContractedInputFour : contractedInputFour.value,
+    currentSickInputFour : sickInputFour.value,
+    currentHsahraInputFour : hsahraInputFour.value,
+    currentTelehealthInputFour : telehealthInputFour.value,
+    currentPExamsInputFour : pExamsInputFour.value,
+    currentProceduresInputFour : proceduresInputFour.value,
+    currentLabsInputFour : labsInputFour.value,
+    currentImmunizationsInputFour : immunizationsInputFour.value,
+    currentCovidInputFour : covidInputFour.value,
+    currentSpokeInputFour : spokeInputFour.value,
+    currentReferenceInputFour : referenceInputFour.value,
+    currentEffectiveDateInputFour : effectiveDateInputFour.value,
+    currentPlanTypeInputFour : planTypeInputFour.value,
+    currentNetworkInputFour : networkInputFour.value,
+    currentPrimarycareCommericalInputFour : primarycareCommericalInputFour.value,
+    currentOtherIns4Input : otherIns4Input.value,
+    currentPolicyHolderInputFour : policyHolderInputFour.value,
+    currentGroupInputFour : groupInputFour.value,
+    currentOopInputFour : oopInputFour.value,
+    currentOopMetInputFour : oopMetInputFour.value,
+    currentDeductibleInputFour : deductibleInputFour.value,
+    currentDedMetInputFour : dedMetInputFour.value,
+    currentClaimAddressInputFour : claimAddressInputFour.value,
+    currentPayorIDInputFour : payorIDInputFour.value,
+}
+
+
+const getLastValuesEntered = () => {
+    // medicaid Replacement input boxes
+    previousValuesEntered.currentEffectiveDateInput = effectiveDateInput.value;
+    previousValuesEntered.currentSickInput = sickInput.value;
+    previousValuesEntered.currentThirdPartyInput = thirdPartyInput.value;
+    previousValuesEntered.currentMedicareBoxInput = medicareBoxInput.value;
+    previousValuesEntered.currentSpokeInput = spokeInput.value;
+    previousValuesEntered.currentPcpInput = pcpInput.value;
+    previousValuesEntered.currentRateGroupInput = rateGroupInput.value
+
+    // Medicare  input boxes
+    previousValuesEntered.currentEffectiveDateInputTwo = effectiveDateInputTwo.value;
+    previousValuesEntered.currentCoinsInput2 = coinsInput2.value;
+    previousValuesEntered.currentDedInputTwo = dedInputTwo.value;
+    previousValuesEntered.currentDedMetInputTwo = dedMetInputTwo.value;
+    previousValuesEntered.currentIneligibleInput = ineligibleInput.value;
+    previousValuesEntered.currentHmoInput = hmoInput.value;
+    previousValuesEntered.currentMspInput = mspInput.value;
+    previousValuesEntered.currentSpokeInputTwo = spokeInputTwo.value;
+
+    // Medicare Replacement input boxes
+    previousValuesEntered.currentContractedInputThree = contractedInputThree.value;
+    previousValuesEntered.currentEffectiveDateInputThree = effectiveDateInputThree.value;
+    previousValuesEntered.currentPlanInputThree = planInputThree.value;
+    previousValuesEntered.currentGroupInputThree = groupInputThree.value;
+    previousValuesEntered.currentSickInputThree = sickInputThree.value;
+    previousValuesEntered.currentDedinputThree = dedinputThree.value;
+    previousValuesEntered.currentOtherInsThree = otherInsThree.value;
+    previousValuesEntered.currentVerifiedOnlineInputThree = verifiedOnlineInputThree.value;
+    previousValuesEntered.currentPcpInputThree = pcpInputThree.value;
+
+    // Commercial input boxes
+    previousValuesEntered.currentContractedInputFour = contractedInputFour.value;
+    previousValuesEntered.currentSickInputFour = sickInputFour.value;
+    previousValuesEntered.currentHsahraInputFour = hsahraInputFour.value;
+    previousValuesEntered.currentTelehealthInputFour = telehealthInputFour.value;
+    previousValuesEntered.currentPExamsInputFour = pExamsInputFour.value;
+    previousValuesEntered.currentProceduresInputFour = proceduresInputFour.value;
+    previousValuesEntered.currentLabsInputFour = labsInputFour.value;
+    previousValuesEntered.currentImmunizationsInputFour = immunizationsInputFour.value;
+    previousValuesEntered.currentCovidInputFour = covidInputFour.value;
+    previousValuesEntered.currentSpokeInputFour = spokeInputFour.value;
+    previousValuesEntered.currentReferenceInputFour = referenceInputFour.value;
+    previousValuesEntered.currentEffectiveDateInputFour = effectiveDateInputFour.value;
+    previousValuesEntered.currentPlanTypeInputFour = planTypeInputFour.value;
+    previousValuesEntered.currentNetworkInputFour = networkInputFour.value;
+    previousValuesEntered.currentPrimarycareCommericalInputFour = primarycareCommericalInputFour.value;
+    previousValuesEntered.currentOtherIns4Input = otherIns4Input.value;
+    previousValuesEntered.currentPolicyHolderInputFour = policyHolderInputFour.value;
+    previousValuesEntered.currentGroupInputFour = groupInputFour.value;
+    previousValuesEntered.currentOopInputFour = oopInputFour.value;
+    previousValuesEntered.currentOopMetInputFour = oopMetInputFour.value;
+    previousValuesEntered.currentDeductibleInputFour = deductibleInputFour.value;
+    previousValuesEntered.currentDedMetInputFour = dedMetInputFour.value;
+    previousValuesEntered.currentClaimAddressInputFour = claimAddressInputFour.value;
+    previousValuesEntered.currentPayorIDInputFour = payorIDInputFour.value;
+}
+
+
+undoButton.addEventListener('click', function() {
+    console.log(previousValuesEntered.currentEffectiveDateInput)
+    effectiveDateInput.value = previousValuesEntered.currentEffectiveDateInput;
+    sickInput.value = previousValuesEntered.currentSickInput;
+    thirdPartyInput.value = previousValuesEntered.currentThirdPartyInput;
+    medicareBoxInput.value = previousValuesEntered.currentMedicareBoxInput;
+    spokeInput.value = previousValuesEntered.currentSpokeInput;
+    pcpInput.value = previousValuesEntered.currentPcpInput;
+    rateGroupInput.value = previousValuesEntered.currentRateGroupInput;
+
+    // Medicare input boxes
+    effectiveDateInputTwo.value = previousValuesEntered.currentEffectiveDateInputTwo;
+    coinsInput2.value = previousValuesEntered.currentCoinsInput2;
+    dedInputTwo.value = previousValuesEntered.currentDedInputTwo;
+    dedMetInputTwo.value = previousValuesEntered.currentDedMetInputTwo;
+    ineligibleInput.value = previousValuesEntered.currentIneligibleInput;
+    hmoInput.value = previousValuesEntered.currentHmoInput;
+    mspInput.value = previousValuesEntered.currentMspInput;
+    spokeInputTwo.value = previousValuesEntered.currentSpokeInputTwo;
+
+    // Medicare Replacement input boxes
+    contractedInputThree.value = previousValuesEntered.currentContractedInputThree;
+    effectiveDateInputThree.value = previousValuesEntered.currentEffectiveDateInputThree;
+    planInputThree.value = previousValuesEntered.currentPlanInputThree;
+    groupInputThree.value = previousValuesEntered.currentGroupInputThree;
+    sickInputThree.value = previousValuesEntered.currentSickInputThree;
+    dedinputThree.value = previousValuesEntered.currentDedinputThree;
+    otherInsThree.value = previousValuesEntered.currentOtherInsThree;
+    verifiedOnlineInputThree.value = previousValuesEntered.currentVerifiedOnlineInputThree;
+    pcpInputThree.value = previousValuesEntered.currentPcpInputThree;
+
+    // Commercial input boxes
+    effectiveDateInput.value = previousValuesEntered.currentEffectiveDateInput;
+    sickInput.value = previousValuesEntered.currentSickInput;
+    thirdPartyInput.value = previousValuesEntered.currentThirdPartyInput;
+    medicareBoxInput.value = previousValuesEntered.currentMedicareBoxInput;
+    spokeInput.value = previousValuesEntered.currentSpokeInput;
+    pcpInput.value = previousValuesEntered.currentPcpInput;
+    rateGroupInput.value = previousValuesEntered.currentRateGroupInput;
+
+    // Medicare input boxes
+    effectiveDateInputTwo.value = previousValuesEntered.currentEffectiveDateInputTwo;
+    coinsInput2.value = previousValuesEntered.currentCoinsInput2;
+    dedInputTwo.value = previousValuesEntered.currentDedInputTwo;
+    dedMetInputTwo.value = previousValuesEntered.currentDedMetInputTwo;
+    ineligibleInput.value = previousValuesEntered.currentIneligibleInput;
+    hmoInput.value = previousValuesEntered.currentHmoInput; 
+    mspInput.value = previousValuesEntered.currentMspInput;
+    spokeInputTwo.value = previousValuesEntered.currentSpokeInputTwo;
+
+    // Medicare Replacement input boxes
+    contractedInputThree.value = previousValuesEntered.currentContractedInputThree;
+    effectiveDateInputThree.value = previousValuesEntered.currentEffectiveDateInputThree;
+    planInputThree.value = previousValuesEntered.currentPlanInputThree;
+    groupInputThree.value = previousValuesEntered.currentGroupInputThree;
+    sickInputThree.value = previousValuesEntered.currentSickInputThree;
+    dedinputThree.value = previousValuesEntered.currentDedinputThree;
+    otherInsThree.value = previousValuesEntered.currentOtherInsThree;
+    verifiedOnlineInputThree.value = previousValuesEntered.currentVerifiedOnlineInputThree;
+    pcpInputThree.value = previousValuesEntered.currentPcpInputThree;
+
+    // Commercial input boxes
+    contractedInputFour.value = previousValuesEntered.currentContractedInputFour;
+    sickInputFour.value = previousValuesEntered.currentSickInputFour;
+    hsahraInputFour.value = previousValuesEntered.currentHsahraInputFour;
+    telehealthInputFour.value = previousValuesEntered.currentTelehealthInputFour;
+    pExamsInputFour.value = previousValuesEntered.currentPExamsInputFour;
+    proceduresInputFour.value = previousValuesEntered.currentProceduresInputFour;
+    labsInputFour.value = previousValuesEntered.currentLabsInputFour;
+    immunizationsInputFour.value = previousValuesEntered.currentImmunizationsInputFour;
+    covidInputFour.value = previousValuesEntered.currentCovidInputFour;
+    spokeInputFour.value = previousValuesEntered.currentSpokeInputFour;
+    referenceInputFour.value = previousValuesEntered.currentReferenceInputFour;
+    effectiveDateInputFour.value = previousValuesEntered.currentEffectiveDateInputFour;
+    planTypeInputFour.value = previousValuesEntered.currentPlanTypeInputFour;
+    networkInputFour.value = previousValuesEntered.currentNetworkInputFour;
+    primarycareCommericalInputFour.value = previousValuesEntered.currentPrimarycareCommericalInputFour;
+    otherIns4Input.value = previousValuesEntered.currentOtherIns4Input;
+    policyHolderInputFour.value = previousValuesEntered.currentPolicyHolderInputFour;
+    groupInputFour.value = previousValuesEntered.currentGroupInputFour;
+    oopInputFour.value = previousValuesEntered.currentOopInputFour;
+    oopMetInputFour.value = previousValuesEntered.currentOopMetInputFour;
+    deductibleInputFour.value = previousValuesEntered.currentDeductibleInputFour;
+    dedMetInputFour.value = previousValuesEntered.currentDedMetInputFour;
+    claimAddressInputFour.value = previousValuesEntered.currentClaimAddressInputFour;
+    payorIDInputFour.value = previousValuesEntered.currentPayorIDInputFour;
+})
 
 
 const dateOfBirthChecker = (dateString) => {
@@ -999,10 +1239,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
 
-      //-------------This little section flips between the two forms-------------//
+//-------------This little section flips between the two forms-------------//
 
-      const buttons = document.querySelectorAll('.arrow-button');
-      const computedStyle = window.getComputedStyle(form);
+const buttons = document.querySelectorAll('.arrow-button');
+const computedStyle = window.getComputedStyle(form);
       
 
 buttons.forEach(button => {
