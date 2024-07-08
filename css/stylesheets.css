@@ -260,6 +260,10 @@ input[type="radio"]:hover{
 	top: 1px;
 }
 
+#reset-all{
+	background:linear-gradient(to bottom, #d01bbb 5%, #d01bbb 100%);
+}
+
 .reset {
 	display: hidden;
 	box-shadow:inset 0px 1px 0px 0px #cf866c;
