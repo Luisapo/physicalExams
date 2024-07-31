@@ -689,14 +689,16 @@ for (let i = 0; i < resetButtons.length; i++) {
 
     }else if(resetButtons[i] === resetButtons[1]){
         resetButtons[i].addEventListener('click', () => {
+        textBoxes[0].value = "";
         textBoxes[1].value = "";
         let inputs = [effectiveDateInput.value, effectiveDateInputTwo.value, effectiveDateInputThree.value, effectiveDateInputFour.value]
         if(inputs.every(input => input === "")){
         }else{
-            getLastValuesEntered();
+            getLastValuesEntered();            
         }
 
         resetInputValues();
+        cleanSlatePE();
         })  
     }
 }
@@ -968,8 +970,7 @@ const getLastValuesEntered = () => {
 }
 
 
-undoButton.addEventListener('click', function() {
-    console.log(previousValuesEntered.currentEffectiveDateInput)
+undoButton.addEventListener('click', function() {    
     effectiveDateInput.value = previousValuesEntered.currentEffectiveDateInput;
     sickInput.value = previousValuesEntered.currentSickInput;
     thirdPartyInput.value = previousValuesEntered.currentThirdPartyInput;
