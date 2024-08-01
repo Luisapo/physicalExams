@@ -695,10 +695,11 @@ for (let i = 0; i < resetButtons.length; i++) {
         if(inputs.every(input => input === "")){
         }else{
             getLastValuesEntered();            
-        }
-
+        }        
         resetInputValues();
-        
+        if(radioAHCCCS.checked || radioCommerical.checked ){
+            cleanSlatePE()
+        }
         })  
     }
 }
