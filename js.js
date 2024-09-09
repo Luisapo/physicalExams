@@ -698,7 +698,7 @@ for (let i = 0; i < resetButtons.length; i++) {
         }        
         resetInputValues();
         if(radioAHCCCS.checked || radioCommerical.checked ){
-            cleanSlatePE()
+            // cleanSlatePE()
         }
         })  
     }
