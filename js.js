@@ -263,7 +263,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
             ) ||
             (
                 dateOfServiceMonth === birthMonthFormatted &&
-                dateOfServiceDay < birthDay
+                dateOfServiceDay <= birthDay
             )
         )
     ) {
