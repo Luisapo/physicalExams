@@ -697,8 +697,8 @@ for (let i = 0; i < resetButtons.length; i++) {
             getLastValuesEntered();            
         }        
         resetInputValues();
-        if(radioAHCCCS.checked || radioCommerical.checked ){
-            // cleanSlatePE()
+        if((radioAHCCCS.checked || radioCommerical.checked) && (!newPatientCheckCheckBox.checked)){
+            cleanSlatePE()
         }
         })  
     }
