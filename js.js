@@ -56,6 +56,8 @@ const ineligibleInput = document.getElementById('ineligiblePeriod');
 const hmoInput = document.getElementById('hmo');
 const mspInput = document.getElementById('msp');
 const spokeInputTwo = document.getElementById('spoke2');
+const uhcDualCheck = document.getElementById('uhcDual');
+const uhcDualCheckBox = document.getElementById("uhcDualplan");
 
 // medicare input boxes
 const contractedInputThree = document.getElementById('contracted3');
@@ -1102,9 +1104,14 @@ verificationTemplateOptions.forEach((verificationOption, index) => {
           contentElement.style.display = 'grid';
           textBoxes[1].value = "";
           if(contentIndex === 0){
-            mercyCareOptions.style.display = "block";            
+            mercyCareOptions.style.display = "block";
+            uhcDualCheck.style.display = "none";
+          }else if(contentIndex === 2){
+            uhcDualCheck.style.display = "block"
+            mercyCareOptions.style.display = "none";
           }else{
             mercyCareOptions.style.display = "none";
+            uhcDualCheck.style.display = "none";
           }          
         } else {
           contentElement.style.display = 'none';
@@ -1166,7 +1173,11 @@ const replacementVerification = () => {
     if(isVirtualOffice.checked) {
         theVO = ".VO";
     }
+    if(uhcDualCheckBox.checked){
+        textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputThree.value} |  EFF: ${(effectiveDateInputThree.value).trim()} | PLAN: ${(planInputThree.value).trim()}  |  GROUP# : ${(groupInputThree.value).trim()} | SICK: ${sickInputThree.value} | DED: ${dedinputThree.value} | OTHER INS: ${otherInsThree.value} | VERIFIED: ${verifiedOnlineInputThree.value} | PCP: ${(pcpInputThree.value).trim()} COVID TEST NOT COVERED`).toLocaleUpperCase() 
+    }else{
     textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputThree.value} |  EFF: ${(effectiveDateInputThree.value).trim()} | PLAN: ${(planInputThree.value).trim()}  |  GROUP# : ${(groupInputThree.value).trim()} | SICK: ${sickInputThree.value} | DED: ${dedinputThree.value} | OTHER INS: ${otherInsThree.value} | VERIFIED: ${verifiedOnlineInputThree.value} | PCP: ${(pcpInputThree.value).trim()} `).toLocaleUpperCase() 
+}
 }
 
 const commercialVerificationText = () => {    

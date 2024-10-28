@@ -94,6 +94,11 @@ legend {
 	display: none;
 }
 
+
+#uhcDual{
+	display: none;	
+}
+
 #newPatient{
 	display: none;
 }
