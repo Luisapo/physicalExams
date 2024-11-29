@@ -353,7 +353,7 @@
                         <div class="sickAmount">
                             <label for="sick4">SICK:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Does this patient have a copay or deductible for an office visit with a PCP (Primary Care Physician)?</span>
+                            <span class="tooltip-text">How much does the patient have to pay for an office visit with a PCP (Primary Care Physician)?</span>
                             <input type="text" name="sick4" id="sick4">
                         </div>
                         <div class="hsra">
@@ -370,14 +370,14 @@
                             <span class="tooltip-text">Are Telehealth (Virtual) visits covered? If no, NOT COVERED <br>
                                                        If yes: <br>
                                                        Can we use our own platform?<br>
-                                                       (If cost is different to SICK, write cost, else YES)
+                                                       (If cost is different to SICK, write cost, else SAME AS OV)
                                                         </span>
                             <input type="text" name="telehealth4" id="telehealth4">
                         </div>
                         <div class="wellVisit">
                             <label for="pExams4">PE:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Are Routine Physical or Preventive Exams (Well Exams / Annual Wellness Visit) Covered At 100%? <br>
+                            <span class="tooltip-text">Are Routine Physical Exams (Preventive Care / Well Exams / Annual Wellness Visit) Covered At 100%? <br>
                             *If new patient: <br>
                             Has the patient done a Physical Exam in the last 12 months?  (In case CPT is requested, use CPT code in the patient's age range)
                             </span>
@@ -386,8 +386,9 @@
                         <div class="surgery">
                             <label for="procedures4">PROCEDURES:</label>
                             <span class="tooltip-icon">?</span>
-                                <span class="tooltip-text">Is surgery done in office with a PCP covered under a copay or deductible? <br>
-                                     (If copay ask, "is it additional to OV or is it per visit?") <br>
+                                <span class="tooltip-text">How much does the patient have to pay for SURGERY done in OFFICE with A PCP? <br>
+                                     (If copay and it is same as SICK, write "covered under ov") <br>
+                                     (If copay and it is different as SICK, ask if it per visit or per surgery ) <br>
                                      (If asked, we do not have Procedure or Diagnoses codes, we just need general benefits)
                                     </span>
                             <input type="text" name="procedures4" id="procedures4">
@@ -395,8 +396,9 @@
                         <div class="laboratories">
                             <label for="labs4">DX-LABS:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Are diagnostic labs done in office with a PCP covered under a copay or deductible? <br>
-                                (If copay ask, "is it additional to OV or is it per visit?") <br>
+                            <span class="tooltip-text">How much does the patient have to pay for DIAGNOSTIC LABS done in OFFICE with A PCP?? <br>
+                                (If copay and it is same as SICK, write "covered under ov") <br>
+                                (If copay and it is different as SICK, ask if it per visit or per LAB ) <br>
                                 (If asked, we do not have Procedure or Diagnoses codes, we just need general benefits)</span>
                             <input type="text" name="labs4" id="labs4">
                         </div>
