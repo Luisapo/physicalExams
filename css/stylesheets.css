@@ -137,14 +137,34 @@ legend {
 	background-color: rgb(113, 143, 202); /* Change the color when checked */
   }
 
+input{
+	border: 1px solid black;
+}
+
 
 input[type="radio"]:hover{
 	cursor: pointer;
 }
 
+input[type="radio"] {
+    appearance: none; /* Reset the default style */
+    -webkit-appearance: none; /* For Safari */    
+    border: 2px solid #000; /* Border color */
+    border-radius: 50%; /* Make it circular */
+    width: 15px; /* Size */
+    height: 15px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked {
+    background-color: #000; /* Darker color when checked */
+    border-color: #666; /* Adjust border color */
+}
+
 .navbar-container {
 	padding-left: 10px;
 }
+
 
 
 .my-field {
@@ -162,6 +182,10 @@ input[type="radio"]:hover{
 	background-color: #eee;
 	color: #999;
 	cursor: not-allowed;
+  }
+
+  textarea{
+	width: 100%;
   }
 
   .submit {
