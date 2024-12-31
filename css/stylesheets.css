@@ -1,38 +1,20 @@
+:root{
+	--roboto-font-family: "Inter", sans-serif;
+	--roboto-font-weight: 400;
+	--roboto-font-style: normal;
+}
+
 body {    
-    background-image: url(../images/backgroundImage.png);	
+    background-image: linear-gradient(white, rgb(20, 70, 156));	
 	height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;    
 	object-fit: fill;
     margin: 0;
 	overflow: hidden;
+	font-family: var(--roboto-font-family);
 }
 
-:root{
-	--roboto-font-family: "Roboto", sans-serif;
-	--roboto-font-weight: 400;
-	--roboto-font-style: normal;
-}
-
-
-/* .video-container{
-	position: fixed;
-	right: 0;
-	bottom: 0;
-	min-height: 100%;
-	min-width: 100%;
-	overflow: hidden;	
-	z-index: -1;
-}
-
-video {
-    position: absolute;
-    top: 0;
-    left: 0;    
-	width: 100%; 
-    height: 100%;
-	object-fit: fill
-} */
 
 
 
@@ -138,12 +120,15 @@ legend {
   }
 
 input{
-	border: 1px solid black;
+	border: 1.25px solid black;
 }
+
 
 
 input[type="radio"]:hover{
 	cursor: pointer;
+
+
 }
 
 input[type="radio"] {
@@ -168,9 +153,9 @@ input[type="radio"]:checked {
 
 
 .my-field {
+	background-color: #e9e9ecb3;
 	position: relative;    
-    margin: 75px auto;
-    padding-top: 100px;
+    margin: 75px auto;    
     width: 750px;
     padding: 1em;
     border: 5px solid #ccc;
@@ -416,19 +401,21 @@ input[type="radio"]:checked {
 
   .radio-selector {
 	box-shadow: 1px 1px 0px 0px;
-	opacity: 0.70; /* initial Opacity */
-	cursor: pointer;
+	opacity: 0.70; /* Initial opacity */	
 	color: #000000;
-	font-family: Arial;    
+	font-family: var(--roboto-font-family);
+	font-style: var(--roboto-font-style);	
 	font-weight: bold;
 	padding: 2px 6px;
 	text-decoration: none;	
-	transition: opacity 0.3s ease;
-  }
-  
-  .radio-selector:hover {
+	transition: opacity 0.3s ease, font-size 0.3s ease-in-out;
+	font-size: medium; /* Initial font size */
+}
+
+.radio-selector:hover {
 	opacity: 1; /* Opacity when mouse over */
-  }
+	font-size: large;
+}
 
 
   /* ------------------ Tooltip style ---------------- */
@@ -441,7 +428,7 @@ input[type="radio"]:checked {
   text-align: center;
   line-height: 20px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: #7e7979;
   color: white;
   cursor: pointer;
 }
