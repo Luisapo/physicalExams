@@ -80,7 +80,6 @@ const pExamsInputFour = document.getElementById('pExams4');
 const proceduresInputFour = document.getElementById('procedures4');
 const labsInputFour = document.getElementById('labs4');
 const immunizationsInputFour = document.getElementById('immunizations4');
-const covidInputFour = document.getElementById('covid4');
 const spokeInputFour = document.getElementById('spoke4');
 const referenceInputFour = document.getElementById('reference4');
 const effectiveDateInputFour = document.getElementById('effectiveDate4');
@@ -746,7 +745,6 @@ const originalValues = {
   proceduresFour: proceduresInputFour.value,
   labsFour: labsInputFour.value,
   immunizationsFour: immunizationsInputFour.value,
-  covidFour: covidInputFour.value,
   spokeFour: spokeInputFour.value,
   referenceFour: referenceInputFour.value,
   effectiveDateFour: effectiveDateInputFour.value,
@@ -806,7 +804,6 @@ function resetInputValues() {
   proceduresInputFour.value = originalValues.proceduresFour;
   labsInputFour.value = originalValues.labsFour;
   immunizationsInputFour.value = originalValues.immunizationsFour;
-  covidInputFour.value = originalValues.covidFour;
   spokeInputFour.value = originalValues.spokeFour;
   referenceInputFour.value = originalValues.referenceFour;
   effectiveDateInputFour.value = originalValues.effectiveDateFour;
@@ -894,8 +891,7 @@ const previousValuesEntered = {
     currentPExamsInputFour : pExamsInputFour.value,
     currentProceduresInputFour : proceduresInputFour.value,
     currentLabsInputFour : labsInputFour.value,
-    currentImmunizationsInputFour : immunizationsInputFour.value,
-    currentCovidInputFour : covidInputFour.value,
+    currentImmunizationsInputFour : immunizationsInputFour.value,    
     currentSpokeInputFour : spokeInputFour.value,
     currentReferenceInputFour : referenceInputFour.value,
     currentEffectiveDateInputFour : effectiveDateInputFour.value,
@@ -954,7 +950,6 @@ const getLastValuesEntered = () => {
     previousValuesEntered.currentProceduresInputFour = proceduresInputFour.value;
     previousValuesEntered.currentLabsInputFour = labsInputFour.value;
     previousValuesEntered.currentImmunizationsInputFour = immunizationsInputFour.value;
-    previousValuesEntered.currentCovidInputFour = covidInputFour.value;
     previousValuesEntered.currentSpokeInputFour = spokeInputFour.value;
     previousValuesEntered.currentReferenceInputFour = referenceInputFour.value;
     previousValuesEntered.currentEffectiveDateInputFour = effectiveDateInputFour.value;
@@ -1041,8 +1036,7 @@ undoButton.addEventListener('click', function() {
     pExamsInputFour.value = previousValuesEntered.currentPExamsInputFour;
     proceduresInputFour.value = previousValuesEntered.currentProceduresInputFour;
     labsInputFour.value = previousValuesEntered.currentLabsInputFour;
-    immunizationsInputFour.value = previousValuesEntered.currentImmunizationsInputFour;
-    covidInputFour.value = previousValuesEntered.currentCovidInputFour;
+    immunizationsInputFour.value = previousValuesEntered.currentImmunizationsInputFour;    
     spokeInputFour.value = previousValuesEntered.currentSpokeInputFour;
     referenceInputFour.value = previousValuesEntered.currentReferenceInputFour;
     effectiveDateInputFour.value = previousValuesEntered.currentEffectiveDateInputFour;
@@ -1187,7 +1181,7 @@ const commercialVerificationText = () => {
     if(isVirtualOffice.checked) {
         theVO = ".VO";
     }
-    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${sickInputFour.value} | HSA/HRA: ${hsahraInputFour.value} | TELEHEALTH: ${telehealthInputFour.value}  | PE: ${pExamsInputFour.value} | PROCEDURES: ${proceduresInputFour.value} | DX-LABS: ${labsInputFour.value} | FLU(90656/90662): ${immunizationsInputFour.value} | C19 ANTIGEN(87426): ${covidInputFour.value}  | SPOKE: ${spokeInputFour.value} | REF: ${referenceInputFour.value}\nEFF: ${(effectiveDateInputFour.value).trim()} | PLAN TYPE: ${(planTypeInputFour.value).trim()} |  NETWORK: ${(networkInputFour.value).trim()} | PCP: ${(primarycareCommericalInputFour.value).trim()} | OTHER INS: ${otherIns4Input.value} | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${(groupInputFour.value).trim()} | OOP: ${(oopInputFour.value).trim()} / MET: ${(oopMetInputFour.value).trim()} | DED: ${(deductibleInputFour.value).trim()} / MET: ${(dedMetInputFour.value).trim()} | CLAIM ADDRESS: ${(claimAddressInputFour.value).trim()} | PAYOR ID: ${(payorIDInputFour.value).trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `).toLocaleUpperCase()
+    textBoxes[1].value = (`${actualVerificationDateFormatted} ${getInitials.value}${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${sickInputFour.value} | HSA/HRA: ${hsahraInputFour.value} | TELEHEALTH: ${telehealthInputFour.value}  | PE: ${pExamsInputFour.value} | PROCEDURES: ${proceduresInputFour.value} | DX-LABS: ${labsInputFour.value} | FLU(90656/90662): ${immunizationsInputFour.value} | SPOKE: ${spokeInputFour.value} | REF: ${referenceInputFour.value}\nEFF: ${(effectiveDateInputFour.value).trim()} | PLAN TYPE: ${(planTypeInputFour.value).trim()} |  NETWORK: ${(networkInputFour.value).trim()} | PCP: ${(primarycareCommericalInputFour.value).trim()} | OTHER INS: ${otherIns4Input.value} | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${(groupInputFour.value).trim()} | OOP: ${(oopInputFour.value).trim()} / MET: ${(oopMetInputFour.value).trim()} | DED: ${(deductibleInputFour.value).trim()} / MET: ${(dedMetInputFour.value).trim()} | CLAIM ADDRESS: ${(claimAddressInputFour.value).trim()} | PAYOR ID: ${(payorIDInputFour.value).trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `).toLocaleUpperCase()
 }
 
 const form = document.getElementById('verifications');
