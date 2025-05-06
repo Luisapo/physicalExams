@@ -58,6 +58,8 @@ const mspInput = document.getElementById('msp');
 const spokeInputTwo = document.getElementById('spoke2');
 const uhcDualCheck = document.getElementById('uhcDual');
 const uhcDualCheckBox = document.getElementById("uhcDualplan");
+const goldKidneyLabel = document.getElementById('goldKidney');
+const goldKidneyCheckbox = document.getElementById('goldKidneySelection');
 
 // medicare input boxes
 const contractedInputThree = document.getElementById('contracted3');
@@ -466,10 +468,12 @@ dateVerified.value = currentDate.toISOString().substring(0,10);
 radioAHCCCS.addEventListener("change", () => {
     if(radioAHCCCS.checked) {
         cleanSlatePE()
-        textBox.placeholder = "";
+        textBox.placeholder = "";        
         newPatientCheckCheckBox.checked = false;
         newPatientCheckLabel.style.display = 'block';    
         medicareGcodes.style.display = 'none';
+        goldKidneyLabel.style.display = 'none';
+        goldKidneyCheckbox.checked = false;
     }
 } )
 
@@ -477,6 +481,8 @@ radioMedicare.addEventListener("change", () => {
     if(radioMedicare.checked){
         cleanSlatePE()    
         newPatientCheckLabel.style.display = 'none';
+        goldKidneyLabel.style.display = 'none';
+        goldKidneyCheckbox.checked = false;
         dateBirthInput.classList.add('greyedOut');
         dateBirthInput.value = "01/01/1900";
         dateBirthInput.readOnly = true;
@@ -496,6 +502,8 @@ radioMedicareReplacement.addEventListener("change", () => {
     if(radioMedicareReplacement.checked) {        
         cleanSlatePE()    
         newPatientCheckLabel.style.display = 'none';
+        goldKidneyLabel.style.display = 'block';
+        goldKidneyCheckbox.checked = false;        
         dateBirthInput.classList.add('greyedOut');
         dateBirthInput.value = "01/01/1900";
         dateBirthInput.readOnly = true;
@@ -517,7 +525,9 @@ radioCommerical.addEventListener("change", ()=>{
         cleanSlatePE()
         textBox.placeholder = "";
         newPatientCheckCheckBox.checked = false;
-        newPatientCheckLabel.style.display = 'block';    
+        newPatientCheckLabel.style.display = 'block';
+        goldKidneyLabel.style.display = 'none';
+        goldKidneyCheckbox.checked = false;
         medicareGcodes.style.display = 'none';
     }
 })
@@ -545,6 +555,11 @@ for(let i = 0; i < verificationAndPE.length; i++){
             }else if(radioMedicare.checked && medicareInputBoxes.checked){
                 medicarePartBPhysical();
                 medicareVerification();
+                textBox.value = textBoxes[1].value + textBox.value;
+                textBoxes[1].value = textBox.value
+            }else if(radioMedicareReplacement.checked && replacementInputBoxes.checked && goldKidneyCheckbox.checked){
+                medicarePartBPhysical();
+                replacementVerification();
                 textBox.value = textBoxes[1].value + textBox.value;
                 textBoxes[1].value = textBox.value
             }else if(radioMedicareReplacement.checked && replacementInputBoxes.checked) {
@@ -610,6 +625,8 @@ for(let i = 0; i < submitButton.length; i++){
             if(radioAHCCCS.checked){
                 ahcccsPE();
             }else if(radioMedicare.checked){
+                medicarePartBPhysical();
+            }else if(radioMedicareReplacement.checked && goldKidneyCheckbox.checked){
                 medicarePartBPhysical();
             }else if(radioMedicareReplacement.checked) {
                 replacementPE();        

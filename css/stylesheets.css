@@ -60,7 +60,7 @@ legend {
 .data-validation{
 	display: grid;
 	grid-auto-flow: column;
-	grid-template-columns: 2fr 1fr;
+	grid-auto-columns: 3fr 1.2fr 0.8fr;
 }
 
 #assignGcode{
@@ -82,6 +82,10 @@ legend {
 }
 
 #newPatient{
+	display: none;
+}
+
+#goldKidney{
 	display: none;
 }
 
