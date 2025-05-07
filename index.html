@@ -102,7 +102,7 @@
                                     />
                                 </p>
                                 <p class="dates-chosen">
-                                    <label for="lastPhysicalDone">Date of Last Physical Done:
+                                    <label for="lastPhysicalDone">Date of Last Physical:
                                     <strong> <span aria-label="required"></span></strong>
                                     </label>
                                     <input
@@ -299,8 +299,11 @@
                             <label for="hmo">ADVANTAGE:</label>
                             <input type="text" name="hmo" id="hmo">
                         </div>
-                        <div>
-                            <label for="msp">MSP:</label>
+                        <div class="sickAmount">
+                            <label for="msp">MSC:</label>
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Medicare Secondary Coverage/Payer <br> 
+                                Only or commerical or Supplements plan</span>
                             <input type="text" name="msp" id="msp">
                         </div>
                         <div>
@@ -452,9 +455,9 @@
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">Is a PCP or referral requiered? <br>
                                 TYPES OF PLANS: <br>
-                                HMO - Always needs a PCP, except Aetna sometimes does not require it. <br>
-                                EPO - Always needs a PCP <br>                                
+                                HMO - Always needs a PCP, except Aetna sometimes does not require it. <br>                                
                                 POS - If website and card state not required, PCP not required <br>
+                                EPO - Sometimes needs a PCP <br>
                                 PPO - PCP not required <br>
                                 ASO - PCP not required</span>
                             <input type="text" name="primarycareCommerical4" id="primarycareCommerical4">
