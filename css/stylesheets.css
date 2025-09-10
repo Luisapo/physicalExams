@@ -1,427 +1,402 @@
-:root{
-	--roboto-font-family: "Inter", sans-serif;
-	--roboto-font-weight: 400;
-	--roboto-font-style: normal;
+:root {
+  --roboto-font-family: "Inter", sans-serif;
+  --roboto-font-weight: 400;
+  --roboto-font-style: normal;
 }
 
-body {    
-    background-image: linear-gradient(white, rgb(20, 70, 156));	
-	height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;    
-	object-fit: fill;
-    margin: 0;
-	overflow: hidden;
-	font-family: var(--roboto-font-family);
+body {
+  background-image: linear-gradient(white, rgb(20, 70, 156));
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: fill;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--roboto-font-family);
 }
-
-
-
 
 @media (max-width: 1500px) {
-	
-	.container-main {		
-	  display: block;
-	  height: 100vh;	  	  
-	  overflow: auto;
-	  margin: 0;	  
-	}
-
-	#verifications{
-		display: block;
-	}
-
-	#physicalExams{
-		display: block;
-	}
+  .container-main {
+    display: block;
+    height: 100vh;
+    overflow: auto;
+    margin: 0;
   }
 
-  @media (min-width: 1501px) {
-	
-	.middleFormsForSmallWindow{	
-		display: flex;
-		justify-content: space-evenly;
-	}
+  #verifications {
+    display: block;
   }
+
+  #physicalExams {
+    display: block;
+  }
+}
+
+@media (min-width: 1501px) {
+  .middleFormsForSmallWindow {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
 
 legend {
-	width: 49%;
-	float: none;
-    font-size: x-large;    
+  width: 49%;
+  float: none;
+  font-size: x-large;
 }
 
-.radio-options{
-	display: flex;
-	flex-direction:row;
-	justify-content: space-between;
-    padding-bottom: 25px;	
+.radio-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 25px;
 }
 
-.data-validation{
-	display: grid;
-	grid-auto-flow: column;
-	grid-auto-columns: 3fr 1.2fr 0.8fr;
+.data-validation {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 3fr 1.2fr 0.8fr;
 }
 
-#assignGcode{
-	display: none;
+#assignGcode {
+  display: none;
 }
 
-#mercyCare{
-	display: none;
+#mercyCare {
+  display: none;
 }
 
-
-#mercyCarelabel{
-	display: none;
+#mercyCarelabel {
+  display: none;
 }
 
-
-#uhcDual{
-	display: none;	
+#uhcDual {
+  display: none;
 }
 
-#newPatient{
-	display: none;
+#newPatient {
+  display: none;
 }
 
-#goldKidney{
-	display: none;
+#goldKidney {
+  display: none;
 }
 
 .radioStyle input[type="radio"] {
-	display: none;
-  }
-  
-  
-  .radioStyle label {
-	position: relative;
-	padding-left: 10%; 
-	cursor: pointer;	
-  }
-  
-  .radioStyle label::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 16px;
-	height: 16px;
-	border: 1px solid #ccc;
-	border-radius: 50%;
-	background-color: white;
-	transition: background-color 0.3s ease;
-  }  
-  
-  .radioStyle label:hover::before {
-	background-color: rgb(155, 158, 155); /* Change the color on hover */
-  }
-  
-  /* Change the color when the custom radio button is checked */
-  .radioStyle input[type="radio"]:checked + label::before {
-	background-color: rgb(113, 143, 202); /* Change the color when checked */
-  }
-
-input{
-	border: 1.25px solid black;
+  display: none;
 }
 
+.radioStyle label {
+  position: relative;
+  padding-left: 10%;
+  cursor: pointer;
+}
 
+.radioStyle label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
 
-input[type="radio"]:hover{
-	cursor: pointer;
+.radioStyle label:hover::before {
+  background-color: rgb(155, 158, 155); /* Change the color on hover */
+}
 
+/* Change the color when the custom radio button is checked */
+.radioStyle input[type="radio"]:checked + label::before {
+  background-color: rgb(113, 143, 202); /* Change the color when checked */
+}
 
+input {
+  border: 1.25px solid black;
+}
+
+input[type="radio"]:hover {
+  cursor: pointer;
 }
 
 input[type="radio"] {
-    appearance: none; /* Reset the default style */
-    -webkit-appearance: none; /* For Safari */    
-    border: 2px solid #000; /* Border color */
-    border-radius: 50%; /* Make it circular */
-    width: 15px; /* Size */
-    height: 15px;
-    cursor: pointer;
+  appearance: none; /* Reset the default style */
+  -webkit-appearance: none; /* For Safari */
+  border: 2px solid #000; /* Border color */
+  border-radius: 50%; /* Make it circular */
+  width: 15px; /* Size */
+  height: 15px;
+  cursor: pointer;
 }
 
 input[type="radio"]:checked {
-    background-color: #000; /* Darker color when checked */
-    border-color: #666; /* Adjust border color */
+  background-color: #000; /* Darker color when checked */
+  border-color: #666; /* Adjust border color */
 }
 
 .navbar-container {
-	padding-left: 10px;
+  padding-left: 10px;
 }
-
-
 
 .my-field {
-	background-color: #e9e9ecb3;
-	position: relative;    
-    margin: 75px auto;    
-    width: 750px;
-    padding: 1em;
-    border: 5px solid #ccc;
-    border-radius: 1em;
-    font-weight: bold;
-  }
+  background-color: #e9e9ecb3;
+  position: relative;
+  margin: 75px auto;
+  width: 750px;
+  padding: 1em;
+  border: 5px solid #ccc;
+  border-radius: 1em;
+  font-weight: bold;
+}
 
-  .greyedOut{
-	background-color: #eee;
-	color: #999;
-	cursor: not-allowed;
-  }
+.greyedOut {
+  background-color: #eee;
+  color: #999;
+  cursor: not-allowed;
+}
 
-  textarea{
-	width: 100%;
-  }
+textarea {
+  width: 100%;
+}
 
-  .submit {
-	box-shadow:inset 0px 1px 0px 0px #9fb4f2;
-	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
-	background-color:#7892c2;
-	border-radius:3px;
-	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 35px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+.submit {
+  box-shadow: inset 0px 1px 0px 0px #9fb4f2;
+  background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+  background-color: #7892c2;
+  border-radius: 3px;
+  border: 1px solid #4e6096;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
+  padding: 6px 35px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #283966;
 }
 .submit:hover {
-	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
-	background-color:#476e9e;
+  background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+  background-color: #476e9e;
 }
 .submit:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
-
 
 .copyButton {
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
-	background-color:#eae0c2;
-	border-radius:3px;
-	border:1px solid #333029;
-	display:inline-block;
-	cursor:pointer;
-	color:#505739;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 35px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+  background-color: #eae0c2;
+  border-radius: 3px;
+  border: 1px solid #333029;
+  display: inline-block;
+  cursor: pointer;
+  color: #505739;
+  font-family: Arial;
+  font-size: 13px;
+  padding: 6px 35px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
 }
 .copyButton:hover {
-	background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
-	background-color:#ccc2a6;
+  background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+  background-color: #ccc2a6;
 }
 .copyButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
-.copyBothTextBoxes{
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-	background-color:#ffec64;
-	border-radius:3px;
-	border:1px solid #ffaa22;
-	display:inline-block;
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 35px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
+.copyBothTextBoxes {
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+  background-color: #ffec64;
+  border-radius: 3px;
+  border: 1px solid #ffaa22;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 13px;
+  padding: 6px 35px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
 }
 
-.copyBothTextBoxes:hover{
-	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-	background-color:#ffab23;
+.copyBothTextBoxes:hover {
+  background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+  background-color: #ffab23;
 }
 
-.copyBothTextBoxes:active{
-	position:relative;
-	top:1px;
+.copyBothTextBoxes:active {
+  position: relative;
+  top: 1px;
 }
 
-#undoButton{
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
-	background-color:#77b55a;
-	border-radius:3px;
-	border:1px solid #4b8f29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 20px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
+#undoButton {
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+  background-color: #77b55a;
+  border-radius: 3px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
+  padding: 6px 20px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
 }
 
-#undoButton:hover{
-	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-	background-color:#72b352;
+#undoButton:hover {
+  background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+  background-color: #72b352;
 }
 
-#undoButton:active{
-	position: relative;
-	top: 1px;
+#undoButton:active {
+  position: relative;
+  top: 1px;
 }
 
-#reset-all{
-	background:linear-gradient(to bottom, #d01bbb 5%, #d01bbb 100%);
+#reset-all {
+  background: linear-gradient(to bottom, #d01bbb 5%, #d01bbb 100%);
 }
 
 .reset {
-	display: hidden;
-	box-shadow:inset 0px 1px 0px 0px #cf866c;
-	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
-	background-color:#d0451b;
-	border-radius:3px;
-	border:1px solid #942911;	
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #854629;	
+  display: hidden;
+  box-shadow: inset 0px 1px 0px 0px #cf866c;
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border-radius: 3px;
+  border: 1px solid #942911;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #854629;
 }
 
 .reset:hover {
-	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
-	background-color:#bc3315;
+  background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+  background-color: #bc3315;
 }
 
 .reset:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
-.buttons{
-	display: flex;	
-	justify-content: space-between;
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
-.CheckPhysicalLegend{
-	font-family: var(--roboto-font-family);
-	font-weight: var(--roboto-font-weight);
-	background-color: #000000;
-	color: #d9d9f6;
-	padding-left: 1%;
-	border-radius: 12px;
+.CheckPhysicalLegend {
+  font-family: var(--roboto-font-family);
+  font-weight: var(--roboto-font-weight);
+  background-color: #000000;
+  color: #d9d9f6;
+  padding-left: 1%;
+  border-radius: 12px;
 }
 
-.verification-legend{
-	float: none;
-	font-size: x-large;
-	padding-left: 1%;
-	font-family: var(--roboto-font-family);
-	font-weight: var(--roboto-font-weight);
-	width: 35%;
-	border-radius: 12px;
-	background-color: #000000;
-	color: rgb(255, 238, 0);
+.verification-legend {
+  float: none;
+  font-size: x-large;
+  padding-left: 1%;
+  font-family: var(--roboto-font-family);
+  font-weight: var(--roboto-font-weight);
+  width: 35%;
+  border-radius: 12px;
+  background-color: #000000;
+  color: rgb(255, 238, 0);
 }
 
-.checkbox-options{
-	display: flex;
-	flex-direction:row;
-	justify-content: space-between;
-    padding-bottom: 25px;
+.checkbox-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 25px;
 }
 
 .verificationDate {
-	display: flex;
-	gap: 20px;
-}
-  
-
-#initals{
-	width: 65px;
+  display: flex;
+  gap: 20px;
 }
 
-
-#template1{
-	display: none;
-	gap: 15px;
-	grid-template-columns: repeat(3, minmax(0, 1fr));		
-	padding: 10px;
-	grid-auto-flow: row;
-
+#initals {
+  width: 65px;
 }
 
-
-#template2{
-	display: none;
-	gap: 15px;
-	grid-template-columns: repeat(3, minmax(0, 1fr));		
-	padding: 10px;
-	grid-auto-flow: row;
-	
+#template1 {
+  display: none;
+  gap: 15px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 10px;
+  grid-auto-flow: row;
 }
 
-
-#template3{
-	display: none;
-	gap: 15px;
-	grid-template-columns: repeat(3, minmax(0, 1fr));		
-	padding: 10px;
-	grid-auto-flow: row;
-	
+#template2 {
+  display: none;
+  gap: 15px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 10px;
+  grid-auto-flow: row;
 }
 
-
-#template4{
-	display: none;
-	gap: 15px;
-	grid-template-columns: repeat(3, minmax(0, 1fr));		
-	padding: 10px;
-	grid-auto-flow: row;
+#template3 {
+  display: none;
+  gap: 15px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 10px;
+  grid-auto-flow: row;
 }
 
-#template4 input{
-	width: 200px;
-}
-#primarycareCommerical{
-	width: 200px;	
+#template4 {
+  display: none;
+  gap: 15px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 10px;
+  grid-auto-flow: row;
 }
 
+#template4 input {
+  width: 200px;
+}
+#primarycareCommerical {
+  width: 200px;
+}
 
 .invalid {
-	border: 2px solid red;
-  }
+  border: 2px solid red;
+}
 
-  .radio-selector {
-	box-shadow: 1px 1px 0px 0px;
-	opacity: 0.70; /* Initial opacity */	
-	color: #000000;
-	font-family: var(--roboto-font-family);
-	font-style: var(--roboto-font-style);	
-	font-weight: bold;
-	padding: 2px 6px;
-	text-decoration: none;	
-	transition: opacity 0.3s ease, font-size 0.3s ease-in-out;
-	font-size: medium; /* Initial font size */
+.radio-selector {
+  box-shadow: 1px 1px 0px 0px;
+  opacity: 0.7; /* Initial opacity */
+  color: #000000;
+  font-family: var(--roboto-font-family);
+  font-style: var(--roboto-font-style);
+  font-weight: bold;
+  padding: 2px 6px;
+  text-decoration: none;
+  transition: opacity 0.3s ease, font-size 0.3s ease-in-out;
+  font-size: medium; /* Initial font size */
 }
 
 .radio-selector:hover {
-	opacity: 1; /* Opacity when mouse over */
-	font-size: large;
+  opacity: 1; /* Opacity when mouse over */
+  font-size: large;
 }
 
-
-  /* ------------------ Tooltip style ---------------- */
+/* ------------------ Tooltip style ---------------- */
 
 .tooltip-icon {
   position: relative;
@@ -435,175 +410,173 @@ input[type="radio"]:checked {
   color: white;
   cursor: pointer;
 }
-  
-  .tooltip-text {
-	display: none;
-	position: absolute;
-	top: calc(100% + 5px);
-	left: 0;
-	color: #ffffff;
-	background-color: #040404;
-	padding: 5px;
-	border-radius: 5px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  
-  .tooltip-icon:hover + .tooltip-text {
-	display: block;
-	width: 240px;
-	z-index: 1;
-  }
-  
 
-  .contractedIns {
-	position: relative;
-  }
-
-  .sickAmount{
-	position: relative;
-  }
-
-  .hsra{
-	position: relative;
-  }
-
-  .telemedicine {
-	position: relative;
-  }
-
-  .wellVisit {
-	position: relative;
-  }
-
-  .surgery {
-	position: relative;
-  }
-
-  .laboratories{
-	position: relative;
-  }
-
-  .cptCodes{
-	position: relative;
-  }
-
-  .corona{
-	position: relative;
-  }
-
-  .nombre{
-	position: relative;
-  }
-
-  .referenceNumber{
-	position: relative;
-  }
-
-  .startDate{
-	position: relative;
-  }
-
-  .typeOfPlan{
-	position: relative;
-  }
-
-  .productName{
-	position: relative;
-  }
-
-  .primaryCare{
-	position: relative;
-  }
-
-  .coordination{
-	position: relative;
-  }
-
-  .holderDependent{
-	position: relative;
-  }
-
-  .groupNumber{
-	position: relative;
-  }
-
-  .outOfPocket{
-	position: relative;
-  }
-
-  .outOfPocketMet{
-	position: relative;
-  }
-
-  .deductibleAmount{
-	position: relative;
-  }
-
-  .claimAddress{
-	position: relative;;
-  }
-
-.arrow-button{
-	display: none;
+.tooltip-text {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  color: #ffffff;
+  background-color: #040404;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-#verifications, #physicalExams{
-	display: block;
+.tooltip-icon:hover + .tooltip-text {
+  display: block;
+  width: 240px;
+  z-index: 1;
+}
+
+.contractedIns {
+  position: relative;
+}
+
+.sickAmount {
+  position: relative;
+}
+
+.hsra {
+  position: relative;
+}
+
+.telemedicine {
+  position: relative;
+}
+
+.wellVisit {
+  position: relative;
+}
+
+.surgery {
+  position: relative;
+}
+
+.laboratories {
+  position: relative;
+}
+
+.cptCodes {
+  position: relative;
+}
+
+.corona {
+  position: relative;
+}
+
+.nombre {
+  position: relative;
+}
+
+.referenceNumber {
+  position: relative;
+}
+
+.startDate {
+  position: relative;
+}
+
+.typeOfPlan {
+  position: relative;
+}
+
+.productName {
+  position: relative;
+}
+
+.primaryCare {
+  position: relative;
+}
+
+.coordination {
+  position: relative;
+}
+
+.holderDependent {
+  position: relative;
+}
+
+.groupNumber {
+  position: relative;
+}
+
+.outOfPocket {
+  position: relative;
+}
+
+.outOfPocketMet {
+  position: relative;
+}
+
+.deductibleAmount {
+  position: relative;
+}
+
+.claimAddress {
+  position: relative;
+}
+
+.arrow-button {
+  display: none;
+}
+
+#verifications,
+#physicalExams {
+  display: block;
 }
 
 @media (max-height: 900px) {
+  .middleFormsForSmallWindow {
+    display: grid;
+  }
 
-	.middleFormsForSmallWindow{
-		display: grid;
-	}
+  #physicalExams {
+    display: none;
+    grid-row: 2;
+  }
 
-	#physicalExams{
-		display: none;
-    	grid-row: 2;		
-	}
+  #verifications {
+    grid-row: 1;
+  }
 
-	#verifications{
-		grid-row: 1;
-	}
-	  
-  
-	.arrow-button {
-	  box-shadow: 0px 1px 0px 0px #899599;
-	  opacity: 50%;
-	  background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
-	  background-color: #ededed;
-	  display: inline-block;
-	  cursor: pointer;
-	  color: #000000;
-	  font-family: Arial;
-	  font-size: 20px;
-	  font-weight: bold;
-	  padding: 12px 16px;
-	  text-decoration: none;
-	  text-shadow: 0px 1px 0px #e1e2ed;
-	  height: 100vh;
-	  transition: opacity 0.5s ease;
-	}
+  .arrow-button {
+    box-shadow: 0px 1px 0px 0px #899599;
+    opacity: 50%;
+    background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+    background-color: #ededed;
+    display: inline-block;
+    cursor: pointer;
+    color: #000000;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #e1e2ed;
+    height: 100vh;
+    transition: opacity 0.5s ease;
+  }
 
-	.arrow-button:hover{
-		opacity: 1;
-	}
-  
-	#verifications {
-	  overflow: auto;
-	  height: 100vh;
-	}
-  
-	.container-main {
-	  display: grid;
-	  grid-auto-flow: column;
-	  grid-template-columns: 1fr 7fr 1fr;
-	}
-  }  
+  .arrow-button:hover {
+    opacity: 1;
+  }
 
-  @media (max-height: 1050px) {
-    #verifications {
-        overflow-y: auto;
-        max-height: 951px;		
-    }
+  #verifications {
+    overflow: auto;
+    height: 100vh;
+  }
+
+  .container-main {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 7fr 1fr;
+  }
+}
+
+@media (max-height: 1050px) {
+  #verifications {
+    overflow-y: auto;
+    max-height: 951px;
+  }
 }
