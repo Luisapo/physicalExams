@@ -23,10 +23,7 @@ body {
     margin: 0;
   }
 
-  #verifications {
-    display: block;
-  }
-
+  #verifications,
   #physicalExams {
     display: block;
   }
@@ -58,27 +55,13 @@ legend {
   grid-auto-columns: 3fr 1.2fr 0.8fr;
 }
 
-#assignGcode {
-  display: none;
-}
-
-#mercyCare {
-  display: none;
-}
-
+#assignGcode,
+#mercyCare,
+#uhcCommunity,
+#uhcDual,
+#newPatient,
+#goldKidney,
 #mercyCarelabel {
-  display: none;
-}
-
-#uhcDual {
-  display: none;
-}
-
-#newPatient {
-  display: none;
-}
-
-#goldKidney {
   display: none;
 }
 
@@ -429,90 +412,26 @@ textarea {
   z-index: 1;
 }
 
-.contractedIns {
-  position: relative;
-}
-
-.sickAmount {
-  position: relative;
-}
-
-.hsra {
-  position: relative;
-}
-
-.telemedicine {
-  position: relative;
-}
-
-.wellVisit {
-  position: relative;
-}
-
-.surgery {
-  position: relative;
-}
-
-.laboratories {
-  position: relative;
-}
-
-.cptCodes {
-  position: relative;
-}
-
-.corona {
-  position: relative;
-}
-
-.nombre {
-  position: relative;
-}
-
-.referenceNumber {
-  position: relative;
-}
-
-.startDate {
-  position: relative;
-}
-
-.typeOfPlan {
-  position: relative;
-}
-
-.productName {
-  position: relative;
-}
-
-.primaryCare {
-  position: relative;
-}
-
-.coordination {
-  position: relative;
-}
-
-.holderDependent {
-  position: relative;
-}
-
-.groupNumber {
-  position: relative;
-}
-
-.outOfPocket {
-  position: relative;
-}
-
-.outOfPocketMet {
-  position: relative;
-}
-
-.deductibleAmount {
-  position: relative;
-}
-
+.contractedIns,
+.sickAmount,
+.hsra,
+.telemedicine,
+.wellVisit,
+.surgery,
+.laboratories,
+.cptCode,
+.nombre,
+.referenceNumber,
+.startDate,
+.typeOfPlan,
+.productName,
+.primaryCare,
+.coordination,
+.holderDependent,
+.groupNumber,
+.outOfPocket,
+.outOfPocketMet,
+.deductibleAmount,
 .claimAddress {
   position: relative;
 }

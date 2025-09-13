@@ -53,6 +53,8 @@ const mercyCareOptions = document.getElementById("mercyCare");
 const mercyCareCheck = document.getElementById("mercyCarePlan");
 const mercyCarelabel = document.getElementById("mercyCarelabel");
 const rateGroupInput = document.getElementById("mercyCareAdditional");
+const uhcTag = document.getElementById("uhcCommunity");
+const uhcCheckBox = document.getElementById("uhcCommunityPlan");
 
 // medicare input boxes
 const effectiveDateInputTwo = document.getElementById("effectiveDate2");
@@ -1169,12 +1171,15 @@ verificationTemplateOptions.forEach((verificationOption, index) => {
         if (contentIndex === 0) {
           mercyCareOptions.style.display = "block";
           uhcDualCheck.style.display = "none";
+          uhcTag.style.display = "block";
         } else if (contentIndex === 2) {
           uhcDualCheck.style.display = "block";
           mercyCareOptions.style.display = "none";
+          uhcTag.style.display = "none";
         } else {
           mercyCareOptions.style.display = "none";
           uhcDualCheck.style.display = "none";
+          uhcTag.style.display = "none";
         }
       } else {
         contentElement.style.display = "none";
@@ -1193,6 +1198,7 @@ mercyCareCheck.addEventListener("change", () => {
 });
 
 const AHCCCSVerification = () => {
+  let verifcationText = "";
   actualVerificationDate = dateVerified.value;
   actualVerificationDateFormatted =
     actualVerificationDate.substring(5, 7) +
@@ -1206,7 +1212,7 @@ const AHCCCSVerification = () => {
   }
 
   if (mercyCareCheck.checked) {
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${
+    verifcationText = `${actualVerificationDateFormatted} ${
       getInitials.value
     }${theVO} EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
       sickInput.value
@@ -1216,7 +1222,7 @@ const AHCCCSVerification = () => {
       spokeInput.value
     }  | PCP: ${pcpInput.value.trim()} `.toLocaleUpperCase();
   } else {
-    textBoxes[1].value = `${actualVerificationDateFormatted} ${
+    verifcationText = `${actualVerificationDateFormatted} ${
       getInitials.value
     }${theVO} EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
       sickInput.value
@@ -1226,6 +1232,13 @@ const AHCCCSVerification = () => {
       spokeInput.value
     }  | PCP: ${pcpInput.value.trim()} `.toLocaleUpperCase();
   }
+
+  if (uhcCheckBox.checked) {
+    verifcationText = `${verifcationText} (COVID TEST NOT COVERED)`;
+    console.log("test");
+  }
+
+  textBoxes[1].value = verifcationText;
 };
 
 const medicareVerification = () => {
@@ -1271,7 +1284,7 @@ const replacementVerification = () => {
   if (isVirtualOffice.checked) {
     theVO = ".VO";
   }
-  if (uhcDualCheckBox.checked) {
+  if (uhcTag.checked) {
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
     }${theVO} CONTRACTED: ${
