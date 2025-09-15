@@ -1284,7 +1284,7 @@ const replacementVerification = () => {
   if (isVirtualOffice.checked) {
     theVO = ".VO";
   }
-  if (uhcTag.checked) {
+  if (uhcDualCheckBox.checked) {
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
     }${theVO} CONTRACTED: ${
