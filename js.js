@@ -1327,19 +1327,19 @@ const commercialVerificationText = () => {
     getInitials.value
   }${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${
     sickInputFour.value
-  } | HSA/HRA: ${hsahraInputFour.value} | TELEHEALTH: ${
-    telehealthInputFour.value
-  }  | PE: ${pExamsInputFour.value} | PROCEDURES: ${
+  } | TELEHEALTH: ${telehealthInputFour.value}  | PROCEDURES: ${
     proceduresInputFour.value
-  } | DX-LABS: ${labsInputFour.value} | FLU(90656/90662)/PREVENTIVE IMMUN: ${
+  } | DX-LABS: ${labsInputFour.value} | PE: ${
+    pExamsInputFour.value
+  }  | FLU(90656/90662)/PREVENTIVE IMMUN: ${
     immunizationsInputFour.value
+  } | OTHER INS/COB: ${otherIns4Input.value} | HSA/HRA: ${
+    hsahraInputFour.value
   } | SPOKE: ${spokeInputFour.value} | REF: ${
     referenceInputFour.value
-  }\nEFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()} | OTHER INS: ${
-    otherIns4Input.value
-  } | POLICY HOLDER: ${
+  }\nEFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
     policyHolderInputFour.value
-  }  | GROUP#: ${groupInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()} | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
+  }  | GROUP#: ${groupInputFour.value.trim()} | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
     verifiedOnlineInputThree.value
   } `.toLocaleUpperCase();
 };
