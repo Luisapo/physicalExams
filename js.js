@@ -815,6 +815,7 @@ const originalValues = {
   claimAddressFour: claimAddressInputFour.value,
   payorIDFour: payorIDInputFour.value,
   verifiedOnlineFour: verifiedOnlineInputFour.value,
+  theCOB: theCOB.value,
 };
 
 function resetInputValues() {
@@ -873,6 +874,7 @@ function resetInputValues() {
   dedMetInputFour.value = originalValues.primarycareCommericalFour;
   claimAddressInputFour.value = originalValues.primarycareCommericalFour;
   payorIDInputFour.value = originalValues.primarycareCommericalFour;
+  theCOB.value = originalValues.theCOB;
 }
 
 const previousValuesEntered = {
