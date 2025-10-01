@@ -263,7 +263,7 @@
                                 <input type="text" name="thirdParty" id="thirdParty" value="NONE">
                             </div>
                             <div>
-                                <label for="medicareBox">MEDICARE/ADVANTAGE: </label>
+                                <label for="medicareBox">PART-B/ADVANTAGE: </label>
                                 <input type="text" name="medicareBox" id="medicareBox" value="NONE">
                             </div>
                             <div id="mercyCarelabel">
@@ -416,13 +416,13 @@
                                 (Code Descriptions) They are for immunizations. </span>
                             <input type="text" name="immunizations4" id="immunizations4">
                         </div>
-                         <div class="coordination">
-                            <label for="otherIns4">OTHER INS/COB:</label>
+                        <div class="coordination">
+                            <label for="askCOB">COB:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Do you show another insurance on file?<br>
-                                                       Do you show when the last COB was done?</span>
-                            <input type="text" name="otherIns4" id="otherIns4">
-                        </div>
+                            <span class="tooltip-text">Do you show when the last COB was done?</span>
+                            <input type="text" name="askCOB" id="askCOB">
+                        </div>                
+                         
                         <div class="hsra">
                             <label for="hsahra4">HSA/HRA:</label>
                             <span class="tooltip-icon">?</span>
@@ -486,7 +486,13 @@
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">Can I have the group number or group ID for billing purposes?</span>
                             <input type="text" name="group4" id="group4">
-                        </div>                     
+                        </div>
+                        <div class="coordination">
+                            <label for="otherIns4">OTHER INS:</label>
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Do you show another insurance on file?<br></span>
+                            <input type="text" name="otherIns4" id="otherIns4">
+                        </div>
                         <div class="deductibleAmount">
                             <label for="deductible4">DED:</label>
                             <span class="tooltip-icon">?</span>

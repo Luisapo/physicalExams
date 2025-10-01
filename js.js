@@ -109,6 +109,7 @@ const dedMetInputFour = document.getElementById("dedMet4");
 const claimAddressInputFour = document.getElementById("claimAddress4");
 const payorIDInputFour = document.getElementById("payorID4");
 const verifiedOnlineInputFour = document.getElementById("verifiedOnline4");
+const theCOB = document.getElementById("askCOB");
 
 //-------------------Date Of birth Formatting--------------------//
 
@@ -1333,13 +1334,15 @@ const commercialVerificationText = () => {
     pExamsInputFour.value
   }  | FLU(90656/90662)/PREVENTIVE IMMUN: ${
     immunizationsInputFour.value
-  } | OTHER INS/COB: ${otherIns4Input.value} | HSA/HRA: ${
-    hsahraInputFour.value
-  } | SPOKE: ${spokeInputFour.value} | REF: ${
+  } | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value} | SPOKE: ${
+    spokeInputFour.value
+  } | REF: ${
     referenceInputFour.value
   }\nEFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
     policyHolderInputFour.value
-  }  | GROUP#: ${groupInputFour.value.trim()} | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
+  }  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${
+    otherIns4Input.value
+  }  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
     verifiedOnlineInputThree.value
   } `.toLocaleUpperCase();
 };
