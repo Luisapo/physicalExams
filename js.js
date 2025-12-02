@@ -1340,7 +1340,7 @@ const commercialVerificationText = () => {
     spokeInputFour.value
   } | REF: ${
     referenceInputFour.value
-  }\nEFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
+  } EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
     policyHolderInputFour.value
   }  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${
     otherIns4Input.value
