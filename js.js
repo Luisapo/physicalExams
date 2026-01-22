@@ -17,20 +17,20 @@ const radioAHCCCSVerification = document.getElementById("AHCCCSVerification");
 const radioMedicare = document.getElementById("medicarePartB");
 const medicareGcodes = document.getElementById("assignGcode");
 const medicareGcodeButtons = document.querySelectorAll(
-  '.radioStyle input[type="radio"]'
+  '.radioStyle input[type="radio"]',
 );
 const radioMedicareVerification = document.getElementById(
-  "medicarePartBVerification"
+  "medicarePartBVerification",
 );
 const radioMedicareReplacement = document.getElementById("medicareReplacement");
 //const radioMedicareReplacementVerification = document.getElementById('medicareReplacementVerification');
 const radioCommerical = document.getElementById("commercial");
 const radioCommericalVerification = document.getElementById(
-  "commercialVerification"
+  "commercialVerification",
 );
 let textBox = document.getElementById("output");
 const verificationTemplateOptions = document.querySelectorAll(
-  'input[name="checkboxes"]'
+  'input[name="checkboxes"]',
 );
 const templateContents = document.querySelectorAll('[id^="template"]');
 const getInitials = document.getElementById("initals");
@@ -97,7 +97,7 @@ const effectiveDateInputFour = document.getElementById("effectiveDate4");
 const planTypeInputFour = document.getElementById("planType4");
 const networkInputFour = document.getElementById("plan4");
 const primarycareCommericalInputFour = document.getElementById(
-  "primarycareCommerical4"
+  "primarycareCommerical4",
 );
 const otherIns4Input = document.getElementById("otherIns4");
 const policyHolderInputFour = document.getElementById("policyHolder4");
@@ -201,7 +201,7 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
   } else {
     const nextExaminationDate = new Date(birthDate);
     nextExaminationDate.setMonth(
-      nextExaminationDate.getMonth() + nextPhysicalAge
+      nextExaminationDate.getMonth() + nextPhysicalAge,
     );
     textBox.value += ` PE: ELIGIBLE ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.`;
   }
@@ -224,7 +224,7 @@ const calculateAgeInMonthsCommerical = (birthdate) => {
 const getNextPhysicalExaminationCommercial = (
   totalDays,
   lastPhysicalAge,
-  birthDate
+  birthDate,
 ) => {
   textBox.value = "";
 
@@ -243,7 +243,7 @@ const getNextPhysicalExaminationCommercial = (
   } else {
     const nextExaminationDate = new Date(birthDate);
     nextExaminationDate.setMonth(
-      nextExaminationDate.getMonth() + nextPhysicalAge
+      nextExaminationDate.getMonth() + nextPhysicalAge,
     );
     textBox.value += ` PE: ELIGIBLE ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.`;
   }
@@ -265,12 +265,12 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
   const dateOfService = DOS.value;
   const dateOfServiceFormattted = new Date(dateOfService);
   const dateOfServiceFormatttedActualDate = dateOfServiceFormattted.setDate(
-    dateOfServiceFormattted.getDate() + 1
+    dateOfServiceFormattted.getDate() + 1,
   );
   const dateOfServiceDayArray = dateOfService.split("-");
   const dateOfServiceMonth = parseInt(dateOfServiceDayArray[1]);
   const dateOfServiceDay = parseInt(dateOfServiceDayArray[2]);
-  const timeDifference = currentDate - lastPE;
+  const timeDifference = dateOfService - lastPE;
   const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
 
   let nextEligibleDate = "";
@@ -321,8 +321,10 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     //last PE done current year and PE donde in curreny month and pt had DOB
     textBox.value += ` PE: ELIGIBLE W/ OV`;
   } else if (
-    (lastPEYear < currentYear && lastPEMonth < birthMonth) ||
-    (lastPEMonth === birthMonth && lastPEDay < birthDay)
+    lastPEYear < currentYear &&
+    lastPEMonth < birthMonth &&
+    lastPEMonth === birthMonth &&
+    lastPEDay > birthDay
   ) {
     textBox.value += ` PE: ELIGIBLE W/ OV`;
   } else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {
@@ -1467,7 +1469,7 @@ newPatientCheckCheckBox.addEventListener("change", () => {
 let selectedRadioButton = "CHOOSE A GCODE";
 function updateOutputBox() {
   const checkedRadio = document.querySelector(
-    '#assignGcode input[type="radio"]:checked'
+    '#assignGcode input[type="radio"]:checked',
   );
   if (checkedRadio) {
     selectedRadioButton =
