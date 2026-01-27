@@ -458,6 +458,10 @@ textarea {
     grid-row: 2;
   }
 
+  .copyBothTextBoxes {
+    display: none;
+  }
+
   #verifications {
     grid-row: 1;
   }
