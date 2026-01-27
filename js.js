@@ -262,15 +262,17 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
   const birthMonthFormatted = birthDate.getMonth() + 1;
   const birthDay = birthDate.getDate();
   const currentYear = currentDate.getFullYear();
+  const newDateOfService = new Date(DOS.value);
   const dateOfService = DOS.value;
   const dateOfServiceFormattted = new Date(dateOfService);
   const dateOfServiceFormatttedActualDate = dateOfServiceFormattted.setDate(
     dateOfServiceFormattted.getDate() + 1,
   );
   const dateOfServiceDayArray = dateOfService.split("-");
+  const dateOfServiceYear = parseInt(dateOfServiceDayArray[0]);
   const dateOfServiceMonth = parseInt(dateOfServiceDayArray[1]);
   const dateOfServiceDay = parseInt(dateOfServiceDayArray[2]);
-  const timeDifference = dateOfService - lastPE;
+  const timeDifference = newDateOfService - lastPE;
   const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000;
 
   let nextEligibleDate = "";
@@ -321,10 +323,19 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     //last PE done current year and PE donde in curreny month and pt had DOB
     textBox.value += ` PE: ELIGIBLE W/ OV`;
   } else if (
+    dateOfServiceYear === lastPEYear &&
+    birthMonth < dateOfServiceMonth &&
+    lastPEMonth < dateOfServiceMonth &&
+    birthMonth === lastPEMonth &&
+    birthDay > lastPEDay
+  ) {
+    // last PE done current year but pt has had birthday already this year and date of service is after birthday
+    textBox.value += ` PE: ELIGIBLE W/ OV`;
+  } else if (
     lastPEYear < currentYear &&
     lastPEMonth < birthMonth &&
     lastPEMonth === birthMonth &&
-    lastPEDay > birthDay
+    lastPEDay < birthDay
   ) {
     textBox.value += ` PE: ELIGIBLE W/ OV`;
   } else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {
@@ -1416,7 +1427,7 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function () {
       if (computedStyle.display !== "none") {
         form.style.display = "none";
-        secondForm.style.display = "none";
+        secondForm.style.display = "block";
         secondForm.style.gridRow = 1;
       } else {
         form.style.display = "block";

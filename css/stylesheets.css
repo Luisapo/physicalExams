@@ -370,9 +370,7 @@ textarea {
   font-weight: bold;
   padding: 2px 6px;
   text-decoration: none;
-  transition:
-    opacity 0.3s ease,
-    font-size 0.3s ease-in-out;
+  transition: opacity 0.3s ease, font-size 0.3s ease-in-out;
   font-size: medium; /* Initial font size */
 }
 
@@ -441,10 +439,9 @@ textarea {
 .arrow-button {
   display: none;
 }
+
+#verifications,
 #physicalExams {
-  display: none;
-}
-#verifications {
   display: block;
 }
 
@@ -456,10 +453,6 @@ textarea {
   #physicalExams {
     display: none;
     grid-row: 2;
-  }
-
-  .copyBothTextBoxes {
-    display: none;
   }
 
   #verifications {
