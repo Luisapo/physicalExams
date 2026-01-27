@@ -1416,7 +1416,7 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function () {
       if (computedStyle.display !== "none") {
         form.style.display = "none";
-        secondForm.style.display = "block";
+        secondForm.style.display = "none";
         secondForm.style.gridRow = 1;
       } else {
         form.style.display = "block";
