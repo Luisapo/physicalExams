@@ -207,6 +207,26 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
   }
 };
 
+document.querySelectorAll(".color-picker").forEach((button) => {
+  button.addEventListener("click", () => {
+    const bg = button.dataset.bg;
+    document.documentElement.style.setProperty("--bg-gradient", bg);
+  });
+});
+
+const savedBg = localStorage.getItem("bg");
+if (savedBg) {
+  document.documentElement.style.setProperty("--bg-gradient", savedBg);
+}
+
+document.querySelectorAll(".color-picker").forEach((button) => {
+  button.addEventListener("click", () => {
+    const bg = button.dataset.bg;
+    document.documentElement.style.setProperty("--bg-gradient", bg);
+    localStorage.setItem("bg", bg);
+  });
+});
+
 const calculateAgeInMonthsCommerical = (birthdate) => {
   const birthDate = new Date(birthdate);
   const lastPE = new Date(lastPEValue);
@@ -330,6 +350,15 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     birthDay > lastPEDay
   ) {
     // last PE done current year but pt has had birthday already this year and date of service is after birthday
+    textBox.value += ` PE: ELIGIBLE W/ OV`;
+  } else if (
+    dateOfServiceYear > lastPEYear &&
+    birthMonth > lastPEMonth &&
+    birthMonth > lastPEMonth &&
+    lastPEMonth > dateOfServiceMonth &&
+    lastPEDay > birthDay &&
+    lastPEDay > dateOfServiceDay
+  ) {
     textBox.value += ` PE: ELIGIBLE W/ OV`;
   } else if (
     lastPEYear < currentYear &&
@@ -564,6 +593,30 @@ radioCommerical.addEventListener("change", () => {
     goldKidneyLabel.style.display = "none";
     goldKidneyCheckbox.checked = false;
     medicareGcodes.style.display = "none";
+  }
+});
+
+goldKidneyCheckbox.addEventListener("change", () => {
+  if (goldKidneyCheckbox.checked) {
+    contractedInputThree.value = "Out of Network";
+    sickInputThree.value = "80/20% | Preventive Care(PE): 80/20%";
+    pcpInputThree.value = "Not Required";
+    contractedInputThree.readOnly = true;
+    sickInputThree.readOnly = true;
+    pcpInputThree.readOnly = true;
+    contractedInputThree.classList.add("greyedOut");
+    sickInputThree.classList.add("greyedOut");
+    pcpInputThree.classList.add("greyedOut");
+  } else {
+    contractedInputThree.value = "";
+    sickInputThree.value = "";
+    pcpInputThree.value = "";
+    contractedInputThree.readOnly = false;
+    sickInputThree.readOnly = false;
+    pcpInputThree.readOnly = false;
+    contractedInputThree.classList.remove("greyedOut");
+    sickInputThree.classList.remove("greyedOut");
+    pcpInputThree.classList.remove("greyedOut");
   }
 });
 

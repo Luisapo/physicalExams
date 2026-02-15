@@ -2,10 +2,11 @@
   --roboto-font-family: "Inter", sans-serif;
   --roboto-font-weight: 400;
   --roboto-font-style: normal;
+  --bg-gradient: linear-gradient(white, rgb(20, 70, 156));
 }
 
 body {
-  background-image: linear-gradient(white, rgb(20, 70, 156));
+  background-image: var(--bg-gradient);
   height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
@@ -13,6 +14,33 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: var(--roboto-font-family);
+  transition: background-color 2.5s ease-in-out;
+}
+
+#backgroundChanger {
+  position: absolute;
+  display: flex;
+  top: 10px;
+  transform: translateX(50%);
+  right: 50%;
+  gap: 10px;
+}
+
+.color-picker {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.color-picker:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
 @media (max-width: 1500px) {
@@ -370,7 +398,9 @@ textarea {
   font-weight: bold;
   padding: 2px 6px;
   text-decoration: none;
-  transition: opacity 0.3s ease, font-size 0.3s ease-in-out;
+  transition:
+    opacity 0.3s ease,
+    font-size 0.3s ease-in-out;
   font-size: medium; /* Initial font size */
 }
 
