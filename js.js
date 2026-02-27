@@ -1556,3 +1556,68 @@ medicareGcodeButtons.forEach((radio) => {
     updateOutputBox();
   });
 });
+
+/*-------Contract list dropdown-------*/
+
+const providers = [
+  { name: "Alex Guzman Garcia", contracted: "YES" },
+  { name: "Andrew C. White", contracted: "YES" },
+  { name: "Angeles Olivarez", contracted: "YES" },
+  { name: "Blair Ball", contracted: "YES" },
+  { name: "Carlomagno C Briones", contracted: "YES" },
+  { name: "Christine Briones", contracted: "YES" },
+  { name: "Claudia Romo", contracted: "YES" },
+  { name: "Drisde Cruz Martinez", contracted: "YES" },
+  { name: "Elizabeth Lopez-Murray", contracted: "YES" },
+  { name: "Eric Gonzalez", contracted: "YES" },
+  { name: "Erick Torres", contracted: "YES" },
+  { name: "Esteban Flores", contracted: "YES" },
+  { name: "Flor N Arellano Garcia", contracted: "YES" },
+  { name: "Freddy Montenegro", contracted: "YES" },
+  { name: "Gloria Estrada", contracted: "YES" },
+  { name: "Haidee Chavez Waymire", contracted: "YES" },
+  { name: "Idalgis Elias Rodriguez", contracted: "YES" },
+  { name: "J Guadalupe Gallo Padilla", contracted: "YES" },
+  { name: "Jacob Frietz", contracted: "YES" },
+  { name: "Javier G. Padilla", contracted: "YES" },
+  { name: "Jessica Cuevas", contracted: "YES" },
+  { name: "Julia Nieto", contracted: "YES" },
+  { name: "Maria Del Carmen Castillo", contracted: "YES" },
+  { name: "Karin Montiel Lopez", contracted: "YES" },
+  { name: "Nina Celaya", contracted: "YES" },
+  { name: "Patricia Perez", contracted: "YES" },
+  { name: "Ricardo G Celaya", contracted: "YES" },
+  { name: "Ricardo L Celaya", contracted: "YES" },
+  { name: "Ruby E Fernandez", contracted: "YES" },
+  { name: "Sam F Shumway", contracted: "YES" },
+  { name: "Sandy Morales", contracted: "YES" },
+  { name: "Seth Gillespie", contracted: "YES" },
+  { name: "Stephanie Rodriguez", contracted: "YES" },
+  { name: "Veronica Cristina Diaz Pulido", contracted: "YES" },
+  { name: "Walter Rios-Corujo", contracted: "YES" },
+  { name: "Xochitl Landeros", contracted: "YES" },
+  { name: "Yesenia E. Ochoa", contracted: "YES" },
+  { name: "Yajaira Acosta", contracted: "YES" },
+  { name: "Elias", contracted: false, seeUnder: "Carlomagno Briones" },
+  { name: "Flores", contracted: false, seeUnder: "Carlomagno Briones" },
+  { name: "Montiel", contracted: false, seeUnder: "Christine Briones" },
+  { name: "Diaz", contracted: false, seeUnder: "Nina Celaya" },
+  { name: "Stephanie Rodriguez", contracted: false, seeUnder: "Nina Celaya" },
+  { name: "Frietz", contracted: false, seeUnder: "Ricardo G Celaya" },
+  { name: "Alzuri", contracted: false, seeUnder: "Ricardo G Celaya" },
+  { name: "Olivares", contracted: false, seeUnder: "Ricardo L Celaya" },
+  { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
+];
+
+const datalist = document.getElementById("contracted-list");
+
+providers.forEach((provider) => {
+  const option = document.createElement("option");
+
+  if (provider.contracted) {
+    option.value = `YES ${provider.name}`;
+  } else {
+    option.value = `NO ${provider.name} SEE UNDER ${provider.seeUnder}`;
+  }
+  datalist.appendChild(option);
+});
