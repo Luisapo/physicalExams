@@ -110,6 +110,8 @@ const claimAddressInputFour = document.getElementById("claimAddress4");
 const payorIDInputFour = document.getElementById("payorID4");
 const verifiedOnlineInputFour = document.getElementById("verifiedOnline4");
 const theCOB = document.getElementById("askCOB");
+const monthlyBenefits = document.getElementById("monthly-benefits");
+const monthlyBenefitsCheckBox = document.getElementById("monthlyBenefits");
 
 //-------------------Date Of birth Formatting--------------------//
 
@@ -197,13 +199,13 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
 
   if (totalDays > nextPhysicalAge * 30.33) {
     // If the patient is already eligible for the next examination, return the date
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else {
     const nextExaminationDate = new Date(birthDate);
     nextExaminationDate.setMonth(
       nextExaminationDate.getMonth() + nextPhysicalAge,
     );
-    textBox.value += ` PE: ELIGIBLE ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.`;
+    textBox.value += ` PE: ELIGIBLE (ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.)`;
   }
 };
 
@@ -259,13 +261,13 @@ const getNextPhysicalExaminationCommercial = (
 
   if (totalDays > nextPhysicalAge * 30.33) {
     // If the patient is already eligible for the next examination, return the date
-    textBox.value += ` PE: ELIGIBLE W/O OV`;
+    textBox.value += ` PE: ELIGIBLE (W/O OV)`;
   } else {
     const nextExaminationDate = new Date(birthDate);
     nextExaminationDate.setMonth(
       nextExaminationDate.getMonth() + nextPhysicalAge,
     );
-    textBox.value += ` PE: ELIGIBLE ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.`;
+    textBox.value += ` PE: ELIGIBLE (ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.)`;
   }
 };
 
@@ -311,21 +313,21 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
 
   if (timeDifference > oneYearInMilliseconds) {
     //Last PE more than a year ago
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     lastPEMonth < birthMonth &&
     lastPEDay < birthDay &&
     lastPEYear < currentYear
   ) {
     // last PE month, day less then DOB and done last year
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     lastPEYear === currentYear &&
     birthMonth < dateOfServiceMonth &&
     lastPEMonth < birthMonth
   ) {
     //last PE done current year and PE month before DOB
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     lastPEYear === currentYear &&
     birthMonth === dateOfServiceMonth &&
@@ -333,7 +335,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     lastPEMonth < birthMonth
   ) {
     //last PE done current year and PE month before DOB
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     lastPEYear === currentYear &&
     lastPEMonth === birthMonth &&
@@ -341,7 +343,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     dateOfServiceDay > birthDay
   ) {
     //last PE done current year and PE donde in curreny month and pt had DOB
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     dateOfServiceYear === lastPEYear &&
     birthMonth < dateOfServiceMonth &&
@@ -350,7 +352,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     birthDay > lastPEDay
   ) {
     // last PE done current year but pt has had birthday already this year and date of service is after birthday
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     dateOfServiceYear > lastPEYear &&
     birthMonth > lastPEMonth &&
@@ -359,27 +361,27 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     lastPEDay > birthDay &&
     lastPEDay > dateOfServiceDay
   ) {
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     lastPEYear < currentYear &&
     lastPEMonth < birthMonth &&
     lastPEMonth === birthMonth &&
     lastPEDay < birthDay
   ) {
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {
-    textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
+    textBox.value += ` PE: ALREADY (DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()})`;
   } else if (nextEligibleDate <= dateOfServiceFormatttedActualDate) {
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (
     (currentYear > lastPEYear || currentYear === lastPEYear) &&
     (lastPEMonth < birthMonth || lastPEMonth === birthMonth) &&
     lastPEDay <= birthDay
   ) {
-    nextEligibleDate.setFullYear(currentYear) + 1;
-    textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
+    nextEligibleDate.setFullYear(currentYear + 1);
+    textBox.value += ` PE: ALREADY (DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()})`;
   } else {
-    textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()}`;
+    textBox.value += ` PE: ALREADY (DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextEligibleDate.toLocaleDateString()})`;
   }
 };
 
@@ -393,9 +395,9 @@ const Overtwentyone = () => {
   const dateOfService = new Date(DOS.value) - lastPE;
 
   if (timeDifference > oneYearInMilliseconds) {
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (dateOfService > oneYearInMilliseconds) {
-    textBox.value += ` PE: ELIGIBLE W/ OV`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else {
     const nextEligibleDate = new Date(lastPE);
     nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1); // Date one year after lastPE
@@ -407,7 +409,7 @@ const Overtwentyone = () => {
     const year = nextEligibleDate.getFullYear();
 
     const formattedDate = `${month}/${day}/${year}`;
-    textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate}`;
+    textBox.value += ` PE: ALREADY (DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate})`;
   }
 };
 
@@ -420,9 +422,9 @@ const OvertwentyoneCommerical = () => {
   //    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
 
   if (timeDifference > oneYearInMilliseconds) {
-    textBox.value += ` PE: ELIGIBLE W/O OV`;
+    textBox.value += ` PE: ELIGIBLE (W/O OV)`;
   } else if (dateOfService > oneYearInMilliseconds) {
-    textBox.value += ` PE: ELIGIBLE W/O OV`;
+    textBox.value += ` PE: ELIGIBLE (W/O OV)`;
   } else {
     const nextEligibleDate = new Date(lastPE);
     nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1); // Date one year after lastPE
@@ -434,7 +436,7 @@ const OvertwentyoneCommerical = () => {
     const year = nextEligibleDate.getFullYear();
 
     const formattedDate = `${month}/${day}/${year}`;
-    textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate}`;
+    textBox.value += ` PE: ALREADY (DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate})`;
   }
 };
 
@@ -447,9 +449,9 @@ const medicarePartBPhysical = () => {
   //    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
 
   if (timeDifference > oneYearInMilliseconds) {
-    textBox.value += ` PE: ELIGIBLE W/ OV ${selectedRadioButton}`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV) ${selectedRadioButton}`;
   } else if (dateOfService > oneYearInMilliseconds) {
-    textBox.value += ` PE: ELIGIBLE W/ OV ${selectedRadioButton}`;
+    textBox.value += ` PE: ELIGIBLE (W/ OV) ${selectedRadioButton}`;
   } else {
     const nextEligibleDate = new Date(lastPE);
     nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1); // Date one year after lastPE
@@ -461,7 +463,7 @@ const medicarePartBPhysical = () => {
     const year = nextEligibleDate.getFullYear();
 
     const formattedDate = `${month}/${day}/${year}`;
-    textBox.value += ` PE: ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate} ${selectedRadioButton}`;
+    textBox.value += ` PE: ALREADY (DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${formattedDate} ${selectedRadioButton})`;
   }
 };
 //---------------------------Beginning of AHCCCS Section----------------------------------//
@@ -617,6 +619,30 @@ goldKidneyCheckbox.addEventListener("change", () => {
     contractedInputThree.classList.remove("greyedOut");
     sickInputThree.classList.remove("greyedOut");
     pcpInputThree.classList.remove("greyedOut");
+  }
+});
+
+const monthlyNeededBenis = document.querySelectorAll(".sameMonthActive");
+const noneNeededBenis = document.querySelectorAll(".sameMonthNotNeeded");
+
+monthlyBenefitsCheckBox.addEventListener("change", () => {
+  if (monthlyBenefitsCheckBox.checked) {
+    contractedInputFour.placeholder = "If left blank,it will not show";
+    sickInputFour.placeholder = "If left blank,it will not show";
+    dedMetInputFour.placeholder = "If left blank,it will not show";
+    deductibleInputFour.placeholder = "If left blank,it will not show";
+
+    noneNeededBenis.forEach((element) => {
+      element.style.display = "none";
+    });
+  } else {
+    noneNeededBenis.forEach((element) => {
+      element.style.display = "block";
+    });
+    contractedInputFour.placeholder = "";
+    sickInputFour.placeholder = "";
+    dedMetInputFour.placeholder = "";
+    deductibleInputFour.placeholder = "";
   }
 });
 
@@ -1241,14 +1267,22 @@ verificationTemplateOptions.forEach((verificationOption, index) => {
           mercyCareOptions.style.display = "block";
           uhcDualCheck.style.display = "none";
           uhcTag.style.display = "block";
+          monthlyBenefits.style.display = "none";
         } else if (contentIndex === 2) {
           uhcDualCheck.style.display = "block";
           mercyCareOptions.style.display = "none";
           uhcTag.style.display = "none";
+          monthlyBenefits.style.display = "none";
+        } else if (contentIndex === 3) {
+          uhcDualCheck.style.display = "none";
+          mercyCareOptions.style.display = "none";
+          uhcTag.style.display = "none";
+          monthlyBenefits.style.display = "block";
         } else {
           mercyCareOptions.style.display = "none";
           uhcDualCheck.style.display = "none";
           uhcTag.style.display = "none";
+          monthlyBenefits.style.display = "none";
         }
       } else {
         contentElement.style.display = "none";
@@ -1392,27 +1426,42 @@ const commercialVerificationText = () => {
   if (isVirtualOffice.checked) {
     theVO = ".VO";
   }
-  textBoxes[1].value = `${actualVerificationDateFormatted} ${
-    getInitials.value
-  }${theVO} CONTRACTED: ${contractedInputFour.value} | SICK: ${
-    sickInputFour.value
-  } | TELEHEALTH: ${telehealthInputFour.value}  | PROCEDURES: ${
-    proceduresInputFour.value
-  } | DX-LABS: ${labsInputFour.value} | PE: ${
-    pExamsInputFour.value
-  }  | FLU(90656/90662)/PREVENTIVE IMMUN: ${
-    immunizationsInputFour.value
-  } | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value} | SPOKE: ${
-    spokeInputFour.value
-  } | REF: ${
-    referenceInputFour.value
-  } EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
-    policyHolderInputFour.value
-  }  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${
-    otherIns4Input.value
-  }  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
-    verifiedOnlineInputThree.value
-  } `.toLocaleUpperCase();
+
+  let parts = [];
+  parts.push(`${actualVerificationDateFormatted}`);
+  parts.push(`${getInitials.value}${theVO}`);
+  parts.push("INS STILL ACTIVE");
+
+  if (contractedInputFour.value.trim() !== "") {
+    parts.push(`CONTRACTED: ${contractedInputFour.value.trim()}`);
+  }
+  if (sickInputFour.value.trim() !== "") {
+    parts.push(`SICK: ${sickInputFour.value.trim()}`);
+  }
+  if (
+    deductibleInputFour.value.trim() !== "" ||
+    dedMetInputFour.value.trim() !== ""
+  ) {
+    parts.push(
+      `DED: ${deductibleInputFour.value.trim()}/ MET: ${dedMetInputFour.value.trim()}`,
+    );
+  }
+
+  if (monthlyBenefitsCheckBox.checked) {
+    textBoxes[1].value = parts.join(" | ").toLocaleUpperCase();
+  } else {
+    textBoxes[1].value = `${actualVerificationDateFormatted} ${
+      getInitials.value
+    }${theVO} CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()}  | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()}  | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()} | SPOKE: ${spokeInputFour.value.trim()} | REF: ${
+      referenceInputFour.value
+    } EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
+      policyHolderInputFour.value
+    }  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${
+      otherIns4Input.value
+    }  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
+      verifiedOnlineInputThree.value
+    } `.toLocaleUpperCase();
+  }
 };
 
 const form = document.getElementById("verifications");
@@ -1559,7 +1608,7 @@ medicareGcodeButtons.forEach((radio) => {
 
 /*-------Contract list dropdown-------*/
 
-const providers = [
+const currentProviders = [
   { name: "Alex Guzman Garcia", contracted: "YES" },
   { name: "Andrew C. White", contracted: "YES" },
   { name: "Angeles Olivarez", contracted: "YES" },
@@ -1611,7 +1660,7 @@ const providers = [
 
 const datalist = document.getElementById("contracted-list");
 
-providers.forEach((provider) => {
+currentProviders.forEach((provider) => {
   const option = document.createElement("option");
 
   if (provider.contracted) {
@@ -1621,3 +1670,38 @@ providers.forEach((provider) => {
   }
   datalist.appendChild(option);
 });
+
+/*-------Change date format to MM/DD/YYYY-------*/
+
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+
+  // if already in MM/DD/YYYY format, return as is
+  const numericPattern = /^\d{2}\/\d{2}\/\d{4}$/;
+  if (numericPattern.test(dateString)) {
+    return dateString;
+  }
+
+  // try to parse formats like "May 05, 2024" or "May 5 2024"
+  const parsedDate = new Date(dateString);
+
+  if (!isNaN(parsedDate)) {
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`;
+  }
+
+  return dateString;
+};
+
+const autoFormatEffectiveDate = (inputElement) => {
+  inputElement.addEventListener("blur", () => {
+    inputElement.value = formatDate(inputElement.value.trim());
+  });
+};
+
+autoFormatEffectiveDate(effectiveDateInput);
+autoFormatEffectiveDate(effectiveDateInputTwo);
+autoFormatEffectiveDate(effectiveDateInputThree);
+autoFormatEffectiveDate(effectiveDateInputFour);
