@@ -238,13 +238,6 @@
                             id="initals"                            
                             placeholder="Initials">
                         </div>
-                        <div class="checkboxSelection">
-                            <input
-                            type="checkbox"
-                            id="isVO"
-                            >
-                            <label for="isVO" >Is VO?</label>
-                        </div>
                         <div id="mercyCare">
                             <input
                             type="checkbox"
@@ -252,12 +245,13 @@
                             >
                             <label for="mercyCarePlan">MCP</label>
                         </div>
+                        
                             <div id="uhcCommunity">
                             <input
                             type="checkbox"
                             id="uhcCommunityPlan"
                             >
-                            <label for="uhcCommunityPlan">UHC Community</label>
+                            <label for="uhcCommunityPlan">UHC Community/HC AZ</label>
                         </div>
                         
                         <div id="uhcDual">
@@ -271,14 +265,34 @@
                             <label for="uhcDualplan">UHC Dual</label>
                         </div>
                         <div id="monthly-benefits">
-                        <label class="switch">
-                                <input
-                                type="checkbox"
-                                id="monthlyBenefits"
-                                >
-                                    <span class="slider"></span>
-                        </label>
-                        <label for="monthlyBenefits" class="switch-label">Still Active</label>
+                        <div>
+                            <label class="switch">
+                                    <input
+                                    type="checkbox"
+                                    id="monthlyBenefits"
+                                    >
+                                        <span class="slider"></span>
+                            </label>
+                            <label for="monthlyBenefits" class="switch-label">Still Active</label>
+                        </div>
+                                                <div>
+                            <label class="switch">
+                                    <input
+                                    type="checkbox"
+                                    id="acaExchangeStandardHealth"
+                                    >
+                                        <span class="slider"></span>
+                            </label>
+                            <label for="acaExchangeStandardHealth" class="switch-label">ACA StandardHealth</label>
+                        </div>
+                        </div>
+                                                <div style="margin-bottom:10px;">
+                            <button type="button"
+                                    class="btn btn-outline-primary btn-sm chatQuestionsSection"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#chatQuestionModal">
+                                CQ
+                            </button>
                         </div>
                     </p>
                 </div>
@@ -344,6 +358,7 @@
                             <label for="hmo">ADVANTAGE:</label><br>
                             <input type="text" name="hmo" id="hmo">
                         </div>
+                        <!-- Chat Question Generator Section -->                        
                         <div class="sickAmount">
                             <label for="msp">MSC:</label>
                             <span class="tooltip-icon">?</span><br>
@@ -407,7 +422,9 @@
 
                             <datalist id="contracted-list">                                                             
                             </datalist>
-                        </div>                        
+                        </div>
+                           <!-- Chat Question Modal Trigger -->
+
                             <div class="sickAmount sameMonthActive">
                                 <label for="sick4">SICK:</label>
                                 <span class="tooltip-icon">?</span>
@@ -600,7 +617,102 @@
             <button class="arrow-button" id="nextButton">Next &gt;</button>
         </div>
 
-    
+    <!-- Chat Question Modal -->
+<div class="modal fade" id="chatQuestionModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Chat Questions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="form-check">
+          <input class="form-check-input chatQuestion" type="checkbox"
+                 value="Sick Office Visit with PCP" id="chat1" checked>
+          <label class="form-check-label" for="chat1">
+            OV with PCP
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input chatQuestion" type="checkbox"
+                 value="Minor Surgery with PCP" id="chat2" checked>
+          <label class="form-check-label" for="chat2">
+            Surgery
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input chatQuestion" type="checkbox"
+                 value="Diagnostic Labs with PCP" id="chat3" checked>
+          <label class="form-check-label" for="chat3">
+            Dx Labs
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input chatQuestion" type="checkbox"
+                 value="If the Physical Exam (Preventive Care) is covered at 100%" id="chat4" checked>
+          <label class="form-check-label" for="chat4">
+            PE
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input chatQuestion" type="checkbox"
+                 value="Can you confirm if the COB Information Current or Last Updated?"
+                 id="chat5" checked>
+          <label class="form-check-label" for="chat5">
+            Confirm COB
+          </label>
+        </div>
+
+        <hr>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox"
+                 id="includeCPTCheck" checked>
+          <label class="form-check-label" for="includeCPTCheck">
+            Include Preventive CPT History Check
+          </label>
+
+        </div>
+        <div>
+        <label class="form-check-label" for="dobForCPT">
+            Enter DOB for CPT Check: 
+          </label>
+          <input class="dates-chosen" 
+          type="text"  
+          id="dobForCPT" 
+          placeholder="MM/DD/YYYY" 
+          pattern="^\s*(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}$"
+          />
+
+        </div>
+
+        <div class="mt-3">
+          <button type="button"
+                  id="generateChatScript"
+                  class="btn btn-primary btn-sm">
+            Generate Chat Script
+          </button>
+        </div>
+
+        <div class="mt-3">
+          <textarea id="chatScriptOutput"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Generated chat script will appear here..."></textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js.js"></script>
 </body>
 </html>

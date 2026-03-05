@@ -34,7 +34,6 @@ const verificationTemplateOptions = document.querySelectorAll(
 );
 const templateContents = document.querySelectorAll('[id^="template"]');
 const getInitials = document.getElementById("initals");
-const isVirtualOffice = document.getElementById("isVO");
 const ahcccsInputBoxes = document.getElementById("verification1");
 const medicareInputBoxes = document.getElementById("verification2");
 const replacementInputBoxes = document.getElementById("verification3");
@@ -112,6 +111,32 @@ const verifiedOnlineInputFour = document.getElementById("verifiedOnline4");
 const theCOB = document.getElementById("askCOB");
 const monthlyBenefits = document.getElementById("monthly-benefits");
 const monthlyBenefitsCheckBox = document.getElementById("monthlyBenefits");
+const acaExchangeStandardHealthCheckbox = document.getElementById(
+  "acaExchangeStandardHealth",
+);
+const chatSection = document.querySelector(".chatQuestionsSection");
+const cptChecker = document.getElementById("dobForCPT");
+
+let dobString = "";
+
+cptChecker.addEventListener("input", function () {
+  let input = this.value;
+  if (input.length > 30) {
+    // makes sure length does not exceed 10
+    this.value = input.substring(0, 10);
+    return;
+  }
+
+  input = input.replace(/\s*\D\s*/g, ""); // Only allow numbers
+
+  if (input.length > 1) {
+    input = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
+  } else if (input.length > 2) {
+    input = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
+  }
+  this.value = input;
+  dobString = this.value;
+});
 
 //-------------------Date Of birth Formatting--------------------//
 
@@ -1220,6 +1245,82 @@ undoButton.addEventListener("click", function () {
   payorIDInputFour.value = previousValuesEntered.currentPayorIDInputFour;
 });
 
+function getPreventiveCPT(dobString) {
+  if (!dobString) return null;
+
+  const birthDate = new Date(dobString);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  if (age < 1) return ["99391", "99381"];
+  if (age <= 4) return ["99392", "99382"];
+  if (age <= 11) return ["99393", "99383"];
+  if (age <= 17) return ["99394", "99384"];
+  if (age <= 39) return ["99395", "99385"];
+  if (age <= 64) return ["99396", "99386"];
+  return ["99397", "99387"];
+}
+
+document
+  .getElementById("generateChatScript")
+  .addEventListener("click", function () {
+    const selectedQuestions = document.querySelectorAll(
+      ".chatQuestion:checked",
+    );
+    const includeCPT = document.getElementById("includeCPTCheck").checked;
+    const dobValue = document.getElementById("dobForCPT");
+
+    let script = "Could you confirm general benefits for:\n\n";
+
+    selectedQuestions.forEach((q) => {
+      script += "• " + q.value + "\n";
+    });
+
+    if (selectedQuestions.length > 0) {
+      script += "\n";
+    }
+
+    if (includeCPT && !dobString) {
+      script = "";
+      script +=
+        "Please provide the patient's date of birth to include CPT code question or remove selection.";
+
+      dobValue.classList.add("invalid");
+
+      // Remove the "invalid" class after 3 second
+      setTimeout(() => {
+        dobValue.classList.remove("invalid");
+      }, 3000);
+      document.getElementById("chatScriptOutput").value = script.trim();
+    }
+
+    if (includeCPT && dobString) {
+      const cptCodes = getPreventiveCPT(dobString);
+
+      if (cptCodes) {
+        script += `Can you tell me if the patient has used ${cptCodes[0]} or ${cptCodes[1]} in the last 12 months?\n\n`;
+      }
+
+      document.getElementById("chatScriptOutput").value = script.trim();
+      chatScriptOutput.select();
+      document.execCommand("copy");
+      chatScriptOutput.setSelectionRange(0, 0);
+      const chatScriptButton = document.getElementById("generateChatScript");
+      chatScriptButton.innerText = "Copied";
+      chatScriptButton.style.background = "#32936f";
+      setTimeout(() => {
+        chatScriptButton.innerText = "Generate Chat Script";
+        chatScriptButton.style.background = "#0d6efd";
+      }, 1000);
+    }
+  });
+
 const dateOfBirthChecker = (dateString) => {
   const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
   if (!datePattern.test(dateString)) {
@@ -1268,21 +1369,25 @@ verificationTemplateOptions.forEach((verificationOption, index) => {
           uhcDualCheck.style.display = "none";
           uhcTag.style.display = "block";
           monthlyBenefits.style.display = "none";
+          chatSection.style.display = "none";
         } else if (contentIndex === 2) {
           uhcDualCheck.style.display = "block";
           mercyCareOptions.style.display = "none";
           uhcTag.style.display = "none";
           monthlyBenefits.style.display = "none";
+          chatSection.style.display = "none";
         } else if (contentIndex === 3) {
           uhcDualCheck.style.display = "none";
           mercyCareOptions.style.display = "none";
           uhcTag.style.display = "none";
           monthlyBenefits.style.display = "block";
+          chatSection.style.display = "block";
         } else {
           mercyCareOptions.style.display = "none";
           uhcDualCheck.style.display = "none";
           uhcTag.style.display = "none";
           monthlyBenefits.style.display = "none";
+          chatSection.style.display = "none";
         }
       } else {
         contentElement.style.display = "none";
@@ -1309,15 +1414,11 @@ const AHCCCSVerification = () => {
     actualVerificationDate.substring(8, 10) +
     "/" +
     actualVerificationDate.substring(0, 4);
-  let theVO = "";
-  if (isVirtualOffice.checked) {
-    theVO = ".VO";
-  }
 
   if (mercyCareCheck.checked) {
     verifcationText = `${actualVerificationDateFormatted} ${
       getInitials.value
-    }${theVO} EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
+    } EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
       sickInput.value
     }  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${
       medicareBoxInput.value
@@ -1327,7 +1428,7 @@ const AHCCCSVerification = () => {
   } else {
     verifcationText = `${actualVerificationDateFormatted} ${
       getInitials.value
-    }${theVO} EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
+    } EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
       sickInput.value
     }  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${
       medicareBoxInput.value
@@ -1352,10 +1453,6 @@ const medicareVerification = () => {
     actualVerificationDate.substring(8, 10) +
     "/" +
     actualVerificationDate.substring(0, 4);
-  let theVO = "";
-  if (isVirtualOffice.checked) {
-    theVO = ".VO";
-  }
   let metAmount =
     parseInt(dedInputTwo.value) - parseInt(dedMetInputTwo.value.trim());
   if (parseInt(dedMetInputTwo.value.trim()) < 1) {
@@ -1366,7 +1463,7 @@ const medicareVerification = () => {
 
   textBoxes[1].value = `${actualVerificationDateFormatted} ${
     getInitials.value
-  }${theVO} EFF: ${effectiveDateInputTwo.value.trim()} |  COINS: ${
+  } EFF: ${effectiveDateInputTwo.value.trim()} |  COINS: ${
     coinsInput2.value
   }  | DED:  ${dedInputTwo.value.trim()}/ MET: ${metAmount} | INELIGIBLE PERIOD: ${
     ineligibleInput.value
@@ -1383,14 +1480,11 @@ const replacementVerification = () => {
     actualVerificationDate.substring(8, 10) +
     "/" +
     actualVerificationDate.substring(0, 4);
-  let theVO = "";
-  if (isVirtualOffice.checked) {
-    theVO = ".VO";
-  }
+
   if (uhcDualCheckBox.checked) {
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
-    }${theVO} CONTRACTED: ${
+    } CONTRACTED: ${
       contractedInputThree.value
     } |  EFF: ${effectiveDateInputThree.value.trim()} | PLAN: ${planInputThree.value.trim()}  |  GROUP# : ${groupInputThree.value.trim()} | SICK: ${
       sickInputThree.value
@@ -1402,7 +1496,7 @@ const replacementVerification = () => {
   } else {
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
-    }${theVO} CONTRACTED: ${
+    } CONTRACTED: ${
       contractedInputThree.value
     } |  EFF: ${effectiveDateInputThree.value.trim()} | PLAN: ${planInputThree.value.trim()}  |  GROUP# : ${groupInputThree.value.trim()} | SICK: ${
       sickInputThree.value
@@ -1422,18 +1516,14 @@ const commercialVerificationText = () => {
     actualVerificationDate.substring(8, 10) +
     "/" +
     actualVerificationDate.substring(0, 4);
-  let theVO = "";
-  if (isVirtualOffice.checked) {
-    theVO = ".VO";
-  }
 
   let parts = [];
   parts.push(`${actualVerificationDateFormatted}`);
-  parts.push(`${getInitials.value}${theVO}`);
+  parts.push(`${getInitials.value}`);
   parts.push("INS STILL ACTIVE");
 
   if (contractedInputFour.value.trim() !== "") {
-    parts.push(`CONTRACTED: ${contractedInputFour.value.trim()}`);
+    parts.push(` CONTRACTED: ${contractedInputFour.value.trim()}`);
   }
   if (sickInputFour.value.trim() !== "") {
     parts.push(`SICK: ${sickInputFour.value.trim()}`);
@@ -1452,7 +1542,7 @@ const commercialVerificationText = () => {
   } else {
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
-    }${theVO} CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()}  | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()}  | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()} | SPOKE: ${spokeInputFour.value.trim()} | REF: ${
+    } CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()}  | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()}  | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()} | SPOKE: ${spokeInputFour.value.trim()} | REF: ${
       referenceInputFour.value
     } EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
       policyHolderInputFour.value
@@ -1461,6 +1551,9 @@ const commercialVerificationText = () => {
     }  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
       verifiedOnlineInputThree.value
     } `.toLocaleUpperCase();
+  }
+  if (acaExchangeStandardHealthCheckbox.checked) {
+    textBoxes[1].value += " (COVID TEST NOT COVERED)";
   }
 };
 

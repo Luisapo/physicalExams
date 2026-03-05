@@ -345,7 +345,7 @@ textarea {
 
 .verificationDate {
   display: flex;
-  gap: 20px;
+  gap: 12px;
 }
 
 #initals {
@@ -541,7 +541,6 @@ textarea,
 input[type="date"] {
   padding: 5px 7px;
   border-radius: 8px;
-  border: 1px solid #dcdcdc;
   transition: all 0.15s ease;
   font-size: 0.9rem;
 }
@@ -594,4 +593,6 @@ input:checked + .slider:before {
   transform: translateX(20px);
 }
 
-
+.chatQuestionsSection {
+  display: none;
+}
