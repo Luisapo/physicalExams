@@ -1306,19 +1306,18 @@ document
       if (cptCodes) {
         script += `Can you tell me if the patient has used ${cptCodes[0]} or ${cptCodes[1]} in the last 12 months?\n\n`;
       }
-
-      document.getElementById("chatScriptOutput").value = script.trim();
-      chatScriptOutput.select();
-      document.execCommand("copy");
-      chatScriptOutput.setSelectionRange(0, 0);
-      const chatScriptButton = document.getElementById("generateChatScript");
-      chatScriptButton.innerText = "Copied";
-      chatScriptButton.style.background = "#32936f";
-      setTimeout(() => {
-        chatScriptButton.innerText = "Generate Chat Script";
-        chatScriptButton.style.background = "#0d6efd";
-      }, 1000);
     }
+    document.getElementById("chatScriptOutput").value = script.trim();
+    chatScriptOutput.select();
+    document.execCommand("copy");
+    chatScriptOutput.setSelectionRange(0, 0);
+    const chatScriptButton = document.getElementById("generateChatScript");
+    chatScriptButton.innerText = "Copied";
+    chatScriptButton.style.background = "#32936f";
+    setTimeout(() => {
+      chatScriptButton.innerText = "Generate Chat Script";
+      chatScriptButton.style.background = "#0d6efd";
+    }, 1000);
   });
 
 const dateOfBirthChecker = (dateString) => {
