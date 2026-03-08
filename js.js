@@ -561,6 +561,7 @@ radioAHCCCS.addEventListener("change", () => {
     textBox.placeholder = "";
     newPatientCheckCheckBox.checked = false;
     newPatientCheckLabel.style.display = "block";
+    extractDOBandDOS.style.display = "inline-block";
     medicareGcodes.style.display = "none";
     goldKidneyLabel.style.display = "none";
     goldKidneyCheckbox.checked = false;
@@ -570,6 +571,7 @@ radioAHCCCS.addEventListener("change", () => {
 radioMedicare.addEventListener("change", () => {
   if (radioMedicare.checked) {
     cleanSlatePE();
+    extractDOBandDOS.style.display = "none";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "none";
     goldKidneyCheckbox.checked = false;
@@ -592,6 +594,7 @@ radioMedicare.addEventListener("change", () => {
 radioMedicareReplacement.addEventListener("change", () => {
   if (radioMedicareReplacement.checked) {
     cleanSlatePE();
+    extractDOBandDOS.style.display = "none";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "block";
     goldKidneyCheckbox.checked = false;
@@ -615,6 +618,7 @@ radioCommerical.addEventListener("change", () => {
   if (radioCommerical.checked) {
     cleanSlatePE();
     textBox.placeholder = "";
+    extractDOBandDOS.style.display = "inline-block";
     newPatientCheckCheckBox.checked = false;
     newPatientCheckLabel.style.display = "block";
     goldKidneyLabel.style.display = "none";
@@ -834,8 +838,6 @@ for (let i = 0; i < submitButton.length; i++) {
     }
   });
 }
-
-
 
 for (let i = 0; i < resetButtons.length; i++) {
   if (resetButtons[i] === resetButtons[0]) {
