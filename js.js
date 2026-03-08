@@ -7,7 +7,7 @@ const nextDay = new Date(currentDate);
 nextDay.setDate(nextDay.getDate() + 1);
 const formattedNextDay = nextDay.toISOString().substring(0, 10);
 const submitButton = document.getElementsByClassName("submit");
-const copyButtons = document.getElementsByClassName("copyButton");
+const extractDOBandDOS = document.getElementById("extractDOBandDOS");
 const undoButton = document.getElementById("undoButton");
 const verificationAndPE = document.getElementsByClassName("copyBothTextBoxes");
 let textBoxes = document.getElementsByClassName("output");
@@ -795,6 +795,16 @@ for (let i = 0; i < submitButton.length; i++) {
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
       if (ahcccsInputBoxes.checked) {
+        const autoFormatEffectiveDate = (inputElement) => {
+          inputElement.addEventListener("blur", () => {
+            inputElement.value = formatDate(inputElement.value.trim());
+          });
+        };
+
+        autoFormatEffectiveDate(effectiveDateInput);
+        autoFormatEffectiveDate(effectiveDateInputTwo);
+        autoFormatEffectiveDate(effectiveDateInputThree);
+        autoFormatEffectiveDate(effectiveDateInputFour);
         AHCCCSVerification();
       } else if (medicareInputBoxes.checked) {
         medicareVerification();
@@ -825,27 +835,7 @@ for (let i = 0; i < submitButton.length; i++) {
   });
 }
 
-//-------------------Copy data values--------------------//
 
-for (let i = 0; i < copyButtons.length; i++) {
-  copyButtons[i].addEventListener("click", () => {
-    const textBox = textBoxes[i]; // Get the corresponding textBox for the clicked copyButton
-
-    textBox.select();
-    document.execCommand("copy");
-    textBox.setSelectionRange(0, 0);
-
-    copyButtons[i].innerText = "Copied";
-    copyButtons[i].style.color = "#ffffff";
-    copyButtons[i].style.background = "#32936f";
-    setTimeout(() => {
-      copyButtons[i].innerText = "Copy";
-      copyButtons[i].style.background =
-        "linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%)";
-      copyButtons[i].style.color = "#505739";
-    }, 1000);
-  });
-}
 
 for (let i = 0; i < resetButtons.length; i++) {
   if (resetButtons[i] === resetButtons[0]) {
@@ -1787,13 +1777,175 @@ const formatDate = (dateString) => {
   return dateString;
 };
 
-const autoFormatEffectiveDate = (inputElement) => {
-  inputElement.addEventListener("blur", () => {
-    inputElement.value = formatDate(inputElement.value.trim());
-  });
-};
+/*-------Paste Portal Data-------*/
 
-autoFormatEffectiveDate(effectiveDateInput);
-autoFormatEffectiveDate(effectiveDateInputTwo);
-autoFormatEffectiveDate(effectiveDateInputThree);
-autoFormatEffectiveDate(effectiveDateInputFour);
+// const pastePortalButton = document.getElementById("pastePortalData");
+
+// pastePortalButton.addEventListener("click", async () => {
+//   const text = await navigator.clipboard.readText();
+
+//   const effMatch = text.match(/EFF:\s*(.*)/);
+//   const tplMatch = text.match(/TPL:\s*(.*)/);
+//   const medicareMatch = text.match(/MEDICARE:\s*(.*)/);
+//   const pcpMatch = text.match(/PCP:\s*(.*)/);
+
+//   if (effMatch) {
+//     effectiveDateInput.value = effMatch[1].trim();
+//   }
+
+//   if (tplMatch) {
+//     thirdPartyInput.value = tplMatch[1].trim();
+//   }
+
+//   if (medicareMatch) {
+//     medicareBoxInput.value = medicareMatch[1].trim();
+//   }
+
+//   if (pcpMatch) {
+//     pcpInput.value = pcpMatch[1].trim();
+//   }
+// });
+
+// const currentPage = window.location.href;
+
+// if (currentPage.includes("/cob")) {
+//   extractCOB();
+// } else {
+//   createButton();
+// }
+
+// function createButton() {
+//   const btn = document.createElement("button");
+//   btn.innerText = "Copy Eligibility Data";
+
+//   btn.style.position = "fixed";
+//   btn.style.bottom = "20px";
+//   btn.style.right = "20px";
+//   btn.style.padding = "10px 16px";
+//   btn.style.background = "#2c7be5";
+//   btn.style.color = "white";
+//   btn.style.border = "none";
+//   btn.style.borderRadius = "6px";
+//   btn.style.cursor = "pointer";
+//   btn.style.zIndex = "9999";
+
+//   btn.onclick = extractAndCopy;
+
+//   document.body.appendChild(btn);
+// }
+
+// function extractAndCopy() {
+//   let data = {
+//     eff: "",
+//     tpl: "NONE",
+//     medicare: "NONE",
+//     pcp: "",
+//   };
+
+//   // EFF date (first cell under Start Date table)
+//   const tables = document.querySelectorAll("table");
+
+//   tables.forEach((table) => {
+//     if (
+//       table.innerText.includes("Start Date") &&
+//       table.innerText.includes("Product Name")
+//     ) {
+//       const firstCell = table.querySelector("tbody tr td");
+
+//       if (firstCell) {
+//         data.eff = firstCell.innerText.trim();
+//       }
+//     }
+//     localStorage.setItem("eligibilityData", JSON.stringify(data));
+//     const cobLink = document.querySelector('a[href*="/cob"]');
+
+//     if (cobLink) {
+//       window.open(cobLink.href, "_blank");
+//     }
+//   });
+// }
+
+// // PCP detection
+// const pcpName = getPCPName();
+
+// if (pcpName) {
+//   data.pcp = pcpName;
+// }
+
+// // COB detection
+// if (document.body.innerText.includes("We do not have any COB information")) {
+//   data.tpl = "NONE";
+//   data.medicare = "NONE";
+// }
+
+// const text = `EFF: ${data.eff}
+// TPL: ${data.tpl}
+// MEDICARE: ${data.medicare}
+// PCP: ${data.pcp}`;
+
+// function extractCOB() {
+//   let tpl = "NONE";
+//   let medicare = "NONE";
+
+//   const bodyText = document.body.innerText;
+
+//   if (bodyText.includes("Medicare")) {
+//     medicare = "YES";
+//   }
+
+//   if (bodyText.includes("TPL")) {
+//     tpl = "YES";
+//   }
+
+//   const stored = localStorage.getItem("eligibilityData");
+
+//   let data = {
+//     eff: "",
+//     pcp: "",
+//   };
+
+//   if (stored) {
+//     data = JSON.parse(stored);
+//   }
+
+//   const text = `EFF: ${data.eff}
+// TPL: ${tpl}
+// MEDICARE: ${medicare}
+// PCP: ${data.pcp}`;
+
+//   navigator.clipboard.writeText(text);
+
+//   alert("Eligibility data copied!");
+// }
+
+// function getPCPName() {
+//   const pcpDiv = document.querySelector("#pcpInformationDiv");
+
+//   if (!pcpDiv) return null;
+
+//   const nameField = pcpDiv.querySelector(".info-horizontal span.info");
+
+//   if (!nameField) return null;
+
+//   return nameField.innerText.trim();
+// }
+
+/*--------- Extract dates to get physical exam eligibility ---------*/
+extractDOBandDOS.addEventListener("click", async () => {
+  const clipboardText = await navigator.clipboard.readText();
+
+  extractDOBandDOSfunc(clipboardText);
+});
+
+function extractDOBandDOSfunc(text) {
+  const dobMatch = text.match(/DOB:\s*(\d{2}\/\d{2}\/\d{4})/);
+  const dosMatch = text.match(/DOS:\s*(\d{2}\/\d{2}\/\d{4})/);
+
+  const dob = dobMatch ? dobMatch[1] : "";
+  const dos = dosMatch ? dosMatch[1] : "";
+
+  dateBirthInput.value = dob;
+  dateOfBirthValue = dateBirthInput.value;
+  lastPhysicalServiceDate.value = dos;
+  lastPEValue = lastPhysicalServiceDate.value;
+}
