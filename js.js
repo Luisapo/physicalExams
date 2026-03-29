@@ -193,12 +193,13 @@ lastPhysicalServiceDate.addEventListener("focus", function () {
 const calculateAgeInMonths = (birthdate) => {
   const birthDate = new Date(birthdate);
   const lastPE = new Date(lastPEValue);
-  const dateOfServiceValue = new Date(DOS.value);
+  const [year, month, day] = DOS.value.split("-");
+  const dateOfServiceValue = new Date(year, month - 1, day);
   const oneDay = 24 * 60 * 60 * 1000;
 
   const ageInMilliseconds = dateOfServiceValue - birthDate;
 
-  const ageInDays = Math.floor(ageInMilliseconds / oneDay);
+  const ageInDays = ageInMilliseconds / oneDay;
 
   let totalMonthsLastPE = (lastPE - birthDate) / (oneDay * 30.4);
 
@@ -207,10 +208,14 @@ const calculateAgeInMonths = (birthdate) => {
   } else {
     totalMonthsLastPE = Math.floor((lastPE - birthDate) / (oneDay * 30.4));
   }
-  getNextPhysicalExamination(ageInDays, totalMonthsLastPE, birthDate);
+  getNextPhysicalExamination(ageInMilliseconds, totalMonthsLastPE, birthDate);
 };
 
-const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
+const getNextPhysicalExamination = (
+  ageInMilliseconds,
+  lastPhysicalAge,
+  birthDate,
+) => {
   textBox.value = "";
 
   const schedule = [1, 2, 4, 6, 9, 12, 15, 18, 24]; // The schedule for physical examinations
@@ -220,17 +225,31 @@ const getNextPhysicalExamination = (totalDays, lastPhysicalAge, birthDate) => {
   if (nextIndex === -1) {
     return moreThanTwoLessThanTwotwo(birthDate);
   }
-  const nextPhysicalAge = schedule[nextIndex]; // Check at which the next examination is due
+  const nextPhysicalAge = schedule[nextIndex];
 
-  if (totalDays > nextPhysicalAge * 30.33) {
-    // If the patient is already eligible for the next examination, return the date
+  const [year, month, day] = DOS.value.split("-");
+  const dateOfServiceValue = new Date(year, month - 1, day);
+
+  const nextExaminationDate = new Date(birthDate);
+  nextExaminationDate.setMonth(
+    nextExaminationDate.getMonth() + nextPhysicalAge,
+  );
+
+  const [month2, day2, year2] = lastPEValue.split("/");
+  const lastExaminationDate = new Date(year2, month2 - 1, day2);
+
+  if (
+    dateOfServiceValue >= nextExaminationDate &&
+    dateOfServiceValue > lastExaminationDate
+  ) {
     textBox.value += ` PE: ELIGIBLE (W/ OV)`;
+  } else if (
+    dateOfServiceValue > lastExaminationDate &&
+    dateOfServiceValue < nextExaminationDate
+  ) {
+    textBox.value += ` PE: ELIGIBLE (ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()})`;
   } else {
-    const nextExaminationDate = new Date(birthDate);
-    nextExaminationDate.setMonth(
-      nextExaminationDate.getMonth() + nextPhysicalAge,
-    );
-    textBox.value += ` PE: ELIGIBLE (ALREADY DONE ON ${lastPEValue} NEXT ELIGIBLE ON ${nextExaminationDate.toLocaleDateString()}.)`;
+    textBox.value += ` Recheck Dates!`;
   }
 };
 
@@ -308,6 +327,7 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
   const birthMonth = birthDate.getMonth() + 1;
   const birthMonthFormatted = birthDate.getMonth() + 1;
   const birthDay = birthDate.getDate();
+  const birthYear = birthDate.getFullYear();
   const currentYear = currentDate.getFullYear();
   const newDateOfService = new Date(DOS.value);
   const dateOfService = DOS.value;
@@ -392,6 +412,13 @@ const moreThanTwoLessThanTwotwo = (birthDate) => {
     lastPEMonth < birthMonth &&
     lastPEMonth === birthMonth &&
     lastPEDay < birthDay
+  ) {
+    textBox.value += ` PE: ELIGIBLE (W/ OV)`;
+  } else if (
+    dateOfServiceYear > lastPEYear &&
+    birthMonth === lastPEMonth &&
+    birthDay > lastPEDay &&
+    birthYear < dateOfServiceYear
   ) {
     textBox.value += ` PE: ELIGIBLE (W/ OV)`;
   } else if (nextEligibleDate > dateOfServiceFormatttedActualDate) {
@@ -798,17 +825,8 @@ for (let i = 0; i < submitButton.length; i++) {
       }
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
-      if (ahcccsInputBoxes.checked) {
-        const autoFormatEffectiveDate = (inputElement) => {
-          inputElement.addEventListener("blur", () => {
-            inputElement.value = formatDate(inputElement.value.trim());
-          });
-        };
 
-        autoFormatEffectiveDate(effectiveDateInput);
-        autoFormatEffectiveDate(effectiveDateInputTwo);
-        autoFormatEffectiveDate(effectiveDateInputThree);
-        autoFormatEffectiveDate(effectiveDateInputFour);
+      if (ahcccsInputBoxes.checked) {
         AHCCCSVerification();
       } else if (medicareInputBoxes.checked) {
         medicareVerification();
@@ -838,6 +856,16 @@ for (let i = 0; i < submitButton.length; i++) {
     }
   });
 }
+
+const autoFormatEffectiveDate = (inputElement) => {
+  inputElement.addEventListener("blur", () => {
+    inputElement.value = formatDate(inputElement.value.trim());
+  });
+};
+autoFormatEffectiveDate(effectiveDateInput);
+autoFormatEffectiveDate(effectiveDateInputTwo);
+autoFormatEffectiveDate(effectiveDateInputThree);
+autoFormatEffectiveDate(effectiveDateInputFour);
 
 for (let i = 0; i < resetButtons.length; i++) {
   if (resetButtons[i] === resetButtons[0]) {
@@ -1704,7 +1732,6 @@ const currentProviders = [
   { name: "Elizabeth Lopez-Murray", contracted: "YES" },
   { name: "Eric Gonzalez", contracted: "YES" },
   { name: "Erick Torres", contracted: "YES" },
-  { name: "Esteban Flores", contracted: "YES" },
   { name: "Flor N Arellano Garcia", contracted: "YES" },
   { name: "Freddy Montenegro", contracted: "YES" },
   { name: "Gloria Estrada", contracted: "YES" },
@@ -1779,7 +1806,7 @@ const formatDate = (dateString) => {
   return dateString;
 };
 
-/*-------Paste Portal Data-------*/
+// /*-------Paste Portal Data-------*/
 
 // const pastePortalButton = document.getElementById("pastePortalData");
 
@@ -1792,7 +1819,8 @@ const formatDate = (dateString) => {
 //   const pcpMatch = text.match(/PCP:\s*(.*)/);
 
 //   if (effMatch) {
-//     effectiveDateInput.value = effMatch[1].trim();
+//     autoFormatEffectiveDate = formatDate(effMatch[1].trim());
+//     effectiveDateInput.value = autoFormatEffectiveDate;
 //   }
 
 //   if (tplMatch) {
@@ -1932,22 +1960,22 @@ const formatDate = (dateString) => {
 //   return nameField.innerText.trim();
 // }
 
-/*--------- Extract dates to get physical exam eligibility ---------*/
-extractDOBandDOS.addEventListener("click", async () => {
-  const clipboardText = await navigator.clipboard.readText();
+// /*--------- Extract dates to get physical exam eligibility ---------*/
+// extractDOBandDOS.addEventListener("click", async () => {
+//   const clipboardText = await navigator.clipboard.readText();
 
-  extractDOBandDOSfunc(clipboardText);
-});
+//   extractDOBandDOSfunc(clipboardText);
+// });
 
-function extractDOBandDOSfunc(text) {
-  const dobMatch = text.match(/DOB:\s*(\d{2}\/\d{2}\/\d{4})/);
-  const dosMatch = text.match(/DOS:\s*(\d{2}\/\d{2}\/\d{4})/);
+// function extractDOBandDOSfunc(text) {
+//   const dobMatch = text.match(/DOB:\s*(\d{2}\/\d{2}\/\d{4})/);
+//   const dosMatch = text.match(/DOS:\s*(\d{2}\/\d{2}\/\d{4})/);
 
-  const dob = dobMatch ? dobMatch[1] : "";
-  const dos = dosMatch ? dosMatch[1] : "";
+//   const dob = dobMatch ? dobMatch[1] : "";
+//   const dos = dosMatch ? dosMatch[1] : "";
 
-  dateBirthInput.value = dob;
-  dateOfBirthValue = dateBirthInput.value;
-  lastPhysicalServiceDate.value = dos;
-  lastPEValue = lastPhysicalServiceDate.value;
-}
+//   dateBirthInput.value = dob;
+//   dateOfBirthValue = dateBirthInput.value;
+//   lastPhysicalServiceDate.value = dos;
+//   lastPEValue = lastPhysicalServiceDate.value;
+// }
