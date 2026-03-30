@@ -1960,22 +1960,22 @@ const formatDate = (dateString) => {
 //   return nameField.innerText.trim();
 // }
 
-// /*--------- Extract dates to get physical exam eligibility ---------*/
-// extractDOBandDOS.addEventListener("click", async () => {
-//   const clipboardText = await navigator.clipboard.readText();
+/*--------- Extract dates to get physical exam eligibility ---------*/
+extractDOBandDOS.addEventListener("click", async () => {
+  const clipboardText = await navigator.clipboard.readText();
 
-//   extractDOBandDOSfunc(clipboardText);
-// });
+  extractDOBandDOSfunc(clipboardText);
+});
 
-// function extractDOBandDOSfunc(text) {
-//   const dobMatch = text.match(/DOB:\s*(\d{2}\/\d{2}\/\d{4})/);
-//   const dosMatch = text.match(/DOS:\s*(\d{2}\/\d{2}\/\d{4})/);
+function extractDOBandDOSfunc(text) {
+  const dobMatch = text.match(/DOB:\s*(\d{2}\/\d{2}\/\d{4})/);
+  const dosMatch = text.match(/DOS:\s*(\d{2}\/\d{2}\/\d{4})/);
 
-//   const dob = dobMatch ? dobMatch[1] : "";
-//   const dos = dosMatch ? dosMatch[1] : "";
+  const dob = dobMatch ? dobMatch[1] : "";
+  const dos = dosMatch ? dosMatch[1] : "";
 
-//   dateBirthInput.value = dob;
-//   dateOfBirthValue = dateBirthInput.value;
-//   lastPhysicalServiceDate.value = dos;
-//   lastPEValue = lastPhysicalServiceDate.value;
-// }
+  dateBirthInput.value = dob;
+  dateOfBirthValue = dateBirthInput.value;
+  lastPhysicalServiceDate.value = dos;
+  lastPEValue = lastPhysicalServiceDate.value;
+}
