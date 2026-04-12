@@ -44,8 +44,7 @@ const newPatientCheckCheckBox = document.getElementById("autoEligible");
 // ahcccs input boxes
 const effectiveDateInput = document.getElementById("effectiveDate");
 const sickInput = document.getElementById("sick");
-const thirdPartyInput = document.getElementById("thirdParty");
-const medicareBoxInput = document.getElementById("medicareBox");
+const otherInsuranceInput = document.getElementById("otherInsurance");
 const spokeInput = document.getElementById("spoke");
 const pcpInput = document.getElementById("primaryCarePhysician");
 const mercyCareOptions = document.getElementById("mercyCare");
@@ -585,6 +584,7 @@ dateVerified.value = currentDate.toISOString().substring(0, 10);
 radioAHCCCS.addEventListener("change", () => {
   if (radioAHCCCS.checked) {
     cleanSlatePE();
+    goldKidneyClean();
     textBox.placeholder = "";
     newPatientCheckCheckBox.checked = false;
     newPatientCheckLabel.style.display = "block";
@@ -598,6 +598,7 @@ radioAHCCCS.addEventListener("change", () => {
 radioMedicare.addEventListener("change", () => {
   if (radioMedicare.checked) {
     cleanSlatePE();
+    goldKidneyClean();
     extractDOBandDOS.style.display = "none";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "none";
@@ -644,6 +645,7 @@ radioMedicareReplacement.addEventListener("change", () => {
 radioCommerical.addEventListener("change", () => {
   if (radioCommerical.checked) {
     cleanSlatePE();
+    goldKidneyClean();
     textBox.placeholder = "";
     extractDOBandDOS.style.display = "inline-block";
     newPatientCheckCheckBox.checked = false;
@@ -666,17 +668,21 @@ goldKidneyCheckbox.addEventListener("change", () => {
     sickInputThree.classList.add("greyedOut");
     pcpInputThree.classList.add("greyedOut");
   } else {
-    contractedInputThree.value = "";
-    sickInputThree.value = "";
-    pcpInputThree.value = "";
-    contractedInputThree.readOnly = false;
-    sickInputThree.readOnly = false;
-    pcpInputThree.readOnly = false;
-    contractedInputThree.classList.remove("greyedOut");
-    sickInputThree.classList.remove("greyedOut");
-    pcpInputThree.classList.remove("greyedOut");
+    goldKidneyClean();
   }
 });
+
+function goldKidneyClean() {
+  contractedInputThree.value = "";
+  sickInputThree.value = "";
+  pcpInputThree.value = "";
+  contractedInputThree.readOnly = false;
+  sickInputThree.readOnly = false;
+  pcpInputThree.readOnly = false;
+  contractedInputThree.classList.remove("greyedOut");
+  sickInputThree.classList.remove("greyedOut");
+  pcpInputThree.classList.remove("greyedOut");
+}
 
 const monthlyNeededBenis = document.querySelectorAll(".sameMonthActive");
 const noneNeededBenis = document.querySelectorAll(".sameMonthNotNeeded");
@@ -706,6 +712,22 @@ monthlyBenefitsCheckBox.addEventListener("change", () => {
 
 for (let i = 0; i < verificationAndPE.length; i++) {
   verificationAndPE[i].addEventListener("click", () => {
+    if (otherInsuranceInput.value === "CHECK MANUALLY") {
+      otherInsuranceInput.style.backgroundColor = "red";
+      setTimeout(() => {
+        otherInsuranceInput.style.backgroundColor = "";
+      }, 1000);
+
+      return (textBoxes[1].value = "Check manually!");
+    }
+
+    if (pcpInput.value === "CHANGE") {
+      pcpInput.style.backgroundColor = "purple";
+      setTimeout(() => {
+        pcpInput.style.backgroundColor = "";
+      }, 1000);
+    }
+
     if (
       verificationAndPE[i] === verificationAndPE[0] ||
       verificationAndPE[i] === verificationAndPE[1]
@@ -826,6 +848,15 @@ for (let i = 0; i < submitButton.length; i++) {
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
+      if (otherInsuranceInput.value === "CHECK MANUALLY") {
+        otherInsuranceInput.style.backgroundColor = "red";
+        setTimeout(() => {
+          otherInsuranceInput.style.backgroundColor = "";
+        }, 1000);
+
+        return (textBoxes[1].value = "Check manually!");
+      }
+
       if (ahcccsInputBoxes.checked) {
         AHCCCSVerification();
       } else if (medicareInputBoxes.checked) {
@@ -838,6 +869,13 @@ for (let i = 0; i < submitButton.length; i++) {
         textBoxes[1].value = "";
         textBoxes[1].style.color = "red";
         textBoxes[1].value = "Please choose an insurance type.";
+      }
+
+      if (pcpInput.value === "CHANGE") {
+        pcpInput.style.backgroundColor = "purple";
+        setTimeout(() => {
+          pcpInput.style.backgroundColor = "";
+        }, 1000);
       }
 
       textBoxes[i].select();
@@ -876,6 +914,7 @@ for (let i = 0; i < resetButtons.length; i++) {
     resetButtons[i].addEventListener("click", () => {
       textBoxes[0].value = "";
       textBoxes[1].value = "";
+      otherInsuranceInput.style.backgroundColor = "";
       let inputs = [
         effectiveDateInput.value,
         effectiveDateInputTwo.value,
@@ -902,8 +941,7 @@ const originalValues = {
   // ahcccs input boxes
   effectiveDate: effectiveDateInput.value,
   sick: sickInput.value,
-  thirdParty: thirdPartyInput.value,
-  medicareBox: medicareBoxInput.value,
+  otherInsuranceInput: otherInsuranceInput.value,
   spoke: spokeInput.value,
   primaryCarePhysician: pcpInput.value,
   rateGroup: rateGroupInput.value,
@@ -958,9 +996,8 @@ const originalValues = {
 function resetInputValues() {
   // Reset ahcccs input boxes
   effectiveDateInput.value = originalValues.effectiveDate;
+  otherInsuranceInput.value = originalValues.otherInsuranceInput;
   sickInput.value = originalValues.sick;
-  thirdPartyInput.value = originalValues.thirdParty;
-  medicareBoxInput.value = originalValues.medicareBox;
   spokeInput.value = originalValues.spoke;
   pcpInput.value = originalValues.primaryCarePhysician;
   rateGroupInput.value = originalValues.rateGroup;
@@ -1017,8 +1054,7 @@ function resetInputValues() {
 const previousValuesEntered = {
   currentEffectiveDateInput: effectiveDateInput.value,
   currentSickInput: sickInput.value,
-  currentThirdPartyInput: thirdPartyInput.value,
-  currentMedicareBoxInput: medicareBoxInput.value,
+  currentOtherInsuranceInput: otherInsuranceInput.value,
   currentSpokeInput: spokeInput.value,
   currentPcpInput: pcpInput.value,
   currentRateGroupInput: rateGroupInput.value,
@@ -1047,8 +1083,7 @@ const previousValuesEntered = {
   // Commercial input boxes
   currentEffectiveDateInput: effectiveDateInput.value,
   currentSickInput: sickInput.value,
-  currentThirdPartyInput: thirdPartyInput.value,
-  currentMedicareBoxInput: medicareBoxInput.value,
+  currentotherInsuranceInput: otherInsuranceInput.value,
   currentSpokeInput: spokeInput.value,
   currentPcpInput: pcpInput.value,
   currentRateGroupInput: rateGroupInput.value,
@@ -1104,8 +1139,6 @@ const getLastValuesEntered = () => {
   // medicaid Replacement input boxes
   previousValuesEntered.currentEffectiveDateInput = effectiveDateInput.value;
   previousValuesEntered.currentSickInput = sickInput.value;
-  previousValuesEntered.currentThirdPartyInput = thirdPartyInput.value;
-  previousValuesEntered.currentMedicareBoxInput = medicareBoxInput.value;
   previousValuesEntered.currentSpokeInput = spokeInput.value;
   previousValuesEntered.currentPcpInput = pcpInput.value;
   previousValuesEntered.currentRateGroupInput = rateGroupInput.value;
@@ -1169,8 +1202,7 @@ const getLastValuesEntered = () => {
 undoButton.addEventListener("click", function () {
   effectiveDateInput.value = previousValuesEntered.currentEffectiveDateInput;
   sickInput.value = previousValuesEntered.currentSickInput;
-  thirdPartyInput.value = previousValuesEntered.currentThirdPartyInput;
-  medicareBoxInput.value = previousValuesEntered.currentMedicareBoxInput;
+  otherInsuranceInput.value = previousValuesEntered.currentotherInsuranceInput;
   spokeInput.value = previousValuesEntered.currentSpokeInput;
   pcpInput.value = previousValuesEntered.currentPcpInput;
   rateGroupInput.value = previousValuesEntered.currentRateGroupInput;
@@ -1437,21 +1469,13 @@ const AHCCCSVerification = () => {
   if (mercyCareCheck.checked) {
     verifcationText = `${actualVerificationDateFormatted} ${
       getInitials.value
-    } EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
-      sickInput.value
-    }  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${
-      medicareBoxInput.value
-    }  | RATE GROUP: ${rateGroupInput.value.trim()} |  SPOKE: ${
+    } EFF: ${effectiveDateInput.value.trim()} |  SICK: ${sickInput.value}  | OTHER INS: ${otherInsuranceInput.value} | RATE GROUP: ${rateGroupInput.value.trim()} | SPOKE: ${
       spokeInput.value
     }  | PCP: ${pcpInput.value.trim()} `.toLocaleUpperCase();
   } else {
     verifcationText = `${actualVerificationDateFormatted} ${
       getInitials.value
-    } EFF: ${effectiveDateInput.value.trim()} |  SICK: ${
-      sickInput.value
-    }  | TPL: ${thirdPartyInput.value}  | MEDICARE: ${
-      medicareBoxInput.value
-    } |  SPOKE: ${
+    } EFF: ${effectiveDateInput.value.trim()} |  SICK: ${sickInput.value}  | OTHER INS: ${otherInsuranceInput.value} | SPOKE: ${
       spokeInput.value
     }  | PCP: ${pcpInput.value.trim()} `.toLocaleUpperCase();
   }
@@ -1808,157 +1832,108 @@ const formatDate = (dateString) => {
 
 // /*-------Paste Portal Data-------*/
 
-// const pastePortalButton = document.getElementById("pastePortalData");
+const pastePortalButton = document.getElementById("pastePortalData");
 
-// pastePortalButton.addEventListener("click", async () => {
-//   const text = await navigator.clipboard.readText();
+function formatData(parsed) {
+  const otherInsuranceValue =
+    parsed.otherPayer === "NONE" ? "NONE" : "CHECK MANUALLY";
 
-//   const effMatch = text.match(/EFF:\s*(.*)/);
-//   const tplMatch = text.match(/TPL:\s*(.*)/);
-//   const medicareMatch = text.match(/MEDICARE:\s*(.*)/);
-//   const pcpMatch = text.match(/PCP:\s*(.*)/);
+  function levenshtein(a, b) {
+    const matrix = [];
 
-//   if (effMatch) {
-//     autoFormatEffectiveDate = formatDate(effMatch[1].trim());
-//     effectiveDateInput.value = autoFormatEffectiveDate;
-//   }
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
-//   if (tplMatch) {
-//     thirdPartyInput.value = tplMatch[1].trim();
-//   }
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b[i - 1] === a[j - 1]) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1, // substitution
+            matrix[i][j - 1] + 1, // insertion
+            matrix[i - 1][j] + 1, // deletion
+          );
+        }
+      }
+    }
 
-//   if (medicareMatch) {
-//     medicareBoxInput.value = medicareMatch[1].trim();
-//   }
+    return matrix[b.length][a.length];
+  }
 
-//   if (pcpMatch) {
-//     pcpInput.value = pcpMatch[1].trim();
-//   }
-// });
+  function similarity(a, b) {
+    const distance = levenshtein(a, b);
+    const maxLength = Math.max(a.length, b.length);
+    return 1 - distance / maxLength;
+  }
 
-// const currentPage = window.location.href;
+  function normalize(name) {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z\s]/g, "")
+      .trim();
+  }
 
-// if (currentPage.includes("/cob")) {
-//   extractCOB();
-// } else {
-//   createButton();
-// }
+  const threshold = 0.75;
 
-// function createButton() {
-//   const btn = document.createElement("button");
-//   btn.innerText = "Copy Eligibility Data";
+  const isInClinic = currentProviders.some((provider) => {
+    const score = similarity(normalize(provider.name), normalize(parsed.pcp));
 
-//   btn.style.position = "fixed";
-//   btn.style.bottom = "20px";
-//   btn.style.right = "20px";
-//   btn.style.padding = "10px 16px";
-//   btn.style.background = "#2c7be5";
-//   btn.style.color = "white";
-//   btn.style.border = "none";
-//   btn.style.borderRadius = "6px";
-//   btn.style.cursor = "pointer";
-//   btn.style.zIndex = "9999";
+    return score >= threshold;
+  });
 
-//   btn.onclick = extractAndCopy;
+  let bestMatch = null;
+  let bestScore = 0;
 
-//   document.body.appendChild(btn);
-// }
+  currentProviders.forEach((provider) => {
+    const score = similarity(normalize(provider.name), normalize(parsed.pcp));
 
-// function extractAndCopy() {
-//   let data = {
-//     eff: "",
-//     tpl: "NONE",
-//     medicare: "NONE",
-//     pcp: "",
-//   };
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = provider;
+    }
+  });
 
-//   // EFF date (first cell under Start Date table)
-//   const tables = document.querySelectorAll("table");
+  console.log(bestMatch, bestScore);
 
-//   tables.forEach((table) => {
-//     if (
-//       table.innerText.includes("Start Date") &&
-//       table.innerText.includes("Product Name")
-//     ) {
-//       const firstCell = table.querySelector("tbody tr td");
+  const finalPCP = bestScore >= threshold ? parsed.pcp : "CHANGE";
 
-//       if (firstCell) {
-//         data.eff = firstCell.innerText.trim();
-//       }
-//     }
-//     localStorage.setItem("eligibilityData", JSON.stringify(data));
-//     const cobLink = document.querySelector('a[href*="/cob"]');
+  return {
+    effectiveDate: parsed.effectiveDate,
+    otherInsurance: otherInsuranceValue,
+    rateGroup: parsed.plan,
+    pcp: finalPCP,
+  };
+}
 
-//     if (cobLink) {
-//       window.open(cobLink.href, "_blank");
-//     }
-//   });
-// }
+function fillForm(data) {
+  effectiveDateInput.value = data.effectiveDate;
+  otherInsuranceInput.value = data.otherInsurance;
+  rateGroupInput.value = data.rateGroup;
+  pcpInput.value = data.pcp;
+}
 
-// // PCP detection
-// const pcpName = getPCPName();
+pastePortalButton.addEventListener("click", async () => {
+  const text = await navigator.clipboard.readText();
+  const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/);
+  const otherMatch = text.match(/other:\s*(.*)/);
+  const pcpMatch = text.match(/pcp:\s*([A-Z\s]+)/);
+  const planMatch = text.match(/plan:\s*(.*?)\s*type:/);
 
-// if (pcpName) {
-//   data.pcp = pcpName;
-// }
+  // Step 1: Parse text into object
+  const parsed = {
+    effectiveDate: effMatch ? formatDate(effMatch[1].trim()) : "",
+    otherPayer: otherMatch ? otherMatch[1].trim() : "",
+    pcp: pcpMatch ? pcpMatch[1].trim() : "",
+    plan: planMatch ? planMatch[1].trim() : "",
+  };
 
-// // COB detection
-// if (document.body.innerText.includes("We do not have any COB information")) {
-//   data.tpl = "NONE";
-//   data.medicare = "NONE";
-// }
+  // Step 2: Format data
+  const formatted = formatData(parsed);
 
-// const text = `EFF: ${data.eff}
-// TPL: ${data.tpl}
-// MEDICARE: ${data.medicare}
-// PCP: ${data.pcp}`;
-
-// function extractCOB() {
-//   let tpl = "NONE";
-//   let medicare = "NONE";
-
-//   const bodyText = document.body.innerText;
-
-//   if (bodyText.includes("Medicare")) {
-//     medicare = "YES";
-//   }
-
-//   if (bodyText.includes("TPL")) {
-//     tpl = "YES";
-//   }
-
-//   const stored = localStorage.getItem("eligibilityData");
-
-//   let data = {
-//     eff: "",
-//     pcp: "",
-//   };
-
-//   if (stored) {
-//     data = JSON.parse(stored);
-//   }
-
-//   const text = `EFF: ${data.eff}
-// TPL: ${tpl}
-// MEDICARE: ${medicare}
-// PCP: ${data.pcp}`;
-
-//   navigator.clipboard.writeText(text);
-
-//   alert("Eligibility data copied!");
-// }
-
-// function getPCPName() {
-//   const pcpDiv = document.querySelector("#pcpInformationDiv");
-
-//   if (!pcpDiv) return null;
-
-//   const nameField = pcpDiv.querySelector(".info-horizontal span.info");
-
-//   if (!nameField) return null;
-
-//   return nameField.innerText.trim();
-// }
+  // Step 3: Fill form
+  fillForm(formatted);
+});
 
 /*--------- Extract dates to get physical exam eligibility ---------*/
 extractDOBandDOS.addEventListener("click", async () => {

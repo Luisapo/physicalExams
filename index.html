@@ -308,14 +308,13 @@
                             <div>
                                 <label for="Sick:">SICK:</label><br>
                                 <input type="text" name="sick" id="sick" value="0.00">
-                            </div>
+                            </div>                            
                             <div>
-                                <label for="thirdParty">COMMERCIAL:</label>
-                                <input type="text" name="thirdParty" id="thirdParty" value="NONE">
-                            </div>
-                            <div>
-                                <label for="medicareBox">PART-B/ADVANTAGE: </label>
-                                <input type="text" name="medicareBox" id="medicareBox" value="NONE">
+                                <label for="otherInsurance">OTHER INSURANCE: </label>
+                                <input list="options-list" type="text" name="otherInsurance" id="otherInsurance">
+                                <datalist id="options-list">
+                                    <option value="NONE"></option>
+                                </datalist>
                             </div>
                             <div id="mercyCarelabel">
                                 <label for="mercyCareAdditional">RATE GROUP:</label>
@@ -600,7 +599,8 @@
                 <div class="buttons">
                     <div class="buttons-left">
                         <button class="submit">Submit</button>
-                        <!-- <button id="pastePortalData">Paste Portal Data</button> -->
+                        
+                        <button id="pastePortalData">Paste Portal Data</button>
                         <button class="copyBothTextBoxes">Verification+PE</button>
                         
                     </div>
@@ -711,7 +711,7 @@
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="js.js"></script>
 </body>
 </html>
