@@ -201,8 +201,6 @@ textarea {
 }
 
 #pastePortalData {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
   background-color: #eae0c2;
   border-radius: 3px;
   border: 1px solid #333029;
@@ -213,7 +211,20 @@ textarea {
   font-size: 13px;
   padding: 6px 10px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #ffffff;
+}
+
+#otherInsNone {
+  background-color: #24ca9b;
+  border-radius: 3px;
+  border: 1px solid #333029;
+  display: inline-block;
+  cursor: pointer;
+  color: #505739;
+  font-family: Arial;
+  font-size: 10px;
+  padding: 1px 1px;
+  text-decoration: none;
+  margin-bottom: 2px;
 }
 
 .copyButton {

@@ -53,6 +53,7 @@ const mercyCarelabel = document.getElementById("mercyCarelabel");
 const rateGroupInput = document.getElementById("mercyCareAdditional");
 const uhcTag = document.getElementById("uhcCommunity");
 const uhcCheckBox = document.getElementById("uhcCommunityPlan");
+const otherInsNoneButton = document.getElementById("otherInsNone");
 
 // medicare input boxes
 const effectiveDateInputTwo = document.getElementById("effectiveDate2");
@@ -135,6 +136,10 @@ cptChecker.addEventListener("input", function () {
   }
   this.value = input;
   dobString = this.value;
+});
+
+otherInsNoneButton.addEventListener("click", () => {
+  otherInsuranceInput.value = "NONE";
 });
 
 //-------------------Date Of birth Formatting--------------------//
