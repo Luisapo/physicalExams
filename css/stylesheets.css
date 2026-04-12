@@ -213,7 +213,43 @@ textarea {
   text-decoration: none;
 }
 
-#otherInsNone {
+#copayZero {
+  background-color: #4ba0ea;
+  border-radius: 3px;
+  border: 1px solid #333029;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 2px;
+  margin-right: 2px;
+  font-size: 15px;
+  padding: 1px 6px;
+}
+
+#copayThree {
+  background-color: #38c422;
+  border-radius: 3px;
+  border: 1px solid #333029;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 2px;
+  margin-right: 2px;
+  font-size: 15px;
+  padding: 1px 6px;
+  margin-bottom: 2px;
+}
+
+#copayFour {
+  background-color: #f09335;
+  border-radius: 3px;
+  border: 1px solid #333029;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 2px;
+  font-size: 15px;
+  padding: 1px 6px;
+}
+
+.otherInsNone {
   background-color: #24ca9b;
   border-radius: 3px;
   border: 1px solid #333029;

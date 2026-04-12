@@ -306,11 +306,11 @@
                                 <input type="text" name="effectiveDate" id="effectiveDate">
                             </div>
                             <div>
-                                <label for="Sick:">SICK:</label><br>
+                                <label for="Sick:">SICK:</label><button id="copayZero">0</button><button id="copayThree">3</button><button id="copayFour">4</button><br>
                                 <input type="text" name="sick" id="sick" value="0.00">
                             </div>                            
                             <div>
-                                <label for="otherInsurance">OTHER INS: <button id="otherInsNone">NONE</button></label> 
+                                <label for="otherInsurance">OTHER INS: <button class="otherInsNone">NONE</button></label> 
                                 <input list="options-list" type="text" name="otherInsurance" id="otherInsurance">
                                 <datalist id="options-list">
                                     <option value="NONE"></option>
@@ -398,7 +398,7 @@
                             <input type="text" name="ded3" id="ded3">
                         </div>
                         <div>
-                            <label for="otherIns3">COMMERCIAL:</label>
+                            <label for="otherIns3">COMMERCIAL:</label><button class="otherInsNone">NONE</button>
                             <input type="text" name="otherIns3" id="otherIns3">
                         </div>
                 

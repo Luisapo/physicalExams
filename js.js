@@ -53,7 +53,10 @@ const mercyCarelabel = document.getElementById("mercyCarelabel");
 const rateGroupInput = document.getElementById("mercyCareAdditional");
 const uhcTag = document.getElementById("uhcCommunity");
 const uhcCheckBox = document.getElementById("uhcCommunityPlan");
-const otherInsNoneButton = document.getElementById("otherInsNone");
+const otherInsNoneButton = document.querySelectorAll(".otherInsNone");
+const zeroSickButton = document.getElementById("copayZero");
+const threeSickButton = document.getElementById("copayThree");
+const fourSickButton = document.getElementById("copayFour");
 
 // medicare input boxes
 const effectiveDateInputTwo = document.getElementById("effectiveDate2");
@@ -69,7 +72,7 @@ const uhcDualCheckBox = document.getElementById("uhcDualplan");
 const goldKidneyLabel = document.getElementById("goldKidney");
 const goldKidneyCheckbox = document.getElementById("goldKidneySelection");
 
-// medicare input boxes
+// medicare advantage input boxes
 const contractedInputThree = document.getElementById("contracted3");
 const effectiveDateInputThree = document.getElementById("effectiveDate3");
 const planInputThree = document.getElementById("plan3");
@@ -138,8 +141,24 @@ cptChecker.addEventListener("input", function () {
   dobString = this.value;
 });
 
-otherInsNoneButton.addEventListener("click", () => {
+otherInsNoneButton[0].addEventListener("click", () => {
   otherInsuranceInput.value = "NONE";
+});
+
+otherInsNoneButton[1].addEventListener("click", () => {
+  otherInsThree.value = "NONE";
+});
+
+zeroSickButton.addEventListener("click", () => {
+  sickInput.value = "0.00";
+});
+
+threeSickButton.addEventListener("click", () => {
+  sickInput.value = "3.40";
+});
+
+fourSickButton.addEventListener("click", () => {
+  sickInput.value = "4.00";
 });
 
 //-------------------Date Of birth Formatting--------------------//
@@ -674,6 +693,16 @@ goldKidneyCheckbox.addEventListener("change", () => {
     pcpInputThree.classList.add("greyedOut");
   } else {
     goldKidneyClean();
+  }
+});
+
+uhcDualCheckBox.addEventListener("change", () => {
+  if (uhcDualCheckBox.checked) {
+    sickInputThree.value = "80/20 after ded";
+    groupInputThree.value = "AZMCARE";
+  } else {
+    sickInputThree.value = "";
+    groupInputThree.value = "";
   }
 });
 
@@ -1908,22 +1937,35 @@ function formatData(parsed) {
     otherInsurance: otherInsuranceValue,
     rateGroup: parsed.plan,
     pcp: finalPCP,
+    deductible: parsed.deductible,
+    group: parsed.group,
   };
 }
 
 function fillForm(data) {
-  effectiveDateInput.value = data.effectiveDate;
-  otherInsuranceInput.value = data.otherInsurance;
-  rateGroupInput.value = data.rateGroup;
-  pcpInput.value = data.pcp;
+  console.log(data);
+  if (ahcccsInputBoxes.checked) {
+    effectiveDateInput.value = data.effectiveDate;
+    otherInsuranceInput.value = data.otherInsurance;
+    rateGroupInput.value = data.group;
+    pcpInput.value = data.pcp;
+  } else if (replacementInputBoxes.checked) {
+    effectiveDateInputThree.value = data.effectiveDate;
+    otherInsThree.value = data.otherInsurance;
+    planInputThree.value = data.group;
+    pcpInputThree.value = data.pcp;
+    dedinputThree.value = data.deductible;
+  }
 }
 
 pastePortalButton.addEventListener("click", async () => {
   const text = await navigator.clipboard.readText();
-  const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/);
-  const otherMatch = text.match(/other:\s*(.*)/);
-  const pcpMatch = text.match(/pcp:\s*([A-Z\s]+)/);
-  const planMatch = text.match(/plan:\s*(.*?)\s*type:/);
+  const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
+  const otherMatch = text.match(/other:\s*(.*?)\s*(?:\n|$)/i);
+  const pcpMatch = text.match(/pcp:\s*(.*?)\s*(?:\n|$)/i);
+  const planMatch = text.match(/plan:\s*(.*?)\s*type:/i);
+  const deductibleMatch = text.match(/deductible:\s*(.*?)\s*group name:/i);
+  const groupMatch = text.match(/group name:\s*(.*?)\s*(?:plan:|$)/i);
 
   // Step 1: Parse text into object
   const parsed = {
@@ -1931,6 +1973,8 @@ pastePortalButton.addEventListener("click", async () => {
     otherPayer: otherMatch ? otherMatch[1].trim() : "",
     pcp: pcpMatch ? pcpMatch[1].trim() : "",
     plan: planMatch ? planMatch[1].trim() : "",
+    deductible: deductibleMatch ? deductibleMatch[1].trim() : "",
+    group: groupMatch ? groupMatch[1].trim() : "",
   };
 
   // Step 2: Format data
