@@ -1935,7 +1935,7 @@ function formatData(parsed) {
   return {
     effectiveDate: parsed.effectiveDate,
     otherInsurance: otherInsuranceValue,
-    rateGroup: parsed.plan,
+    plan: parsed.plan,
     pcp: finalPCP,
     deductible: parsed.deductible,
     group: parsed.group,
@@ -1947,7 +1947,7 @@ function fillForm(data) {
   if (ahcccsInputBoxes.checked) {
     effectiveDateInput.value = data.effectiveDate;
     otherInsuranceInput.value = data.otherInsurance;
-    rateGroupInput.value = data.group;
+    rateGroupInput.value = data.plan;
     pcpInput.value = data.pcp;
   } else if (replacementInputBoxes.checked) {
     effectiveDateInputThree.value = data.effectiveDate;
