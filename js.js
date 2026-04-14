@@ -1939,6 +1939,8 @@ function formatData(parsed) {
     pcp: finalPCP,
     deductible: parsed.deductible,
     group: parsed.group,
+    groupNumber: parsed.groupNumber,
+    sickAmount: parsed.sickAmount,
   };
 }
 
@@ -1955,6 +1957,8 @@ function fillForm(data) {
     planInputThree.value = data.group;
     pcpInputThree.value = data.pcp;
     dedinputThree.value = data.deductible;
+    groupInputThree.value = data.groupNumber;
+    sickInputThree.value = data.sickAmount;
   }
 }
 
@@ -1966,6 +1970,10 @@ pastePortalButton.addEventListener("click", async () => {
   const planMatch = text.match(/plan:\s*(.*?)\s*type:/i);
   const deductibleMatch = text.match(/deductible:\s*(.*?)\s*group name:/i);
   const groupMatch = text.match(/group name:\s*(.*?)\s*(?:plan:|$)/i);
+  const groupNumberMatch = text.match(
+    /group number:\s*(.*?)\s*(?:deductible:|$)/i,
+  );
+  const sickMatch = text.match(/sick amount:\s*(.*?)\s*(?:group number:|$)/i);
 
   // Step 1: Parse text into object
   const parsed = {
@@ -1975,6 +1983,8 @@ pastePortalButton.addEventListener("click", async () => {
     plan: planMatch ? planMatch[1].trim() : "",
     deductible: deductibleMatch ? deductibleMatch[1].trim() : "",
     group: groupMatch ? groupMatch[1].trim() : "",
+    groupNumber: groupNumberMatch ? groupNumberMatch[1].trim() : "",
+    sickAmount: sickMatch ? sickMatch[1].trim() : "",
   };
 
   // Step 2: Format data
