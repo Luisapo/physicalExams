@@ -1802,6 +1802,8 @@ const currentProviders = [
   { name: "Julia Nieto", contracted: "YES" },
   { name: "Maria Del Carmen Castillo", contracted: "YES" },
   { name: "Karin Montiel Lopez", contracted: "YES" },
+  { name: "Kassandra Barron GUzman", contracted: "YES" },
+  { name: "Kimberly Mendoza", contracted: "YES" },
   { name: "Nina Celaya", contracted: "YES" },
   { name: "Patricia Perez", contracted: "YES" },
   { name: "Ricardo G Celaya", contracted: "YES" },
@@ -1825,6 +1827,8 @@ const currentProviders = [
   { name: "Alzuri", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Olivares", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
+  { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
+  { name: "Barron Guzman", contracted: false, seeUnder: "Christine Briones" },
 ];
 
 const datalist = document.getElementById("contracted-list");
