@@ -666,7 +666,6 @@ input:checked + .slider:before {
   background-color: #eae0c2;
   border-radius: 3px;
   border: 1px solid #333029;
-  display: none;
   cursor: pointer;
   color: #505739;
   font-family: Arial;

@@ -612,7 +612,7 @@ radioAHCCCS.addEventListener("change", () => {
     textBox.placeholder = "";
     newPatientCheckCheckBox.checked = false;
     newPatientCheckLabel.style.display = "block";
-    extractDOBandDOS.style.display = "inline-block";
+    extractDOBandDOS.textContent = "Extract DOB and DOS";
     medicareGcodes.style.display = "none";
     goldKidneyLabel.style.display = "none";
     goldKidneyCheckbox.checked = false;
@@ -623,7 +623,7 @@ radioMedicare.addEventListener("change", () => {
   if (radioMedicare.checked) {
     cleanSlatePE();
     goldKidneyClean();
-    extractDOBandDOS.style.display = "none";
+    extractDOBandDOS.textContent = "Extract DOS";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "none";
     goldKidneyCheckbox.checked = false;
@@ -646,7 +646,7 @@ radioMedicare.addEventListener("change", () => {
 radioMedicareReplacement.addEventListener("change", () => {
   if (radioMedicareReplacement.checked) {
     cleanSlatePE();
-    extractDOBandDOS.style.display = "none";
+    extractDOBandDOS.textContent = "Extract DOS";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "block";
     goldKidneyCheckbox.checked = false;
@@ -671,7 +671,7 @@ radioCommerical.addEventListener("change", () => {
     cleanSlatePE();
     goldKidneyClean();
     textBox.placeholder = "";
-    extractDOBandDOS.style.display = "inline-block";
+    extractDOBandDOS.textContent = "Extract DOB and DOS";
     newPatientCheckCheckBox.checked = false;
     newPatientCheckLabel.style.display = "block";
     goldKidneyLabel.style.display = "none";
@@ -1809,6 +1809,7 @@ const currentProviders = [
   { name: "Ricardo G Celaya", contracted: "YES" },
   { name: "Ricardo L Celaya", contracted: "YES" },
   { name: "Ruby E Fernandez", contracted: "YES" },
+  { name: "Russell Jackson", contracted: "YES" },
   { name: "Sam F Shumway", contracted: "YES" },
   { name: "Sandy Morales", contracted: "YES" },
   { name: "Seth Gillespie", contracted: "YES" },
@@ -2012,8 +2013,13 @@ function extractDOBandDOSfunc(text) {
   const dob = dobMatch ? dobMatch[1] : "";
   const dos = dosMatch ? dosMatch[1] : "";
 
-  dateBirthInput.value = dob;
-  dateOfBirthValue = dateBirthInput.value;
-  lastPhysicalServiceDate.value = dos;
-  lastPEValue = lastPhysicalServiceDate.value;
+  if (radioAHCCCS.checked || radioCommerical.checked) {
+    dateBirthInput.value = dob;
+    dateOfBirthValue = dateBirthInput.value;
+    lastPhysicalServiceDate.value = dos;
+    lastPEValue = lastPhysicalServiceDate.value;
+  } else {
+    lastPhysicalServiceDate.value = dos;
+    lastPEValue = lastPhysicalServiceDate.value;
+  }
 }
