@@ -1804,7 +1804,7 @@ const currentProviders = [
   { name: "Flor N Arellano Garcia", contracted: "YES" },
   { name: "Freddy Montenegro", contracted: "YES" },
   { name: "Gloria Estrada", contracted: "YES" },
-  { name: "Haidee Chavez Waymire", contracted: "YES" },
+  { name: "Haidee Waymire", contracted: "YES" },
   { name: "Idalgis Elias Rodriguez", contracted: "YES" },
   { name: "J Guadalupe Gallo Padilla", contracted: "YES" },
   { name: "Jacob Frietz", contracted: "YES" },
