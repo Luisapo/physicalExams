@@ -64,8 +64,7 @@ const coinsInput2 = document.getElementById("coins2");
 const dedInputTwo = document.getElementById("ded2");
 const dedMetInputTwo = document.getElementById("dedMet2");
 const ineligibleInput = document.getElementById("ineligiblePeriod");
-const hmoInput = document.getElementById("hmo");
-const mspInput = document.getElementById("msp");
+const otherInsTwoInput = document.getElementById("otherIns2");
 const spokeInputTwo = document.getElementById("spoke2");
 const uhcDualCheck = document.getElementById("uhcDual");
 const uhcDualCheckBox = document.getElementById("uhcDualplan");
@@ -746,10 +745,20 @@ monthlyBenefitsCheckBox.addEventListener("change", () => {
 
 for (let i = 0; i < verificationAndPE.length; i++) {
   verificationAndPE[i].addEventListener("click", () => {
-    if (otherInsuranceInput.value === "CHECK MANUALLY") {
+    if (
+      otherInsuranceInput.value === "CHECK MANUALLY" ||
+      otherInsTwoInput.value === "CHECK MANUALLY" ||
+      otherInsThree.value === "CHECK MANUALLY"
+    ) {
       otherInsuranceInput.style.backgroundColor = "red";
+      otherInsTwoInput.style.backgroundColor = "red";
+      otherInsThree.style.backgroundColor = "red";
+
       setTimeout(() => {
         otherInsuranceInput.style.backgroundColor = "";
+        otherInsTwoInput.style.backgroundColor = "";
+        otherInsThree.style.backgroundColor = "";
+        otherIns4Input.style.backgroundColor = "";
       }, 1000);
 
       return (textBoxes[1].value = "Check manually!");
@@ -882,10 +891,19 @@ for (let i = 0; i < submitButton.length; i++) {
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
-      if (otherInsuranceInput.value === "CHECK MANUALLY") {
+      if (
+        otherInsuranceInput.value === "CHECK MANUALLY" ||
+        otherInsTwoInput.value === "CHECK MANUALLY" ||
+        otherInsThree.value === "CHECK MANUALLY"
+      ) {
         otherInsuranceInput.style.backgroundColor = "red";
+        otherInsTwoInput.style.backgroundColor = "red";
+        otherInsThree.style.backgroundColor = "red";
+
         setTimeout(() => {
           otherInsuranceInput.style.backgroundColor = "";
+          otherInsTwoInput.style.backgroundColor = "";
+          otherInsThree.style.backgroundColor = "";
         }, 1000);
 
         return (textBoxes[1].value = "Check manually!");
@@ -986,8 +1004,7 @@ const originalValues = {
   ded2: dedInputTwo.value,
   dedMet2: dedMetInputTwo.value,
   ineligiblePeriod: ineligibleInput.value,
-  hmo: hmoInput.value,
-  msp: mspInput.value,
+  otherInsTwoInput: otherInsTwoInput.value,
   spokeTwo: spokeInputTwo.value,
 
   // medicare input boxes
@@ -1042,8 +1059,7 @@ function resetInputValues() {
   dedInputTwo.value = originalValues.ded2;
   dedMetInputTwo.value = originalValues.dedMet2;
   ineligibleInput.value = originalValues.ineligiblePeriod;
-  hmoInput.value = originalValues.hmo;
-  mspInput.value = originalValues.msp;
+  otherInsTwoInput.value = originalValues.otherInsTwoInput;
   spokeInputTwo.value = originalValues.spokeTwo;
 
   // Reset medicare input boxes
@@ -1099,8 +1115,7 @@ const previousValuesEntered = {
   currentDedInputTwo: dedInputTwo.value,
   currentDedMetInputTwo: dedMetInputTwo.value,
   currentIneligibleInput: ineligibleInput.value,
-  currentHmoInput: hmoInput.value,
-  currentMspInput: mspInput.value,
+  currentOtherInsInputTwo: otherInsTwoInput.value,
   currentSpokeInputTwo: spokeInputTwo.value,
 
   // Medicare Replacement input boxes
@@ -1128,8 +1143,7 @@ const previousValuesEntered = {
   currentDedInputTwo: dedInputTwo.value,
   currentDedMetInputTwo: dedMetInputTwo.value,
   currentIneligibleInput: ineligibleInput.value,
-  currentHmoInput: hmoInput.value,
-  currentMspInput: mspInput.value,
+  currentOtherInsInputTwo: otherInsTwoInput.value,
   currentSpokeInputTwo: spokeInputTwo.value,
 
   // Medicare Replacement input boxes
@@ -1184,8 +1198,7 @@ const getLastValuesEntered = () => {
   previousValuesEntered.currentDedInputTwo = dedInputTwo.value;
   previousValuesEntered.currentDedMetInputTwo = dedMetInputTwo.value;
   previousValuesEntered.currentIneligibleInput = ineligibleInput.value;
-  previousValuesEntered.currentHmoInput = hmoInput.value;
-  previousValuesEntered.currentMspInput = mspInput.value;
+  previousValuesEntered.currentOtherInsInputTwo = otherInsTwoInput.value;
   previousValuesEntered.currentSpokeInputTwo = spokeInputTwo.value;
 
   // Medicare Replacement input boxes
@@ -1248,8 +1261,7 @@ undoButton.addEventListener("click", function () {
   dedInputTwo.value = previousValuesEntered.currentDedInputTwo;
   dedMetInputTwo.value = previousValuesEntered.currentDedMetInputTwo;
   ineligibleInput.value = previousValuesEntered.currentIneligibleInput;
-  hmoInput.value = previousValuesEntered.currentHmoInput;
-  mspInput.value = previousValuesEntered.currentMspInput;
+  otherInsTwoInput.value = previousValuesEntered.currentOtherInsInputTwo;
   spokeInputTwo.value = previousValuesEntered.currentSpokeInputTwo;
 
   // Medicare Replacement input boxes
@@ -1282,8 +1294,7 @@ undoButton.addEventListener("click", function () {
   dedInputTwo.value = previousValuesEntered.currentDedInputTwo;
   dedMetInputTwo.value = previousValuesEntered.currentDedMetInputTwo;
   ineligibleInput.value = previousValuesEntered.currentIneligibleInput;
-  hmoInput.value = previousValuesEntered.currentHmoInput;
-  mspInput.value = previousValuesEntered.currentMspInput;
+  otherInsTwoInput.value = previousValuesEntered.currentOtherInsInputTwo;
   spokeInputTwo.value = previousValuesEntered.currentSpokeInputTwo;
 
   // Medicare Replacement input boxes
@@ -1544,7 +1555,7 @@ const medicareVerification = () => {
     coinsInput2.value
   }  | DED:  ${dedInputTwo.value.trim()}/ MET: ${metAmount} | INELIGIBLE PERIOD: ${
     ineligibleInput.value
-  } |  HMO: ${hmoInput.value} |  MSP: ${mspInput.value} |  SPOKE: ${
+  } | OTHER INS: ${otherInsTwoInput.value} | SPOKE: ${
     spokeInputTwo.value
   } `.toLocaleUpperCase();
 };
@@ -1946,11 +1957,12 @@ function formatData(parsed) {
     group: parsed.group,
     groupNumber: parsed.groupNumber,
     sickAmount: parsed.sickAmount,
+    deductiblePartBAmount: parsed.deductiblePartBAmount,
+    dedPartBRemainingAmount: parsed.dedPartBRemainingAmount,
   };
 }
 
 function fillForm(data) {
-  console.log(data);
   if (ahcccsInputBoxes.checked) {
     effectiveDateInput.value = data.effectiveDate;
     otherInsuranceInput.value = data.otherInsurance;
@@ -1964,6 +1976,13 @@ function fillForm(data) {
     dedinputThree.value = data.deductible;
     groupInputThree.value = data.groupNumber;
     sickInputThree.value = data.sickAmount;
+  } else if (medicareInputBoxes.checked) {
+    effectiveDateInputTwo.value = data.effectiveDate;
+    otherInsTwoInput.value = data.otherInsurance;
+    dedInputTwo.value = data.deductiblePartBAmount;
+    coinsInput2.value = data.sickAmount;
+    dedMetInputTwo.value = data.dedPartBRemainingAmount;
+    ineligibleInput.value = "NONE";
   }
 }
 
@@ -1979,7 +1998,7 @@ pastePortalButton.addEventListener("click", async () => {
     /group number:\s*(.*?)\s*(?:deductible:|$)/i,
   );
   const sickMatch = text.match(/sick amount:\s*(.*?)\s*(?:group number:|$)/i);
-
+  const medicareMatch = text.match(/medicareDed:\s*(\d+)\s*\/\s*MET\s*(\d+)/i);
   // Step 1: Parse text into object
   const parsed = {
     effectiveDate: effMatch ? formatDate(effMatch[1].trim()) : "",
@@ -1990,6 +2009,8 @@ pastePortalButton.addEventListener("click", async () => {
     group: groupMatch ? groupMatch[1].trim() : "",
     groupNumber: groupNumberMatch ? groupNumberMatch[1].trim() : "",
     sickAmount: sickMatch ? sickMatch[1].trim() : "",
+    deductiblePartBAmount: medicareMatch ? medicareMatch[1] : "",
+    dedPartBRemainingAmount: medicareMatch ? medicareMatch[2] : "",
   };
 
   // Step 2: Format data
