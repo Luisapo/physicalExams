@@ -1841,6 +1841,7 @@ const currentProviders = [
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Barron Guzman", contracted: false, seeUnder: "Christine Briones" },
+  { name: "NONE" },
 ];
 
 const datalist = document.getElementById("contracted-list");
@@ -1952,11 +1953,24 @@ function formatData(parsed) {
     effectiveDate: parsed.effectiveDate,
     otherInsurance: otherInsuranceValue,
     plan: parsed.plan,
+    type: parsed.type,
     pcp: finalPCP,
     deductible: parsed.deductible,
     group: parsed.group,
     groupNumber: parsed.groupNumber,
     sickAmount: parsed.sickAmount,
+    policyHolder: parsed.policyHolder,
+    poBox: parsed.poBox,
+    payerId: parsed.payerId,
+    hsaHra: parsed.hsaHra,
+    indDedAmount: parsed.indDedAmount,
+    famDedAmount: parsed.famDedAmount,
+    indDedMet: parsed.indDedMet,
+    famDedMet: parsed.famDedMet,
+    indOopAmount: parsed.indOopAmount,
+    famOopAmount: parsed.famOopAmount,
+    indOopMet: parsed.indOopMet,
+    famOopMet: parsed.famOopMet,
     deductiblePartBAmount: parsed.deductiblePartBAmount,
     dedPartBRemainingAmount: parsed.dedPartBRemainingAmount,
   };
@@ -1983,11 +1997,25 @@ function fillForm(data) {
     coinsInput2.value = data.sickAmount;
     dedMetInputTwo.value = data.dedPartBRemainingAmount;
     ineligibleInput.value = "NONE";
+  } else if (commericalInputBoxes.checked) {
+    effectiveDateInputFour.value = data.effectiveDate;
+    planTypeInputFour.value = data.type;
+    networkInputFour.value = data.plan;
+    primarycareCommericalInputFour.value = data.pcp;
+    groupInputFour.value = data.groupNumber;
+    otherIns4Input.value = data.otherInsurance;
+    deductibleInputFour.value = `IND ${data.indDedAmount} FAM ${data.famDedAmount}`;
+    dedMetInputFour.value = `IND ${data.indDedMet} FAM ${data.famDedMet}`;
+    oopInputFour.value = `IND ${data.indOopAmount} FAM ${data.famOopAmount}`;
+    oopMetInputFour.value = `IND ${data.indOopMet} FAM ${data.famOopMet}`;
+    policyHolderInputFour.value = data.policyHolder;
+    claimAddressInputFour.value = `PO Box ${data.poBox}`;
+    payorIDInputFour.value = data.payerId;
+    hsahraInputFour.value = data.hsaHra;
   }
 }
 
-pastePortalButton.addEventListener("click", async () => {
-  const text = await navigator.clipboard.readText();
+function handleStandardFormat(text) {
   const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
   const otherMatch = text.match(/other:\s*(.*?)\s*(?:\n|$)/i);
   const pcpMatch = text.match(/pcp:\s*(.*?)\s*(?:\n|$)/i);
@@ -1999,6 +2027,7 @@ pastePortalButton.addEventListener("click", async () => {
   );
   const sickMatch = text.match(/sick amount:\s*(.*?)\s*(?:group number:|$)/i);
   const medicareMatch = text.match(/medicareDed:\s*(\d+)\s*\/\s*MET\s*(\d+)/i);
+
   // Step 1: Parse text into object
   const parsed = {
     effectiveDate: effMatch ? formatDate(effMatch[1].trim()) : "",
@@ -2018,8 +2047,89 @@ pastePortalButton.addEventListener("click", async () => {
 
   // Step 3: Fill form
   fillForm(formatted);
-});
+}
 
+function extractAccumulators(line) {
+  const match = line.match(
+    /\$\$([\d,.]+)\s+OF\s+\$([\d,.]+)\s+MET,([\d,.]+),([\d,.]+)/,
+  );
+
+  if (!match) return null;
+
+  return {
+    met: parseFloat(match[1].replace(/,/g, "")),
+    total: parseFloat(match[2].replace(/,/g, "")),
+    metAlt: parseFloat(match[3].replace(/,/g, "")),
+    totalAlt: parseFloat(match[4].replace(/,/g, "")),
+  };
+}
+
+function handleUHCFormat(text) {
+  const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
+  const pcpMatch = text.match(/pcp:\s*(.*?)\s*other:/i);
+  const otherMatch = text.match(/other:\s*(.*?)\s*plan:/i);
+  const planMatch = text.match(/plan:\s*(.*?)\s*type:/i);
+  const typeMatch = text.match(/type:\s*(.*?)\s*policy holder:/i);
+  const policyHolderMatch = text.match(
+    /policy holder:\s*(.*?)\s*group number:/i,
+  );
+  const groupNumberMatch = text.match(/group number:\s*(.*?)\s*po box:/i);
+  const poBoxMatch = text.match(/po box:\s*(.*?)\s*payer id:/i);
+  const payerIdMatch = text.match(/payer id:\s*(.*?)\s*hsa or hra:/i);
+  const hsaHraMatch = text.match(
+    /hsa or hra:\s*(.*?)\s*individual deductible:/i,
+  );
+
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  const accumulatorLines = lines
+    .map((line) => extractAccumulators(line))
+    .filter(Boolean);
+
+  if (accumulatorLines.length < 3) {
+    console.warn("Not enough accumulator data found");
+    return;
+  }
+
+  const [indDed, indOop, famDed, famOop] = accumulatorLines;
+
+  const parsed = {
+    effectiveDate: effMatch ? formatDate(effMatch[1].trim()) : "",
+    pcp: pcpMatch ? pcpMatch[1].trim() : "",
+    otherPayer: otherMatch ? otherMatch[1].trim() : "",
+    plan: planMatch ? planMatch[1].trim() : "",
+    type: typeMatch ? typeMatch[1].trim() : "",
+    policyHolder: policyHolderMatch ? policyHolderMatch[1].trim() : "",
+    groupNumber: groupNumberMatch ? groupNumberMatch[1].trim() : "",
+    poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
+    payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
+    hsaHra: hsaHraMatch ? hsaHraMatch[1].trim() : "",
+    indDedAmount: indDed.total,
+    famDedAmount: famDed.total,
+    indDedMet: indDed.met,
+    famDedMet: famDed.met,
+    indOopAmount: indOop.total,
+    famOopAmount: famOop.total,
+    indOopMet: indOop.met,
+    famOopMet: famOop.met,
+  };
+
+  const formatted = formatData(parsed);
+  fillForm(formatted);
+}
+
+pastePortalButton.addEventListener("click", async () => {
+  const text = await navigator.clipboard.readText();
+
+  if (text.toLowerCase().includes("payer id:")) {
+    handleUHCFormat(text);
+  } else {
+    handleStandardFormat(text);
+  }
+});
 /*--------- Extract dates to get physical exam eligibility ---------*/
 extractDOBandDOS.addEventListener("click", async () => {
   const clipboardText = await navigator.clipboard.readText();
