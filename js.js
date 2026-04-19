@@ -2049,22 +2049,19 @@ function handleStandardFormat(text) {
   fillForm(formatted);
 }
 
-function extractAccumulators(line) {
-  const match = line.match(
-    /\$\$([\d,.]+)\s+OF\s+\$([\d,.]+)\s+MET,([\d,.]+),([\d,.]+)/,
-  );
-
-  if (!match) return null;
-
-  return {
-    met: parseFloat(match[1].replace(/,/g, "")),
-    total: parseFloat(match[2].replace(/,/g, "")),
-    metAlt: parseFloat(match[3].replace(/,/g, "")),
-    totalAlt: parseFloat(match[4].replace(/,/g, "")),
-  };
-}
-
 function handleUHCFormat(text) {
+  const moneyValuePattern = "\\$?\\s*([\\d,]+(?:\\.\\d+)?)|FULLY\\s+MET";
+
+  function extractLabeledValue(label) {
+    const match = text.match(
+      new RegExp(`${label}\\s*:\\s*(${moneyValuePattern})`, "i"),
+    );
+    if (!match) return "";
+    return match[1].toUpperCase() === "FULLY MET"
+      ? "FULLY MET"
+      : match[1].replace(/[$,\s]/g, "");
+  }
+
   const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
   const pcpMatch = text.match(/pcp:\s*(.*?)\s*other:/i);
   const otherMatch = text.match(/other:\s*(.*?)\s*plan:/i);
@@ -2080,21 +2077,14 @@ function handleUHCFormat(text) {
     /hsa or hra:\s*(.*?)\s*individual deductible:/i,
   );
 
-  const lines = text
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
-
-  const accumulatorLines = lines
-    .map((line) => extractAccumulators(line))
-    .filter(Boolean);
-
-  if (accumulatorLines.length < 3) {
-    console.warn("Not enough accumulator data found");
-    return;
-  }
-
-  const [indDed, indOop, famDed, famOop] = accumulatorLines;
+  const indDedAmount = extractLabeledValue("individual deductible");
+  const indDedMet = extractLabeledValue("indvidual ded met");
+  const indOopAmount = extractLabeledValue("individual oop max");
+  const indOopMet = extractLabeledValue("individual oop met");
+  const famDedAmount = extractLabeledValue("family deductible");
+  const famDedMet = extractLabeledValue("family ded met");
+  const famOopAmount = extractLabeledValue("family oop max");
+  const famOopMet = extractLabeledValue("family oop met");
 
   const parsed = {
     effectiveDate: effMatch ? formatDate(effMatch[1].trim()) : "",
@@ -2107,14 +2097,14 @@ function handleUHCFormat(text) {
     poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
     payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
     hsaHra: hsaHraMatch ? hsaHraMatch[1].trim() : "",
-    indDedAmount: indDed.total,
-    famDedAmount: famDed.total,
-    indDedMet: indDed.met,
-    famDedMet: famDed.met,
-    indOopAmount: indOop.total,
-    famOopAmount: famOop.total,
-    indOopMet: indOop.met,
-    famOopMet: famOop.met,
+    indDedAmount,
+    indDedMet,
+    indOopAmount,
+    indOopMet,
+    famDedAmount,
+    famDedMet,
+    famOopAmount,
+    famOopMet,
   };
 
   const formatted = formatData(parsed);
