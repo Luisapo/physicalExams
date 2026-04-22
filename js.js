@@ -1840,8 +1840,51 @@ const currentProviders = [
   { name: "Olivares", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
-  { name: "Barron Guzman", contracted: false, seeUnder: "Christine Briones" },
+  { name: "Barron Guzman", contracted: false, seeUnder: "Carlomagno Briones" },
   { name: "NONE" },
+];
+
+const providerNamesNoMiddleInitial = [
+  "Alex Guzman Garcia",
+  "Andrew White",
+  "Angeles Olivarez",
+  "Blair Ball",
+  "Carlomagno Briones",
+  "Christine Briones",
+  "Claudia Romo",
+  "Drisde Cruz Martinez",
+  "Elizabeth Lopez",
+  "Eric Gonzalez",
+  "Erick Torres",
+  "Flor Arellano Garcia",
+  "Freddy Montenegro",
+  "Gloria Estrada",
+  "Haidee Waymire",
+  "Idalgis Elias Rodriguez",
+  "J Guadalupe Gallo Padilla",
+  "Jacob Frietz",
+  "Javier Padilla",
+  "Jessica Cuevas",
+  "Julia Nieto",
+  "Maria Del Carmen Castillo",
+  "Karin Montiel Lopez",
+  "Kassandra Barron GUzman",
+  "Kimberly Mendoza",
+  "Nina Celaya",
+  "Patricia Perez",
+  "Ricardo Celaya",
+  "Ruby Fernandez",
+  "Russell Jackson",
+  "Sam Shumway",
+  "Sandy Morales",
+  "Seth Gillespie",
+  "Stephanie Rodriguez",
+  "Veronica Cristina Diaz Pulido",
+  "Walter Rios-Corujo",
+  "Xochitl Landeros",
+  "Yesenia Ochoa",
+  "Jorge Alzuri Hernandez",
+  "None",
 ];
 
 const datalist = document.getElementById("contracted-list");
@@ -1927,7 +1970,7 @@ function formatData(parsed) {
 
   const threshold = 0.75;
 
-  const isInClinic = currentProviders.some((provider) => {
+  const isInClinic = providerNamesNoMiddleInitial.some((provider) => {
     const score = similarity(normalize(provider.name), normalize(parsed.pcp));
 
     return score >= threshold;
@@ -1936,7 +1979,7 @@ function formatData(parsed) {
   let bestMatch = null;
   let bestScore = 0;
 
-  currentProviders.forEach((provider) => {
+  providerNamesNoMiddleInitial.forEach((provider) => {
     const score = similarity(normalize(provider.name), normalize(parsed.pcp));
 
     if (score > bestScore) {
