@@ -1971,7 +1971,7 @@ function formatData(parsed) {
   const threshold = 0.75;
 
   const isInClinic = providerNamesNoMiddleInitial.some((provider) => {
-    const score = similarity(normalize(provider.name), normalize(parsed.pcp));
+    const score = similarity(normalize(provider), normalize(parsed.pcp));
 
     return score >= threshold;
   });
@@ -1980,7 +1980,7 @@ function formatData(parsed) {
   let bestScore = 0;
 
   providerNamesNoMiddleInitial.forEach((provider) => {
-    const score = similarity(normalize(provider.name), normalize(parsed.pcp));
+    const score = similarity(normalize(provider), normalize(parsed.pcp));
 
     if (score > bestScore) {
       bestScore = score;
