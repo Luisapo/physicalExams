@@ -720,6 +720,38 @@ function goldKidneyClean() {
 const monthlyNeededBenis = document.querySelectorAll(".sameMonthActive");
 const noneNeededBenis = document.querySelectorAll(".sameMonthNotNeeded");
 
+const getSelectedOtherInsuranceInput = () => {
+  if (radioAHCCCS.checked) {
+    return otherInsuranceInput;
+  }
+  if (radioMedicare.checked) {
+    return otherInsTwoInput;
+  }
+  if (radioMedicareReplacement.checked) {
+    return otherInsThree;
+  }
+  if (radioCommerical.checked) {
+    return otherIns4Input;
+  }
+  return null;
+};
+
+const requiresManualCheck = (inputElement) => {
+  return (
+    inputElement && inputElement.value.trim().toUpperCase() === "CHECK MANUALLY"
+  );
+};
+
+const flashInput = (inputElement, color = "red") => {
+  if (!inputElement) {
+    return;
+  }
+  inputElement.style.backgroundColor = color;
+  setTimeout(() => {
+    inputElement.style.backgroundColor = "";
+  }, 1000);
+};
+
 monthlyBenefitsCheckBox.addEventListener("change", () => {
   if (monthlyBenefitsCheckBox.checked) {
     contractedInputFour.placeholder = "If left blank,it will not show";
@@ -745,22 +777,9 @@ monthlyBenefitsCheckBox.addEventListener("change", () => {
 
 for (let i = 0; i < verificationAndPE.length; i++) {
   verificationAndPE[i].addEventListener("click", () => {
-    if (
-      otherInsuranceInput.value === "CHECK MANUALLY" ||
-      otherInsTwoInput.value === "CHECK MANUALLY" ||
-      otherInsThree.value === "CHECK MANUALLY"
-    ) {
-      otherInsuranceInput.style.backgroundColor = "red";
-      otherInsTwoInput.style.backgroundColor = "red";
-      otherInsThree.style.backgroundColor = "red";
-
-      setTimeout(() => {
-        otherInsuranceInput.style.backgroundColor = "";
-        otherInsTwoInput.style.backgroundColor = "";
-        otherInsThree.style.backgroundColor = "";
-        otherIns4Input.style.backgroundColor = "";
-      }, 1000);
-
+    const selectedOtherInsuranceInput = getSelectedOtherInsuranceInput();
+    if (requiresManualCheck(selectedOtherInsuranceInput)) {
+      flashInput(selectedOtherInsuranceInput);
       return (textBoxes[1].value = "Check manually!");
     }
 
@@ -891,21 +910,9 @@ for (let i = 0; i < submitButton.length; i++) {
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
-      if (
-        otherInsuranceInput.value === "CHECK MANUALLY" ||
-        otherInsTwoInput.value === "CHECK MANUALLY" ||
-        otherInsThree.value === "CHECK MANUALLY"
-      ) {
-        otherInsuranceInput.style.backgroundColor = "red";
-        otherInsTwoInput.style.backgroundColor = "red";
-        otherInsThree.style.backgroundColor = "red";
-
-        setTimeout(() => {
-          otherInsuranceInput.style.backgroundColor = "";
-          otherInsTwoInput.style.backgroundColor = "";
-          otherInsThree.style.backgroundColor = "";
-        }, 1000);
-
+      const selectedOtherInsuranceInput = getSelectedOtherInsuranceInput();
+      if (requiresManualCheck(selectedOtherInsuranceInput)) {
+        flashInput(selectedOtherInsuranceInput);
         return (textBoxes[1].value = "Check manually!");
       }
 
