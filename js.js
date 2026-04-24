@@ -2059,13 +2059,35 @@ function fillForm(data) {
     oopInputFour.value = `IND ${data.indOopAmount} FAM ${data.famOopAmount}`;
     oopMetInputFour.value = `IND ${data.indOopMet} FAM ${data.famOopMet}`;
     policyHolderInputFour.value = data.policyHolder;
-    claimAddressInputFour.value = `PO Box ${data.poBox}`;
+    claimAddressInputFour.value = data.poBox ? `PO Box ${data.poBox}` : "";
     payorIDInputFour.value = data.payerId;
     hsahraInputFour.value = data.hsaHra;
   }
 }
 
 function handleStandardFormat(text) {
+  const moneyValuePattern = "(?:\\$?\\s*[\\d,]+(?:\\.\\d+)?|FULLY\\s+MET)";
+
+  function extractLabeledValue(labels) {
+    const labelList = Array.isArray(labels) ? labels : [labels];
+
+    for (const label of labelList) {
+      const escapedLabel = label.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+      const match = text.match(
+        new RegExp(`${escapedLabel}\\s*:?\\s*(${moneyValuePattern})`, "i"),
+      );
+
+      if (match && match[1]) {
+        const value = match[1].trim();
+        return value.toUpperCase() === "FULLY MET"
+          ? "FULLY MET"
+          : value.replace(/[$,\s]/g, "");
+      }
+    }
+
+    return "";
+  }
+
   const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
   const otherMatch = text.match(/other:\s*(.*?)\s*(?:\n|$)/i);
   const pcpMatch = text.match(/pcp:\s*(.*?)\s*(?:\n|$)/i);
@@ -2077,6 +2099,26 @@ function handleStandardFormat(text) {
   );
   const sickMatch = text.match(/sick amount:\s*(.*?)\s*(?:group number:|$)/i);
   const medicareMatch = text.match(/medicareDed:\s*(\d+)\s*\/\s*MET\s*(\d+)/i);
+  const typeMatch = text.match(/type:\s*(.*?)\s*effective date:/i);
+  const policyHolderMatch = text.match(/relationship:\s*(.*?)\s*medicareDed:/i);
+  const hsaHraMatch = text.match(
+    /hsa or hra:\s*(.*?)\s*individual deductible:/i,
+  );
+
+  const indDedAmount = extractLabeledValue("individual deductible");
+  const indDedMet = extractLabeledValue([
+    "individual ded met",
+    "indvidual ded met",
+  ]);
+
+  const poBoxMatch = text.match(/po box:\s*(.*?)\s*payer id:/i);
+  const payerIdMatch = text.match(/payer id:\s*(.*?)\s*hsa or hra:/i);
+  const indOopAmount = extractLabeledValue("individual oop max");
+  const indOopMet = extractLabeledValue("individual oop met");
+  const famDedAmount = extractLabeledValue("family deductible");
+  const famDedMet = extractLabeledValue("family ded met");
+  const famOopAmount = extractLabeledValue("family oop max");
+  const famOopMet = extractLabeledValue("family oop met");
 
   // Step 1: Parse text into object
   const parsed = {
@@ -2090,6 +2132,19 @@ function handleStandardFormat(text) {
     sickAmount: sickMatch ? sickMatch[1].trim() : "",
     deductiblePartBAmount: medicareMatch ? medicareMatch[1] : "",
     dedPartBRemainingAmount: medicareMatch ? medicareMatch[2] : "",
+    type: typeMatch ? typeMatch[1].trim() : "",
+    policyHolder: policyHolderMatch ? policyHolderMatch[1].trim() : "",
+    indDedAmount,
+    indDedMet,
+    indOopAmount,
+    indOopMet,
+    famDedAmount,
+    famDedMet,
+    famOopAmount,
+    famOopMet,
+    hsaHra: hsaHraMatch ? hsaHraMatch[1].trim() : "",
+    poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
+    payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
   };
 
   // Step 2: Format data
