@@ -736,6 +736,22 @@ const getSelectedOtherInsuranceInput = () => {
   return null;
 };
 
+const getVerificationOtherInsuranceInput = () => {
+  if (ahcccsInputBoxes.checked) {
+    return otherInsuranceInput;
+  }
+  if (medicareInputBoxes.checked) {
+    return otherInsTwoInput;
+  }
+  if (replacementInputBoxes.checked) {
+    return otherInsThree;
+  }
+  if (commericalInputBoxes.checked) {
+    return otherIns4Input;
+  }
+  return getSelectedOtherInsuranceInput();
+};
+
 const requiresManualCheck = (inputElement) => {
   return (
     inputElement && inputElement.value.trim().toUpperCase() === "CHECK MANUALLY"
@@ -777,10 +793,14 @@ monthlyBenefitsCheckBox.addEventListener("change", () => {
 
 for (let i = 0; i < verificationAndPE.length; i++) {
   verificationAndPE[i].addEventListener("click", () => {
-    const selectedOtherInsuranceInput = getSelectedOtherInsuranceInput();
+    const selectedOtherInsuranceInput = getVerificationOtherInsuranceInput();
     if (requiresManualCheck(selectedOtherInsuranceInput)) {
       flashInput(selectedOtherInsuranceInput);
       return (textBoxes[1].value = "Check manually!");
+    }
+
+    if (textBoxes[1].value === "Check manually!") {
+      textBoxes[1].value = "";
     }
 
     if (pcpInput.value === "CHANGE") {
@@ -910,10 +930,14 @@ for (let i = 0; i < submitButton.length; i++) {
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
-      const selectedOtherInsuranceInput = getSelectedOtherInsuranceInput();
+      const selectedOtherInsuranceInput = getVerificationOtherInsuranceInput();
       if (requiresManualCheck(selectedOtherInsuranceInput)) {
         flashInput(selectedOtherInsuranceInput);
         return (textBoxes[1].value = "Check manually!");
+      }
+
+      if (textBoxes[1].value === "Check manually!") {
+        textBoxes[1].value = "";
       }
 
       if (ahcccsInputBoxes.checked) {
