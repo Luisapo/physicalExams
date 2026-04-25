@@ -1558,7 +1558,6 @@ const AHCCCSVerification = () => {
 
   if (uhcCheckBox.checked) {
     verifcationText = `${verifcationText} (COVID TEST NOT COVERED)`;
-    console.log("test");
   }
 
   textBoxes[1].value = verifcationText;
@@ -1822,6 +1821,7 @@ medicareGcodeButtons.forEach((radio) => {
 
 const currentProviders = [
   { name: "Alex Guzman Garcia", contracted: "YES" },
+  { name: "Aaron Jensen", contracted: "YES" },
   { name: "Andrew C. White", contracted: "YES" },
   { name: "Angeles Olivarez", contracted: "YES" },
   { name: "Blair Ball", contracted: "YES" },
@@ -1872,11 +1872,11 @@ const currentProviders = [
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Barron Guzman", contracted: false, seeUnder: "Carlomagno Briones" },
-  { name: "NONE" },
 ];
 
 const providerNamesNoMiddleInitial = [
   "Alex Guzman Garcia",
+  "Aaron Jensen",
   "Andrew White",
   "Angeles Olivarez",
   "Blair Ball",
@@ -1898,6 +1898,7 @@ const providerNamesNoMiddleInitial = [
   "Jessica Cuevas",
   "Julia Nieto",
   "Maria Del Carmen Castillo",
+  "Maria Castillo",
   "Karin Montiel Lopez",
   "Kassandra Barron GUzman",
   "Kimberly Mendoza",
@@ -1915,7 +1916,8 @@ const providerNamesNoMiddleInitial = [
   "Xochitl Landeros",
   "Yesenia Ochoa",
   "Jorge Alzuri Hernandez",
-  "None",
+  "NONE",
+  "CLINICA LA FAMILIA PC",
 ];
 
 const datalist = document.getElementById("contracted-list");
@@ -2019,9 +2021,14 @@ function formatData(parsed) {
     }
   });
 
-  console.log(bestMatch, bestScore);
+  let finalPCP = "";
+  const cleanedPCP = (parsed.pcp || "").trim().toUpperCase();
 
-  const finalPCP = bestScore >= threshold ? parsed.pcp : "CHANGE";
+  if (cleanedPCP === "") {
+    finalPCP = "";
+  } else {
+    finalPCP = bestScore >= threshold ? parsed.pcp : "CHANGE";
+  }
 
   return {
     effectiveDate: parsed.effectiveDate,
@@ -2114,7 +2121,7 @@ function handleStandardFormat(text) {
 
   const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
   const otherMatch = text.match(/other:\s*(.*?)\s*(?:\n|$)/i);
-  const pcpMatch = text.match(/pcp:\s*(.*?)\s*(?:\n|$)/i);
+  const pcpMatch = text.match(/pcp:\s*(.*?)\s*(?:other:|$)/i);
   const planMatch = text.match(/plan:\s*(.*?)\s*type:/i);
   const deductibleMatch = text.match(/deductible:\s*(.*?)\s*group name:/i);
   const groupMatch = text.match(/group name:\s*(.*?)\s*(?:plan:|$)/i);
