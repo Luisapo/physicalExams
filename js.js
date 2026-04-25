@@ -118,8 +118,144 @@ const acaExchangeStandardHealthCheckbox = document.getElementById(
 );
 const chatSection = document.querySelector(".chatQuestionsSection");
 const cptChecker = document.getElementById("dobForCPT");
+let rateGroupNotificationTimeout;
 
 let dobString = "";
+
+const showRateGroupNotification = (message) => {
+  let notification = document.getElementById("rate-group-notification");
+
+  if (!notification) {
+    notification = document.createElement("div");
+    notification.id = "rate-group-notification";
+    notification.className = "rate-group-notification";
+    document.body.appendChild(notification);
+  }
+
+  notification.textContent = message;
+  notification.classList.add("visible");
+
+  clearTimeout(rateGroupNotificationTimeout);
+  rateGroupNotificationTimeout = setTimeout(() => {
+    notification.classList.remove("visible");
+  }, 3500);
+};
+
+const notifyForRateGroup = () => {
+  const planValue = rateGroupInput.value.trim().toLowerCase();
+
+  if (planValue.includes("integrated")) {
+    showRateGroupNotification(
+      "Make sure it is added to ECW as MERCY CARE RBHA",
+    );
+  } else if (planValue.includes("dcs")) {
+    showRateGroupNotification(
+      "Make sure it is added to ECW as MERCY CARE DCS CHP",
+    );
+  }
+};
+
+const notifyForNavigate = () => {
+  const planValue = networkInputFour.value.trim().toLowerCase();
+
+  if (planValue.includes("navigate")) {
+    showRateGroupNotification(
+      "Make sure it is added to ECW as UHC Navigate and PCP is from Clinic or patient will be charged as Specialist.",
+    );
+  }
+};
+
+const normalizeNetworkName = (value) => {
+  return value.trim().replace(/\s+/g, " ").toLowerCase();
+};
+
+const applyImperialCommercialAutofill = () => {
+  const normalizedNetwork = normalizeNetworkName(networkInputFour.value);
+
+  const commonValues = {
+    theCOB: "not req",
+    payorID: "IEXAZ",
+    claimAddress: "P.O. Box 60567",
+    oopMet: "please ask pt",
+    group: "none",
+    otherIns: "none",
+    planType: "hmo",
+    immunizations: "covered at 100%",
+    pExams: "covered at 100%",
+    telehealth: "same as ov",
+    hsahra: "none",
+  };
+
+  const networkSpecificValues = {
+    "imperial standard silver 94% csr": {
+      sick: "0.00",
+      procedures: "75/25",
+      labs: "75/25",
+      oop: "ind 2200 fam 4400",
+      deductible: "0",
+      dedMet: "0",
+    },
+    "imperial standard silver 87% csr": {
+      sick: "20.00",
+      procedures: "70/30 after ded",
+      labs: "70/30 after ded",
+      oop: "ind 3300 fam 6600",
+      deductible: "ind 700 fam 1400",
+      dedMet: "please ask pt",
+    },
+    "imperial standard silver 73% csr": {
+      sick: "40.00",
+      procedures: "60/40 after ded",
+      labs: "60/40 after ded",
+      oop: "ind 7400 fam 14800",
+      deductible: "ind 3300 fam 6600",
+      dedMet: "please ask pt",
+    },
+    "imperial standard bronze off exchange": {
+      sick: "50.00",
+      procedures: "50/50 after ded",
+      labs: "50/50 after ded",
+      oop: "ind 10000 fam 20000",
+      deductible: "ind 7500 fam 15000",
+      dedMet: "please ask pt",
+    },
+    "imperial standard bronze on exchange": {
+      sick: "50.00",
+      procedures: "50/50 after ded",
+      labs: "50/50 after ded",
+      oop: "ind 10000 fam 20000",
+      deductible: "ind 7500 fam 15000",
+      dedMet: "please ask pt",
+    },
+  };
+
+  const selectedValues = networkSpecificValues[normalizedNetwork];
+  if (!selectedValues) {
+    return;
+  }
+
+  sickInputFour.value = selectedValues.sick;
+  proceduresInputFour.value = selectedValues.procedures;
+  labsInputFour.value = selectedValues.labs;
+  oopInputFour.value = selectedValues.oop;
+  deductibleInputFour.value = selectedValues.deductible;
+  dedMetInputFour.value = selectedValues.dedMet;
+
+  theCOB.value = commonValues.theCOB;
+  payorIDInputFour.value = commonValues.payorID;
+  claimAddressInputFour.value = commonValues.claimAddress;
+  oopMetInputFour.value = commonValues.oopMet;
+  groupInputFour.value = commonValues.group;
+  otherIns4Input.value = commonValues.otherIns;
+  planTypeInputFour.value = commonValues.planType;
+  immunizationsInputFour.value = commonValues.immunizations;
+  pExamsInputFour.value = commonValues.pExams;
+  telehealthInputFour.value = commonValues.telehealth;
+  hsahraInputFour.value = commonValues.hsahra;
+};
+
+networkInputFour.addEventListener("input", applyImperialCommercialAutofill);
+networkInputFour.addEventListener("blur", applyImperialCommercialAutofill);
 
 cptChecker.addEventListener("input", function () {
   let input = this.value;
@@ -879,6 +1015,8 @@ for (let i = 0; i < verificationAndPE.length; i++) {
       verificationAndPE[1].innerText = "Copied";
       verificationAndPE[1].style.color = "#ffffff";
       verificationAndPE[1].style.background = "#32936f";
+      notifyForRateGroup();
+      notifyForNavigate();
       setTimeout(() => {
         verificationAndPE[0].innerText = "Verifcation+PE";
         verificationAndPE[0].style.background =
@@ -927,6 +1065,9 @@ for (let i = 0; i < submitButton.length; i++) {
         textBox.style.color = "red";
         return (textBox.value = "Check dates!");
       }
+
+      notifyForRateGroup();
+      notifyForNavigate();
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
@@ -968,6 +1109,8 @@ for (let i = 0; i < submitButton.length; i++) {
       submitButton[1].innerText = "Copied";
       submitButton[1].style.color = "#ffffff";
       submitButton[1].style.background = "#32936f";
+      notifyForRateGroup();
+      notifyForNavigate();
       setTimeout(() => {
         submitButton[1].innerText = "Submit";
         submitButton[1].style.background =
