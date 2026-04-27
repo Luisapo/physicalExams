@@ -187,7 +187,7 @@ const applyImperialCommercialAutofill = () => {
   };
 
   const networkSpecificValues = {
-    "imperial standard silver 94% csr": {
+    "Imperial Standard Silver 94% AV": {
       sick: "0.00",
       procedures: "75/25",
       labs: "75/25",
