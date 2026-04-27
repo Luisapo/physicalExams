@@ -2034,6 +2034,7 @@ const providerNamesNoMiddleInitial = [
   "Freddy Montenegro",
   "Gloria Estrada",
   "Haidee Waymire",
+  "Haidee Chavez-Waymire",
   "Idalgis Elias Rodriguez",
   "J Guadalupe Gallo Padilla",
   "Jacob Frietz",
