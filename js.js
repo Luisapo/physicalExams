@@ -2028,6 +2028,7 @@ const providerNamesNoMiddleInitial = [
   "Claudia Romo",
   "Drisde Cruz Martinez",
   "Elizabeth Lopez",
+  "ELIZABETH LOPEZ MURRAY",
   "Eric Gonzalez",
   "Erick Torres",
   "Flor Arellano",
