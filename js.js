@@ -2015,6 +2015,7 @@ const currentProviders = [
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Barron Guzman", contracted: false, seeUnder: "Carlomagno Briones" },
+  { name: "Jensen", contracted: false, seeUnder: "Ricardo L Celaya" },
 ];
 
 const providerNamesNoMiddleInitial = [
