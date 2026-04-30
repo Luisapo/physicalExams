@@ -2238,7 +2238,6 @@ function fillForm(data) {
     policyHolderInputFour.value = data.policyHolder;
     claimAddressInputFour.value = data.poBox ? `PO Box ${data.poBox}` : "";
     payorIDInputFour.value = data.payerId;
-    hsahraInputFour.value = data.hsaHra;
   }
 }
 
