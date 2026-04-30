@@ -195,7 +195,7 @@ const applyImperialCommercialAutofill = () => {
       deductible: "0",
       dedMet: "0",
     },
-    "imperial standard silver 87% csr": {
+    "imperial standard silver 87% av": {
       sick: "20.00",
       procedures: "70/30 after ded",
       labs: "70/30 after ded",
@@ -203,7 +203,7 @@ const applyImperialCommercialAutofill = () => {
       deductible: "ind 700 fam 1400",
       dedMet: "please ask pt",
     },
-    "imperial standard silver 73% csr": {
+    "imperial standard silver 73% av": {
       sick: "40.00",
       procedures: "60/40 after ded",
       labs: "60/40 after ded",
@@ -2277,7 +2277,7 @@ function handleStandardFormat(text) {
   const sickMatch = text.match(/sick amount:\s*(.*?)\s*(?:group number:|$)/i);
   const medicareMatch = text.match(/medicareDed:\s*(\d+)\s*\/\s*MET\s*(\d+)/i);
   const typeMatch = text.match(/type:\s*(.*?)\s*effective date:/i);
-  const policyHolderMatch = text.match(/relationship:\s*(.*?)\s*medicareDed:/i);  
+  const policyHolderMatch = text.match(/relationship:\s*(.*?)\s*medicareDed:/i);
 
   const indDedAmount = extractLabeledValue("individual deductible");
   const indDedMet = extractLabeledValue([
@@ -2315,7 +2315,7 @@ function handleStandardFormat(text) {
     famDedAmount,
     famDedMet,
     famOopAmount,
-    famOopMet,    
+    famOopMet,
     poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
     payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
   };
@@ -2369,7 +2369,7 @@ function handleUHCFormat(text) {
     policyHolder: policyHolderMatch ? policyHolderMatch[1].trim() : "",
     groupNumber: groupNumberMatch ? groupNumberMatch[1].trim() : "",
     poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
-    payerId: payerIdMatch ? payerIdMatch[1].trim() : "",    
+    payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
     indDedAmount,
     indDedMet,
     indOopAmount,
