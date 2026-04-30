@@ -2277,10 +2277,7 @@ function handleStandardFormat(text) {
   const sickMatch = text.match(/sick amount:\s*(.*?)\s*(?:group number:|$)/i);
   const medicareMatch = text.match(/medicareDed:\s*(\d+)\s*\/\s*MET\s*(\d+)/i);
   const typeMatch = text.match(/type:\s*(.*?)\s*effective date:/i);
-  const policyHolderMatch = text.match(/relationship:\s*(.*?)\s*medicareDed:/i);
-  const hsaHraMatch = text.match(
-    /hsa or hra:\s*(.*?)\s*individual deductible:/i,
-  );
+  const policyHolderMatch = text.match(/relationship:\s*(.*?)\s*medicareDed:/i);  
 
   const indDedAmount = extractLabeledValue("individual deductible");
   const indDedMet = extractLabeledValue([
@@ -2318,8 +2315,7 @@ function handleStandardFormat(text) {
     famDedAmount,
     famDedMet,
     famOopAmount,
-    famOopMet,
-    hsaHra: hsaHraMatch ? hsaHraMatch[1].trim() : "",
+    famOopMet,    
     poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
     payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
   };
@@ -2355,10 +2351,6 @@ function handleUHCFormat(text) {
   const groupNumberMatch = text.match(/group number:\s*(.*?)\s*po box:/i);
   const poBoxMatch = text.match(/po box:\s*(.*?)\s*payer id:/i);
   const payerIdMatch = text.match(/payer id:\s*(.*?)\s*hsa or hra:/i);
-  const hsaHraMatch = text.match(
-    /hsa or hra:\s*(.*?)\s*individual deductible:/i,
-  );
-
   const indDedAmount = extractLabeledValue("individual deductible");
   const indDedMet = extractLabeledValue("indvidual ded met");
   const indOopAmount = extractLabeledValue("individual oop max");
@@ -2377,8 +2369,7 @@ function handleUHCFormat(text) {
     policyHolder: policyHolderMatch ? policyHolderMatch[1].trim() : "",
     groupNumber: groupNumberMatch ? groupNumberMatch[1].trim() : "",
     poBox: poBoxMatch ? poBoxMatch[1].trim() : "",
-    payerId: payerIdMatch ? payerIdMatch[1].trim() : "",
-    hsaHra: hsaHraMatch ? hsaHraMatch[1].trim() : "",
+    payerId: payerIdMatch ? payerIdMatch[1].trim() : "",    
     indDedAmount,
     indDedMet,
     indOopAmount,
