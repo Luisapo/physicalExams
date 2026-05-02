@@ -2033,6 +2033,7 @@ const providerNamesNoMiddleInitial = [
   "Eric Gonzalez",
   "Erick Torres",
   "Flor Arellano",
+  "Flor N Arellano Garcia",
   "Freddy Montenegro",
   "Gloria Estrada",
   "Haidee Waymire",
