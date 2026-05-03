@@ -284,6 +284,14 @@ otherInsNoneButton[1].addEventListener("click", () => {
   otherInsThree.value = "NONE";
 });
 
+otherInsNoneButton[2].addEventListener("click", () => {
+  primarycareCommericalInputFour.value = "NOT REQ";
+});
+
+otherInsNoneButton[3].addEventListener("click", () => {
+  otherIns4Input.value = "NONE";
+});
+
 zeroSickButton.addEventListener("click", () => {
   sickInput.value = "0.00";
 });
@@ -298,43 +306,55 @@ fourSickButton.addEventListener("click", () => {
 
 //-------------------Date Of birth Formatting--------------------//
 
-dateBirthInput.addEventListener("input", function () {
-  let input = this.value;
-  if (input.length > 30) {
-    // makes sure length does not exceed 10
-    this.value = input.substring(0, 10);
-    return;
-  }
+const formatDateInputWithCursor = (inputElement, onValueUpdate) => {
+  inputElement.addEventListener("input", function () {
+    const rawValue = this.value;
+    const cursorPosition = this.selectionStart ?? rawValue.length;
+    const digitsBeforeCursor = rawValue
+      .slice(0, cursorPosition)
+      .replace(/\D/g, "").length;
 
-  input = input.replace(/\s*\D\s*/g, ""); // Only allow numbers
+    const digitsOnly = rawValue.replace(/\D/g, "").slice(0, 8);
 
-  if (input.length > 1) {
-    input = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
-  } else if (input.length > 2) {
-    input = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
-  }
-  this.value = input;
-  dateOfBirthValue = this.value;
+    let formatted = digitsOnly;
+    if (digitsOnly.length > 4) {
+      formatted = `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2, 4)}/${digitsOnly.slice(4)}`;
+    } else if (digitsOnly.length > 2) {
+      formatted = `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2)}`;
+    }
+
+    this.value = formatted;
+
+    let seenDigits = 0;
+    let nextCursorPosition = formatted.length;
+
+    if (digitsBeforeCursor === 0) {
+      nextCursorPosition = 0;
+    } else {
+      for (let i = 0; i < formatted.length; i++) {
+        if (/\d/.test(formatted[i])) {
+          seenDigits++;
+        }
+        if (seenDigits >= digitsBeforeCursor) {
+          nextCursorPosition = i + 1;
+          break;
+        }
+      }
+    }
+
+    this.setSelectionRange(nextCursorPosition, nextCursorPosition);
+    onValueUpdate(this.value);
+  });
+};
+
+formatDateInputWithCursor(dateBirthInput, (value) => {
+  dateOfBirthValue = value;
 });
 
 //-------------------Last PE Done Formatting--------------------//
 
-lastPhysicalServiceDate.addEventListener("input", function () {
-  let input = this.value;
-  if (input.length > 30) {
-    this.value = input.substring(0, 10);
-    return;
-  }
-
-  input = input.replace(/\s*\D\s*/g, "");
-
-  if (input.length > 1) {
-    input = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
-  } else if (input.length > 2) {
-    input = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
-  }
-  this.value = input;
-  lastPEValue = this.value;
+formatDateInputWithCursor(lastPhysicalServiceDate, (value) => {
+  lastPEValue = value;
 });
 
 //-------------------Allows the box content to be completely selected--------------------//
@@ -1801,17 +1821,23 @@ const commercialVerificationText = () => {
   if (monthlyBenefitsCheckBox.checked) {
     textBoxes[1].value = parts.join(" | ").toLocaleUpperCase();
   } else {
+    const spokeText = spokeInputFour.value.trim();
+    const referenceText = referenceInputFour.value.trim();
+    const spokeAndRefParts = [];
+
+    if (spokeText.length > 0) {
+      spokeAndRefParts.push(`SPOKE: ${spokeText}`);
+    }
+    if (referenceText.length > 0) {
+      spokeAndRefParts.push(`REF: ${referenceText}`);
+    }
+
+    const spokeAndRefSection =
+      spokeAndRefParts.length > 0 ? ` | ${spokeAndRefParts.join(" | ")}` : "";
+
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
-    } CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()}  | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()}  | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()} | SPOKE: ${spokeInputFour.value.trim()} | REF: ${
-      referenceInputFour.value
-    } EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()} | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${
-      policyHolderInputFour.value
-    }  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${
-      otherIns4Input.value
-    }  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}  | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${
-      verifiedOnlineInputThree.value
-    } `.toLocaleUpperCase();
+    } CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()} | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()} | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()}${spokeAndRefSection} | EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()}     | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${otherIns4Input.value}  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}      | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `.toLocaleUpperCase();
   }
   if (acaExchangeStandardHealthCheckbox.checked) {
     textBoxes[1].value += " (COVID TEST NOT COVERED)";
