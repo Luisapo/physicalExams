@@ -310,7 +310,7 @@
                                 <input type="text" name="sick" id="sick" value="0.00">
                             </div>                            
                             <div>
-                                <label for="otherInsurance">OTHER INS: <button class="otherInsNone">NONE</button></label> 
+                                <label for="otherInsurance">OTHER INS: <button class="otherInsNone">NONE</button></label> <button class="clearOther">CLEAR</button></label> 
                                 <input list="options-list" type="text" name="otherInsurance" id="otherInsurance">
                                 <datalist id="options-list">
                                     <option value="UHC DUAL"></option>
@@ -326,7 +326,11 @@
                             </div>
                             <div>
                                 <label for="primaryCarePhysician">PCP:</label><br>
-                                <input type="text" name="pcp" id="primaryCarePhysician">
+                                <input type="text" name="pcp" id="primaryCarePhysician" list="pcp-list">
+                                   <datalist id="pcp-list">
+                                    <option value="CHANGE"></option>
+                                    <option value="NOT REQ"></option>
+                                </datalist>
                             </div>
 
                     </div>
@@ -354,7 +358,7 @@
                             <input type="text" name="ineligible" id="ineligiblePeriod">
                         </div>
                         <div>
-                            <label for="otherIns2">OTHER INS:</label>
+                            <label for="otherIns2">OTHER INS:</label>  <button class="otherInsNone">NONE</button></label> 
                             <input type="text" name="otherInsurance" id="otherIns2">
                         </div>
                         <div>
@@ -599,8 +603,7 @@
                         
                     </div>
                     <div class="buttons-right">
-                        <button class="reset">Clear All</button>
-                        <button id="undoButton">Get Last Info</button>
+                        <button class="reset">Clear All</button>                        
                     </div>
                 </div>
                 </fieldset>

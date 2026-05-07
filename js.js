@@ -8,7 +8,6 @@ nextDay.setDate(nextDay.getDate() + 1);
 const formattedNextDay = nextDay.toISOString().substring(0, 10);
 const submitButton = document.getElementsByClassName("submit");
 const extractDOBandDOS = document.getElementById("extractDOBandDOS");
-const undoButton = document.getElementById("undoButton");
 const verificationAndPE = document.getElementsByClassName("copyBothTextBoxes");
 let textBoxes = document.getElementsByClassName("output");
 const resetButtons = document.getElementsByClassName("reset");
@@ -41,6 +40,38 @@ const commericalInputBoxes = document.getElementById("verification4");
 const newPatientCheckLabel = document.getElementById("newPatient");
 const newPatientCheckCheckBox = document.getElementById("autoEligible");
 
+let isSyncingRadioPair = false;
+
+const triggerRadioChange = (radioInput) => {
+  if (!radioInput) {
+    return;
+  }
+
+  radioInput.checked = true;
+  radioInput.dispatchEvent(new Event("change", { bubbles: true }));
+};
+
+const syncRadioPair = (radioA, radioB) => {
+  if (!radioA || !radioB) {
+    return;
+  }
+
+  radioA.addEventListener("change", () => {
+    if (isSyncingRadioPair || !radioA.checked) {
+      return;
+    }
+
+    isSyncingRadioPair = true;
+    triggerRadioChange(radioB);
+    isSyncingRadioPair = false;
+  });
+};
+
+syncRadioPair(radioAHCCCS, ahcccsInputBoxes);
+syncRadioPair(radioMedicare, medicareInputBoxes);
+syncRadioPair(radioMedicareReplacement, replacementInputBoxes);
+syncRadioPair(radioCommerical, commericalInputBoxes);
+
 // ahcccs input boxes
 const effectiveDateInput = document.getElementById("effectiveDate");
 const sickInput = document.getElementById("sick");
@@ -54,6 +85,7 @@ const rateGroupInput = document.getElementById("mercyCareAdditional");
 const uhcTag = document.getElementById("uhcCommunity");
 const uhcCheckBox = document.getElementById("uhcCommunityPlan");
 const otherInsNoneButton = document.querySelectorAll(".otherInsNone");
+const clearOtherButton = document.querySelectorAll(".clearOther");
 const zeroSickButton = document.getElementById("copayZero");
 const threeSickButton = document.getElementById("copayThree");
 const fourSickButton = document.getElementById("copayFour");
@@ -276,20 +308,30 @@ cptChecker.addEventListener("input", function () {
   dobString = this.value;
 });
 
+//-------------------Other and none buttons--------------------//
+
 otherInsNoneButton[0].addEventListener("click", () => {
   otherInsuranceInput.value = "NONE";
 });
 
 otherInsNoneButton[1].addEventListener("click", () => {
-  otherInsThree.value = "NONE";
+  otherInsTwoInput.value = "NONE";
 });
 
 otherInsNoneButton[2].addEventListener("click", () => {
-  primarycareCommericalInputFour.value = "NOT REQ";
+  otherInsThree.value = "NONE";
 });
 
 otherInsNoneButton[3].addEventListener("click", () => {
+  primarycareCommericalInputFour.value = "NOT REQ";
+});
+
+otherInsNoneButton[4].addEventListener("click", () => {
   otherIns4Input.value = "NONE";
+});
+
+clearOtherButton[0].addEventListener("click", () => {
+  otherInsuranceInput.value = "";
 });
 
 zeroSickButton.addEventListener("click", () => {
@@ -304,7 +346,7 @@ fourSickButton.addEventListener("click", () => {
   sickInput.value = "4.00";
 });
 
-//-------------------Date Of birth Formatting--------------------//
+//-------------------Date Of birth formatting--------------------//
 
 const formatDateInputWithCursor = (inputElement, onValueUpdate) => {
   inputElement.addEventListener("input", function () {
@@ -1039,12 +1081,10 @@ for (let i = 0; i < verificationAndPE.length; i++) {
       notifyForNavigate();
       setTimeout(() => {
         verificationAndPE[0].innerText = "Verifcation+PE";
-        verificationAndPE[0].style.background =
-          "linear-gradient(to bottom, #ffec64 5%, #ffab23 100%)";
+        verificationAndPE[0].style.backgroundColor = "#8ed6b0";
         verificationAndPE[0].style.color = "#000000";
         verificationAndPE[1].innerText = "Verifcation+PE";
-        verificationAndPE[1].style.background =
-          "linear-gradient(to bottom, #ffec64 5%, #ffab23 100%)";
+        verificationAndPE[1].style.backgroundColor = "#8ed6b0";
         verificationAndPE[1].style.color = "#000000";
       }, 1000);
     }
@@ -1134,7 +1174,7 @@ for (let i = 0; i < submitButton.length; i++) {
       setTimeout(() => {
         submitButton[1].innerText = "Submit";
         submitButton[1].style.background =
-          "linear-gradient(to bottom, #7892c2 5%, #476e9e 100%)";
+          "linear-gradient(135deg, #4a90e2, #357abd)";
         submitButton[1].style.color = "#ffffff";
       }, 1000);
     }
@@ -1158,8 +1198,11 @@ for (let i = 0; i < resetButtons.length; i++) {
     });
   } else if (resetButtons[i] === resetButtons[1]) {
     resetButtons[i].addEventListener("click", () => {
+      goldKidneyCheckbox.checked = false;
+      goldKidneyClean();
       textBoxes[0].value = "";
       textBoxes[1].value = "";
+
       otherInsuranceInput.style.backgroundColor = "";
       let inputs = [
         effectiveDateInput.value,
@@ -1439,102 +1482,6 @@ const getLastValuesEntered = () => {
     claimAddressInputFour.value;
   previousValuesEntered.currentPayorIDInputFour = payorIDInputFour.value;
 };
-
-undoButton.addEventListener("click", function () {
-  effectiveDateInput.value = previousValuesEntered.currentEffectiveDateInput;
-  sickInput.value = previousValuesEntered.currentSickInput;
-  otherInsuranceInput.value = previousValuesEntered.currentotherInsuranceInput;
-  spokeInput.value = previousValuesEntered.currentSpokeInput;
-  pcpInput.value = previousValuesEntered.currentPcpInput;
-  rateGroupInput.value = previousValuesEntered.currentRateGroupInput;
-
-  // Medicare input boxes
-  effectiveDateInputTwo.value =
-    previousValuesEntered.currentEffectiveDateInputTwo;
-  coinsInput2.value = previousValuesEntered.currentCoinsInput2;
-  dedInputTwo.value = previousValuesEntered.currentDedInputTwo;
-  dedMetInputTwo.value = previousValuesEntered.currentDedMetInputTwo;
-  ineligibleInput.value = previousValuesEntered.currentIneligibleInput;
-  otherInsTwoInput.value = previousValuesEntered.currentOtherInsInputTwo;
-  spokeInputTwo.value = previousValuesEntered.currentSpokeInputTwo;
-
-  // Medicare Replacement input boxes
-  contractedInputThree.value =
-    previousValuesEntered.currentContractedInputThree;
-  effectiveDateInputThree.value =
-    previousValuesEntered.currentEffectiveDateInputThree;
-  planInputThree.value = previousValuesEntered.currentPlanInputThree;
-  groupInputThree.value = previousValuesEntered.currentGroupInputThree;
-  sickInputThree.value = previousValuesEntered.currentSickInputThree;
-  dedinputThree.value = previousValuesEntered.currentDedinputThree;
-  otherInsThree.value = previousValuesEntered.currentOtherInsThree;
-  verifiedOnlineInputThree.value =
-    previousValuesEntered.currentVerifiedOnlineInputThree;
-  pcpInputThree.value = previousValuesEntered.currentPcpInputThree;
-
-  // Commercial input boxes
-  effectiveDateInput.value = previousValuesEntered.currentEffectiveDateInput;
-  sickInput.value = previousValuesEntered.currentSickInput;
-  thirdPartyInput.value = previousValuesEntered.currentThirdPartyInput;
-  medicareBoxInput.value = previousValuesEntered.currentMedicareBoxInput;
-  spokeInput.value = previousValuesEntered.currentSpokeInput;
-  pcpInput.value = previousValuesEntered.currentPcpInput;
-  rateGroupInput.value = previousValuesEntered.currentRateGroupInput;
-
-  // Medicare input boxes
-  effectiveDateInputTwo.value =
-    previousValuesEntered.currentEffectiveDateInputTwo;
-  coinsInput2.value = previousValuesEntered.currentCoinsInput2;
-  dedInputTwo.value = previousValuesEntered.currentDedInputTwo;
-  dedMetInputTwo.value = previousValuesEntered.currentDedMetInputTwo;
-  ineligibleInput.value = previousValuesEntered.currentIneligibleInput;
-  otherInsTwoInput.value = previousValuesEntered.currentOtherInsInputTwo;
-  spokeInputTwo.value = previousValuesEntered.currentSpokeInputTwo;
-
-  // Medicare Replacement input boxes
-  contractedInputThree.value =
-    previousValuesEntered.currentContractedInputThree;
-  effectiveDateInputThree.value =
-    previousValuesEntered.currentEffectiveDateInputThree;
-  planInputThree.value = previousValuesEntered.currentPlanInputThree;
-  groupInputThree.value = previousValuesEntered.currentGroupInputThree;
-  sickInputThree.value = previousValuesEntered.currentSickInputThree;
-  dedinputThree.value = previousValuesEntered.currentDedinputThree;
-  otherInsThree.value = previousValuesEntered.currentOtherInsThree;
-  verifiedOnlineInputThree.value =
-    previousValuesEntered.currentVerifiedOnlineInputThree;
-  pcpInputThree.value = previousValuesEntered.currentPcpInputThree;
-
-  // Commercial input boxes
-  contractedInputFour.value = previousValuesEntered.currentContractedInputFour;
-  sickInputFour.value = previousValuesEntered.currentSickInputFour;
-  hsahraInputFour.value = previousValuesEntered.currentHsahraInputFour;
-  telehealthInputFour.value = previousValuesEntered.currentTelehealthInputFour;
-  pExamsInputFour.value = previousValuesEntered.currentPExamsInputFour;
-  proceduresInputFour.value = previousValuesEntered.currentProceduresInputFour;
-  labsInputFour.value = previousValuesEntered.currentLabsInputFour;
-  immunizationsInputFour.value =
-    previousValuesEntered.currentImmunizationsInputFour;
-  spokeInputFour.value = previousValuesEntered.currentSpokeInputFour;
-  referenceInputFour.value = previousValuesEntered.currentReferenceInputFour;
-  effectiveDateInputFour.value =
-    previousValuesEntered.currentEffectiveDateInputFour;
-  planTypeInputFour.value = previousValuesEntered.currentPlanTypeInputFour;
-  networkInputFour.value = previousValuesEntered.currentNetworkInputFour;
-  primarycareCommericalInputFour.value =
-    previousValuesEntered.currentPrimarycareCommericalInputFour;
-  otherIns4Input.value = previousValuesEntered.currentOtherIns4Input;
-  policyHolderInputFour.value =
-    previousValuesEntered.currentPolicyHolderInputFour;
-  groupInputFour.value = previousValuesEntered.currentGroupInputFour;
-  oopInputFour.value = previousValuesEntered.currentOopInputFour;
-  oopMetInputFour.value = previousValuesEntered.currentOopMetInputFour;
-  deductibleInputFour.value = previousValuesEntered.currentDeductibleInputFour;
-  dedMetInputFour.value = previousValuesEntered.currentDedMetInputFour;
-  claimAddressInputFour.value =
-    previousValuesEntered.currentClaimAddressInputFour;
-  payorIDInputFour.value = previousValuesEntered.currentPayorIDInputFour;
-});
 
 function getPreventiveCPT(dobString) {
   if (!dobString) return null;
@@ -2051,6 +1998,7 @@ const providerNamesNoMiddleInitial = [
   "Angeles Olivarez",
   "Blair Ball",
   "Carlomagno Briones",
+  "CARLOMAGNO CALDERON BRIONES",
   "Christine Briones",
   "Claudia Romo",
   "Drisde Cruz Martinez",

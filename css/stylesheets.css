@@ -146,12 +146,11 @@ legend {
 }
 
 .radioStyle label:hover::before {
-  background-color: rgb(155, 158, 155); /* Change the color on hover */
+  background-color: rgb(155, 158, 155);
 }
 
-/* Change the color when the custom radio button is checked */
 .radioStyle input[type="radio"]:checked + label::before {
-  background-color: rgb(113, 143, 202); /* Change the color when checked */
+  background-color: rgb(113, 143, 202);
 }
 
 input {
@@ -163,18 +162,18 @@ input[type="radio"]:hover {
 }
 
 input[type="radio"] {
-  appearance: none; /* Reset the default style */
-  -webkit-appearance: none; /* For Safari */
-  border: 2px solid #000; /* Border color */
-  border-radius: 50%; /* Make it circular */
-  width: 15px; /* Size */
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 15px;
   height: 15px;
   cursor: pointer;
 }
 
 input[type="radio"]:checked {
-  background-color: #000; /* Darker color when checked */
-  border-color: #666; /* Adjust border color */
+  background-color: #000;
+  border-color: #666;
 }
 
 .navbar-container {
@@ -202,41 +201,140 @@ textarea {
   width: 100%;
 }
 
-.submit {
-  box-shadow: inset 0px 1px 0px 0px #9fb4f2;
-  background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
-  background-color: #7892c2;
-  border-radius: 3px;
-  border: 1px solid #4e6096;
-  display: inline-block;
+.submit,
+#pastePortalData,
+#extractDOBandDOS,
+.copyBothTextBoxes,
+#reset-all,
+.reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--roboto-font-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 35px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #283966;
+  box-shadow:
+    0 4px 10px rgba(53, 122, 189, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
 }
+
 .submit:hover {
-  background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
-  background-color: #476e9e;
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #5aa0f2, #3c82c7);
+  box-shadow:
+    0 8px 18px rgba(53, 122, 189, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
+
+#pastePortalData:hover {
+  transform: translateY(-2px);
+  background-color: #d1c2a0;
+  box-shadow:
+    0 8px 18px rgba(53, 122, 189, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#extractDOBandDOS:hover {
+  transform: translateY(-2px);
+  background-color: #6aa14b;
+  box-shadow:
+    0 8px 18px rgba(53, 122, 189, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.copyBothTextBoxes:hover {
+  transform: translateY(-2px);
+  background-color: #8ed6b0;
+  box-shadow: 0 8px 18px rgba(53, 122, 189, 0.4);
+}
+
+#reset-all:hover {
+  transform: translateY(-2px);
+  background-color: #f44336;
+  box-shadow:
+    0 8px 18px rgba(244, 67, 54, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.reset:hover {
+  transform: translateY(-2px);
+  background-color: #ff6b35;
+  box-shadow:
+    0 8px 18px rgba(244, 107, 53, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#reset-all {
+  background-color: #f44336;
+  color: white;
+}
+
+.reset {
+  background-color: #ff6b35;
+  color: white;
+}
+
 .submit:active {
-  position: relative;
-  top: 1px;
+  transform: translateY(0px) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(53, 122, 189, 0.25),
+    inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+#pastePortalData:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(53, 122, 189, 0.25),
+    inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+#extractDOBandDOS:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(53, 122, 189, 0.25),
+    inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+#reset-all:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(244, 67, 54, 0.25),
+    inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.copyBothTextBoxes {
+  background-color: #67c090;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.submit {
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  color: white;
 }
 
 #pastePortalData {
   background-color: #eae0c2;
-  border-radius: 3px;
-  border: 1px solid #333029;
-  display: inline-block;
-  cursor: pointer;
-  color: #505739;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 10px;
-  text-decoration: none;
+}
+
+#extractDOBandDOS {
+  background-color: #5b7e3c;
+  color: white;
+}
+
+#reset-all {
+  background-color: #f44336;
+  color: white;
 }
 
 #copayZero {
@@ -275,6 +373,7 @@ textarea {
   padding: 1px 6px;
 }
 
+.clearOther,
 .otherInsNone {
   background-color: #24ca9b;
   border-radius: 3px;
@@ -289,110 +388,8 @@ textarea {
   margin-bottom: 2px;
 }
 
-.copyButton {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
-  background-color: #eae0c2;
-  border-radius: 3px;
-  border: 1px solid #333029;
-  display: inline-block;
-  cursor: pointer;
-  color: #505739;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 35px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #ffffff;
-}
-.copyButton:hover {
-  background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
-  background-color: #ccc2a6;
-}
-.copyButton:active {
-  position: relative;
-  top: 1px;
-}
-
-.copyBothTextBoxes {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-  background-color: #ffec64;
-  border-radius: 3px;
-  border: 1px solid #ffaa22;
-  display: inline-block;
-  cursor: pointer;
-  color: #000000;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 35px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #ffee66;
-}
-
-.copyBothTextBoxes:hover {
-  background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-  background-color: #ffab23;
-}
-
-.copyBothTextBoxes:active {
-  position: relative;
-  top: 1px;
-}
-
-#undoButton {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
-  background-color: #77b55a;
-  border-radius: 3px;
-  border: 1px solid #4b8f29;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 20px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #ffee66;
-}
-
-#undoButton:hover {
-  background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-  background-color: #72b352;
-}
-
-#undoButton:active {
-  position: relative;
-  top: 1px;
-}
-
-#reset-all {
-  background: linear-gradient(to bottom, #d01bbb 5%, #d01bbb 100%);
-}
-
-.reset {
-  display: hidden;
-  box-shadow: inset 0px 1px 0px 0px #cf866c;
-  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
-  background-color: #d0451b;
-  border-radius: 3px;
-  border: 1px solid #942911;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 24px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #854629;
-}
-
-.reset:hover {
-  background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
-  background-color: #bc3315;
-}
-
-.reset:active {
-  position: relative;
-  top: 1px;
+.clearOther {
+  background-color: #ff6b35;
 }
 
 .buttons {
@@ -404,25 +401,62 @@ textarea {
   display: block;
 }
 
-.CheckPhysicalLegend {
+.CheckPhysicalLegend,
+.verification-legend {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: 14px;
   font-family: var(--roboto-font-family);
-  font-weight: var(--roboto-font-weight);
-  background-color: #000000;
-  color: #d9d9f6;
-  padding-left: 1%;
-  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+
+  background-color: #2c3947;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.CheckPhysicalLegend {
+  color: #e8edf2;
 }
 
 .verification-legend {
-  float: none;
-  font-size: x-large;
-  padding-left: 1%;
-  font-family: var(--roboto-font-family);
-  font-weight: var(--roboto-font-weight);
-  width: 35%;
-  border-radius: 12px;
-  background-color: #000000;
-  color: rgb(255, 238, 0);
+  color: #ffef91;
+}
+
+.CheckPhysicalLegend::before,
+.verification-legend::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    transparent 40%
+  );
+
+  opacity: 0;
+  transform: translateX(-120%);
+}
+
+fieldset:focus-within .CheckPhysicalLegend::before,
+fieldset:focus-within .verification-legend::before {
+  animation: auraMove 2s linear infinite;
+  opacity: 1;
+}
+
+@keyframes auraMove {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 .checkbox-options {
@@ -684,27 +718,4 @@ input:checked + .slider:before {
 
 .chatQuestionsSection {
   display: none;
-}
-
-#extractDOBandDOS {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
-  background-color: #eae0c2;
-  border-radius: 3px;
-  border: 1px solid #333029;
-  cursor: pointer;
-  color: #505739;
-  font-family: Arial;
-  font-size: 13px;
-  padding: 6px 35px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #ffffff;
-}
-#extractDOBandDOS:hover {
-  background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
-  background-color: #ccc2a6;
-}
-#extractDOBandDOS:active {
-  position: relative;
-  top: 1px;
 }
