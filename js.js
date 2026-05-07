@@ -2387,6 +2387,8 @@ function extractDOBandDOSfunc(text) {
     lastPhysicalServiceDate.value = dos;
     lastPEValue = lastPhysicalServiceDate.value;
   } else {
+    dateBirthInput.value = dob;
+    dateOfBirthValue = dateBirthInput.value;
     lastPhysicalServiceDate.value = dos;
     lastPEValue = lastPhysicalServiceDate.value;
   }
