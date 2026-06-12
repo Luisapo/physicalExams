@@ -2095,6 +2095,7 @@ const providerNamesNoMiddleInitial = [
   "RODRIGUEZ, IDALGIS",
   "CRUZ MARTINEZ, DRISDE I",
   "LOPEZ, ELIZABETH",
+  "GUZMAN GARCIA, ALEX",
 ];
 
 const datalist = document.getElementById("contracted-list");
