@@ -2093,6 +2093,8 @@ const providerNamesNoMiddleInitial = [
   "DIAZ, VERONICA",
   "OLIVARES, ANGELES",
   "RODRIGUEZ, IDALGIS",
+  "CRUZ MARTINEZ, DRISDE I",
+  "LOPEZ, ELIZABETH",
 ];
 
 const datalist = document.getElementById("contracted-list");
