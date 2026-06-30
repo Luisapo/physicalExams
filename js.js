@@ -2034,6 +2034,7 @@ const providerNamesNoMiddleInitial = [
   "Seth Gillespie",
   "Stephanie Rodriguez",
   "Veronica Cristina Diaz Pulido",
+  "VERONICA DIAZ PULIDO",
   "Walter Rios-Corujo",
   "Xochitl Landeros",
   "Yesenia Ochoa",
