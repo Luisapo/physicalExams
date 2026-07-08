@@ -1956,7 +1956,7 @@ const currentProviders = [
   { name: "J Guadalupe Gallo Padilla", contracted: "YES" },
   { name: "Jacob Frietz", contracted: "YES" },
   { name: "Javier G. Padilla", contracted: "YES" },
-  { name: "Jessica Cuevas", contracted: "YES" },  
+  { name: "Jessica Cuevas", contracted: "YES" },
   { name: "Karin Montiel Lopez", contracted: "YES" },
   { name: "Kassandra Barron GUzman", contracted: "YES" },
   { name: "Kimberly Mendoza", contracted: "YES" },
@@ -1999,6 +1999,7 @@ const providerNamesNoMiddleInitial = [
   "Carlomagno Briones",
   "CARLOMAGNO CALDERON BRIONES",
   "Christine Briones",
+  "BRIONES, CHRISTINE C",
   "Claudia Romo",
   "Drisde Cruz Martinez",
   "Elizabeth Lopez",
@@ -2065,8 +2066,7 @@ const providerNamesNoMiddleInitial = [
   "FRIETZ, JACOB",
   "PADILLA, JAVIER G",
   "CUEVAS, JESSICA",
-  
-  
+
   "MONTIEL LOPEZ, KARIN",
   "BARRON GUZMAN, KASSANDRA",
   "MENDOZA, KIMBERLY",
