@@ -881,13 +881,17 @@ goldKidneyCheckbox.addEventListener("change", () => {
   if (goldKidneyCheckbox.checked) {
     contractedInputThree.value = "Out of Network";
     sickInputThree.value = "80/20% | Preventive Care(PE): 80/20%";
+    dedinputThree.value = "0.00";
     pcpInputThree.value = "Not Required";
+    uhcDualCheckBox.checked = false;
     contractedInputThree.readOnly = true;
     sickInputThree.readOnly = true;
     pcpInputThree.readOnly = true;
+    dedinputThree.readOnly = true;
     contractedInputThree.classList.add("greyedOut");
     sickInputThree.classList.add("greyedOut");
     pcpInputThree.classList.add("greyedOut");
+    dedinputThree.classList.add("greyedOut");
   } else {
     goldKidneyClean();
   }
@@ -895,8 +899,7 @@ goldKidneyCheckbox.addEventListener("change", () => {
 
 uhcDualCheckBox.addEventListener("change", () => {
   if (uhcDualCheckBox.checked) {
-    sickInputThree.value = "80/20 after ded";
-    groupInputThree.value = "AZMCARE";
+    goldKidneyClean();
   } else {
     sickInputThree.value = "";
     groupInputThree.value = "";
@@ -907,12 +910,16 @@ function goldKidneyClean() {
   contractedInputThree.value = "";
   sickInputThree.value = "";
   pcpInputThree.value = "";
+  dedinputThree.value = "";
+  goldKidneyCheckbox.checked = false;
   contractedInputThree.readOnly = false;
   sickInputThree.readOnly = false;
   pcpInputThree.readOnly = false;
+  dedinputThree.readOnly = false;
   contractedInputThree.classList.remove("greyedOut");
   sickInputThree.classList.remove("greyedOut");
   pcpInputThree.classList.remove("greyedOut");
+  dedinputThree.classList.remove("greyedOut");
 }
 
 const monthlyNeededBenis = document.querySelectorAll(".sameMonthActive");
