@@ -310,25 +310,29 @@ cptChecker.addEventListener("input", function () {
 
 //-------------------Other and none buttons--------------------//
 
-otherInsNoneButton[0].addEventListener("click", () => {
-  otherInsuranceInput.value = "NONE";
-});
-
-otherInsNoneButton[1].addEventListener("click", () => {
-  otherInsTwoInput.value = "NONE";
-});
-
-otherInsNoneButton[2].addEventListener("click", () => {
-  otherInsThree.value = "NONE";
-});
-
-otherInsNoneButton[3].addEventListener("click", () => {
-  primarycareCommericalInputFour.value = "NOT REQ";
-});
-
-otherInsNoneButton[4].addEventListener("click", () => {
-  otherIns4Input.value = "NONE";
-});
+for (let i = 0; i < otherInsNoneButton.length; i++) {
+  otherInsNoneButton[i].addEventListener("click", () => {
+    if (otherInsNoneButton[i] === otherInsNoneButton[7]) {
+      primarycareCommericalInputFour.value = "NOT REQ";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[0]) {
+      otherInsuranceInput.value = "NONE";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[1]) {
+      otherInsTwoInput.value = "NONE";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[2]) {
+      otherInsThree.value = "NONE";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[3]) {
+      telehealthInputFour.value = "SAME AS OV";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[4]) {
+      pExamsInputFour.value = "COVERED AT 100%";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[5]) {
+      immunizationsInputFour.value = "COVERED AT 100%";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[6]) {
+      hsahraInputFour.value = "NONE";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[8]) {
+      otherIns4Input.value = "NONE";
+    }
+  });
+}
 
 clearOtherButton[0].addEventListener("click", () => {
   otherInsuranceInput.value = "";

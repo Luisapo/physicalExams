@@ -424,16 +424,25 @@
                                 <label for="sick4">SICK:</label>
                                 <span class="tooltip-icon">?</span>
                                 <span class="tooltip-text">How much does the patient have to pay for an office visit with a PCP (Primary Care Physician)?</span>
-                                <input type="text" name="sick4" id="sick4">                        
+                                <input list="options-sick" type="text" name="sick4" id="sick4">
+                                <datalist id="options-sick">
+                                    <option value="0.00"></option>                                    
+                                    <option value="25.00"></option>
+                                    <option value="30.00"></option>
+                                    <option value="40.00"></option>
+                                    <option value="90/10 after ded"></option>
+                                    <option value="80/20 after ded"></option>
+                                    <option value="70/30 after ded"></option>
+                                    <option value="60/40 after ded"></option>
+                                </datalist>
                         </div>                        
                         <div class="telemedicine sameMonthNotNeeded">
                             <label for="telehealth4">TELEHEALTH:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Are Telehealth (Virtual) visits covered? If no, NOT COVERED <br>
-                                                       If yes: <br>
-                                                       Can we use our own platform?<br>
-                                                       (If cost is different to SICK, write cost, else SAME AS OV)
+                            <span class="tooltip-text">Are Telehealth (Virtual) visits covered the same as in person visit and can we used our own platform? If not covered write NOT COVERED <br>
+                                                       (If cost is different to SICK, write cost, if not SAME AS OV)
                                                         </span>
+                            <button class="otherInsNone">SAME AS OV</button></label>
                             <input type="text" name="telehealth4" id="telehealth4">
                         </div>                        
                         <div class="surgery sameMonthNotNeeded">
@@ -442,7 +451,14 @@
                                 <span class="tooltip-text">How much does the patient have to pay for SURGERY done in OFFICE with A PCP if billed with an office visit? <br>
                                     (If asked, we do not have Procedure or Diagnoses codes, we just need general benefits)<br>
                                     (If rep insists on a CPT Code use 11730)</span>
-                            <input type="text" name="procedures4" id="procedures4">
+                            <input list="options-procedure" type="text" name="procedures4" id="procedures4">
+                            <datalist id="options-procedure">
+                                <option value="covered under ov"></option>
+                                <option value="90/10 after ded"></option>
+                                <option value="80/20 after ded"></option>
+                                <option value="70/30 after ded"></option>
+                                <option value="60/40 after ded"></option>
+                            </datalist>
                         </div>
                         <div class="laboratories sameMonthNotNeeded">
                             <label for="labs4">DX-LABS:</label>
@@ -450,7 +466,7 @@
                             <span class="tooltip-text">How much does the patient have to pay for DIAGNOSTIC LABS done in OFFICE with A PCP if billed with an office visit? <br>
                                 (If asked, we do not have Procedure or Diagnoses codes, we just need general benefits)<br>                                
                                 (If rep insists on a CPT Code use 81002)</span></span>                                
-                        <input type="text" name="labs4" id="labs4">
+                        <input list="options-procedure" type="text" name="labs4" id="labs4">
                         </div>
                         <div class="wellVisit sameMonthNotNeeded">
                             <label for="pExams4">PE:</label>
@@ -459,19 +475,21 @@
                             *If new patient: <br>
                             Has the patient done a Physical Exam in the last 12 months?  (In case CPT is requested, use CPT code in the patient's age range)
                             </span>
+                            <button class="otherInsNone">100%</button></label>
                             <input type="text" name="pExams4" id="pExams4">
                         </div>
                         <div class="cptCodes sameMonthNotNeeded">
-                            <label for="immunizations4">FLU(90656/90662):</label>
+                            <label for="immunizations4">FLU 90656/90662:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">I have CPT codes, could you check them for me? I want to see if they are covered at 100%, the codes are 90656 and 90662 <br>
+                            <span class="tooltip-text">I have CPT codes, could you check if they are covered at 100%? The codes are 90656 and 90662 <br>
                                 (Code Descriptions) They are for immunizations. </span>
+                                <button class="otherInsNone">100%</button></label>
                             <input type="text" name="immunizations4" id="immunizations4">
                         </div>
                         <div class="coordination sameMonthNotNeeded">
                             <label for="askCOB">COB:</label>
                             <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Can you confirm if the COB information is current, or if the patient needs to update it to avoid any issues with claim processing?</span>
+                            <span class="tooltip-text">Can you tell me when the last time the patient updated the COB or if the patient needs to update it?</span>
                             <input type="text" name="askCOB" id="askCOB">
                         </div>                
                          
@@ -481,6 +499,7 @@
                             <span class="tooltip-text">Does the patient have an HSA (Health Savings Account) or HRA (Health Reimbursement Account)?<br>
                                                       *(If pt has HRA) How much in funds does the patient have?<br>
                                                       *(If funds >90) Do we bill the insurance directly?</span>
+                            <button class="otherInsNone">NONE</button></label> 
                             <input type="text" name="hsahra4" id="hsahra4">
                         </div>
                         <div class="nombre sameMonthNotNeeded">
@@ -516,8 +535,7 @@
                         </div>
                         <div class="primaryCare sameMonthNotNeeded">
                             <label for="primarycareCommerical4">PCP:</label>
-                            <span class="tooltip-icon">?</span>
-                            <button class="otherInsNone">NOT REQ</button></label> 
+                            <span class="tooltip-icon">?</span>                            
                             <span class="tooltip-text">Is a PCP or referral requiered? <br>
                                 TYPES OF PLANS: <br>
                                 HMO - Always needs a PCP, except Aetna sometimes does not require it. <br>                                
@@ -525,6 +543,7 @@
                                 EPO - Sometimes needs a PCP <br>
                                 PPO - PCP not required <br>
                                 ASO - PCP not required</span>
+                                <label><button class="otherInsNone">NOT REQ</button></label> 
                             <input type="text" name="primarycareCommerical4" id="primarycareCommerical4">
                         </div>                       
                         <div class="holderDependent sameMonthNotNeeded">
@@ -542,9 +561,9 @@
                         </div>
                         <div class="coordination sameMonthNotNeeded"> 
                             <label for="otherIns4">OTHER INS:</label>
-                            <span class="tooltip-icon">?</span>
-                            <button class="otherInsNone">NONE</button></label> 
+                            <span class="tooltip-icon">?</span>                            
                             <span class="tooltip-text">Do you show another insurance on file?<br></span>
+                            <button class="otherInsNone">NONE</button></label> 
                             <input type="text" name="otherIns4" id="otherIns4">
                         </div>
                         <div class="deductibleAmount sameMonthActive">
@@ -554,7 +573,7 @@
                             <input type="text" name="deductible4" id="deductible4">
                         </div>
                         <div class="outOfPocketMet sameMonthActive">
-                            <label for="dedMet4">MET:</label>
+                            <label for="dedMet4">DED MET:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">What is the met or accumulated amounts for the deductible?</span>
                             <input type="text" name="dedMet4" id="dedMet4">
@@ -566,7 +585,7 @@
                             <input type="text" name="oop4" id="oop4">
                         </div>
                         <div class="outOfPocketMet sameMonthNotNeeded">
-                            <label for="oopMet">MET:</label>
+                            <label for="oopMet">OOP MET:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">What is the met or accumulated amounts for the Out of Pocket?</span>
                             <input type="text" name="oopMet" id="oopMet4">
@@ -576,13 +595,16 @@
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">What is the claim address? <br>
                                 (only need the po box number)</span>
-                            <input type="text" name="claimAddress4" id="claimAddress4">
+                            <input list="options-claims" type="text" name="claimAddress4" id="claimAddress4">
+                            <datalist id="options-claims">
+                                    <option value="LOCAL BCBS"></option>
+                             </datalist>
                         </div>
                         <div class="claimAddress sameMonthNotNeeded">
                             <label for="payorID4">PAYOR ID:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">What is the payor ID? </span>
-                            <input type="text" name="payorID4" id="payorID4">
+                            <input list="options-claims" type="text" name="payorID4" id="payorID4">                            
                         </div>
                         <div class="sameMonthNotNeeded">
                             <label for="verifiedOnline4 ">VERIFIED:</label>
