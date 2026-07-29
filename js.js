@@ -2001,7 +2001,7 @@ const currentProviders = [
 ];
 
 const providerNamesNoMiddleInitial = [
-  "Alex Guzman Garcia",
+  "Alex Guzman Garcia",  
   "Aaron Jensen",
   "Andrew White",
   "Angeles Olivarez",
@@ -2009,6 +2009,7 @@ const providerNamesNoMiddleInitial = [
   "BALL, BLAIR",
   "Carlomagno Briones",
   "CARLOMAGNO CALDERON BRIONES",
+  "BRIONES, CARLOMAGNO C",
   "Christine Briones",
   "BRIONES, CHRISTINE C",
   "Claudia Romo",
@@ -2077,7 +2078,6 @@ const providerNamesNoMiddleInitial = [
   "FRIETZ, JACOB",
   "PADILLA, JAVIER G",
   "CUEVAS, JESSICA",
-
   "MONTIEL LOPEZ, KARIN",
   "BARRON GUZMAN, KASSANDRA",
   "MENDOZA, KIMBERLY",
