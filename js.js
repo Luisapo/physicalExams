@@ -1960,6 +1960,7 @@ const currentProviders = [
   { name: "Carlomagno C Briones", contracted: "YES" },
   { name: "Christine Briones", contracted: "YES" },
   { name: "Claudia Romo", contracted: "YES" },
+  { name: "Juliana Do Prado", contracted: "YES" },
   { name: "Drisde Cruz Martinez", contracted: "YES" },
   { name: "Elizabeth Lopez-Murray", contracted: "YES" },
   { name: "Eric Gonzalez", contracted: "YES" },
@@ -2001,6 +2002,7 @@ const currentProviders = [
   { name: "Olivares", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
+  { name: "Do Prado", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Barron Guzman", contracted: false, seeUnder: "Carlomagno Briones" },
   { name: "Jensen", contracted: false, seeUnder: "Ricardo L Celaya" },
 ];
