@@ -813,6 +813,7 @@ radioAHCCCS.addEventListener("change", () => {
     textBox.placeholder = "";
     newPatientCheckCheckBox.checked = false;
     newPatientCheckLabel.style.display = "block";
+    extractDOBandDOS.style.display = "inline";
     extractDOBandDOS.textContent = "Extract DOB and DOS";
     medicareGcodes.style.display = "none";
     goldKidneyLabel.style.display = "none";
@@ -825,6 +826,7 @@ radioMedicare.addEventListener("change", () => {
     cleanSlatePE();
     goldKidneyClean();
     extractDOBandDOS.textContent = "Extract DOS";
+    extractDOBandDOS.style.display = "inline";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "none";
     goldKidneyCheckbox.checked = false;
@@ -848,6 +850,7 @@ radioMedicareReplacement.addEventListener("change", () => {
   if (radioMedicareReplacement.checked) {
     cleanSlatePE();
     extractDOBandDOS.textContent = "Extract DOS";
+    extractDOBandDOS.style.display = "inline";
     newPatientCheckLabel.style.display = "none";
     goldKidneyLabel.style.display = "block";
     goldKidneyCheckbox.checked = false;
@@ -871,6 +874,7 @@ radioCommerical.addEventListener("change", () => {
   if (radioCommerical.checked) {
     cleanSlatePE();
     goldKidneyClean();
+    extractDOBandDOS.style.display = "inline";
     textBox.placeholder = "";
     extractDOBandDOS.textContent = "Extract DOB and DOS";
     newPatientCheckCheckBox.checked = false;
@@ -1907,13 +1911,14 @@ newPatientCheckCheckBox.addEventListener("change", () => {
     dateBirthInput.readOnly = true;
     dateBirthInput.value = "01/01/1900";
     dateOfBirthValue = "01/01/1900";
-
+    extractDOBandDOS.style.display = "none";
     lastPhysicalServiceDate.classList.add("greyedOut");
     lastPhysicalServiceDate.value = "01/01/1900";
     lastPEValue = "01/01/1900";
     lastPhysicalServiceDate.readOnly = true;
   } else {
     cleanSlatePE();
+    extractDOBandDOS.style.display = "inline";
   }
 });
 
@@ -2001,7 +2006,7 @@ const currentProviders = [
 ];
 
 const providerNamesNoMiddleInitial = [
-  "Alex Guzman Garcia",  
+  "Alex Guzman Garcia",
   "Aaron Jensen",
   "Andrew White",
   "Angeles Olivarez",
@@ -2451,7 +2456,6 @@ function extractDOBandDOSfunc(text) {
     lastPhysicalServiceDate.value = dos;
     lastPEValue = lastPhysicalServiceDate.value;
   } else {
-    dateBirthInput.value = dob;
     dateOfBirthValue = dateBirthInput.value;
     lastPhysicalServiceDate.value = dos;
     lastPEValue = lastPhysicalServiceDate.value;
