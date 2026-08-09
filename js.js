@@ -2288,7 +2288,7 @@ function fillForm(data) {
 }
 
 function handleStandardFormat(text) {
-  const moneyValuePattern = "(?:\\$?\\s*[\\d,]+(?:\\.\\d+)?|FULLY\\s+MET)";
+  const valuePattern = "([^\\n]+)";
 
   function extractLabeledValue(labels) {
     const labelList = Array.isArray(labels) ? labels : [labels];
@@ -2296,18 +2296,32 @@ function handleStandardFormat(text) {
     for (const label of labelList) {
       const escapedLabel = label.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
       const match = text.match(
-        new RegExp(`${escapedLabel}\\s*:?\\s*(${moneyValuePattern})`, "i"),
+        new RegExp(`${escapedLabel}\\s*:?\\s*${valuePattern}`, "i"),
       );
 
       if (match && match[1]) {
-        const value = match[1].trim();
-        return value.toUpperCase() === "FULLY MET"
-          ? "FULLY MET"
-          : value.replace(/[$,\s]/g, "");
+        return match[1].trim().replace(/[$,]/g, "");
       }
     }
 
     return "";
+  }
+
+  function assignDeductiblePair(deductibleValue, deductibleMetValue) {
+    const hasLetters = (value) => /[a-z]/i.test(value);
+    const looksNumeric = (value) => /^\d+(?:\.\d+)?$/.test(value.trim());
+
+    if (hasLetters(deductibleValue) && looksNumeric(deductibleMetValue)) {
+      return {
+        indDedAmount: deductibleMetValue,
+        indDedMet: deductibleValue,
+      };
+    }
+
+    return {
+      indDedAmount: deductibleValue,
+      indDedMet: deductibleMetValue,
+    };
   }
 
   const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
@@ -2324,11 +2338,17 @@ function handleStandardFormat(text) {
   const typeMatch = text.match(/type:\s*(.*?)\s*effective date:/i);
   const policyHolderMatch = text.match(/relationship:\s*(.*?)\s*medicareDed:/i);
 
-  const indDedAmount = extractLabeledValue("individual deductible");
-  const indDedMet = extractLabeledValue([
+  const individualDeductibleValue = extractLabeledValue(
+    "individual deductible",
+  );
+  const individualDeductibleMetValue = extractLabeledValue([
     "individual ded met",
     "indvidual ded met",
   ]);
+  const { indDedAmount, indDedMet } = assignDeductiblePair(
+    individualDeductibleValue,
+    individualDeductibleMetValue,
+  );
 
   const poBoxMatch = text.match(/po box:\s*(.*?)\s*payer id:/i);
   const payerIdMatch = text.match(/payer id:\s*(.*?)\s*hsa or hra:/i);
@@ -2373,16 +2393,40 @@ function handleStandardFormat(text) {
 }
 
 function handleUHCFormat(text) {
-  const moneyValuePattern = "\\$?\\s*([\\d,]+(?:\\.\\d+)?)|FULLY\\s+MET";
+  const valuePattern = "([^\\n]+)";
 
-  function extractLabeledValue(label) {
-    const match = text.match(
-      new RegExp(`${label}\\s*:\\s*(${moneyValuePattern})`, "i"),
-    );
-    if (!match) return "";
-    return match[1].toUpperCase() === "FULLY MET"
-      ? "FULLY MET"
-      : match[1].replace(/[$,\s]/g, "");
+  function extractLabeledValue(labels) {
+    const labelList = Array.isArray(labels) ? labels : [labels];
+
+    for (const label of labelList) {
+      const escapedLabel = label.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+      const match = text.match(
+        new RegExp(`${escapedLabel}\\s*:?\\s*${valuePattern}`, "i"),
+      );
+
+      if (match && match[1]) {
+        return match[1].trim().replace(/[$,]/g, "");
+      }
+    }
+
+    return "";
+  }
+
+  function assignDeductiblePair(deductibleValue, deductibleMetValue) {
+    const hasLetters = (value) => /[a-z]/i.test(value);
+    const looksNumeric = (value) => /^\d+(?:\.\d+)?$/.test(value.trim());
+
+    if (hasLetters(deductibleValue) && looksNumeric(deductibleMetValue)) {
+      return {
+        indDedAmount: deductibleMetValue,
+        indDedMet: deductibleValue,
+      };
+    }
+
+    return {
+      indDedAmount: deductibleValue,
+      indDedMet: deductibleMetValue,
+    };
   }
 
   const effMatch = text.match(/effective date:\s*(.*?)\s*pcp:/i);
@@ -2396,8 +2440,17 @@ function handleUHCFormat(text) {
   const groupNumberMatch = text.match(/group number:\s*(.*?)\s*po box:/i);
   const poBoxMatch = text.match(/po box:\s*(.*?)\s*payer id:/i);
   const payerIdMatch = text.match(/payer id:\s*(.*?)\s*hsa or hra:/i);
-  const indDedAmount = extractLabeledValue("individual deductible");
-  const indDedMet = extractLabeledValue("indvidual ded met");
+  const individualDeductibleValue = extractLabeledValue(
+    "individual deductible",
+  );
+  const individualDeductibleMetValue = extractLabeledValue([
+    "individual ded met",
+    "indvidual ded met",
+  ]);
+  const { indDedAmount, indDedMet } = assignDeductiblePair(
+    individualDeductibleValue,
+    individualDeductibleMetValue,
+  );
   const indOopAmount = extractLabeledValue("individual oop max");
   const indOopMet = extractLabeledValue("individual oop met");
   const famDedAmount = extractLabeledValue("family deductible");
