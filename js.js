@@ -194,6 +194,10 @@ const notifyForNavigate = () => {
     showRateGroupNotification(
       "Make sure it is added to ECW as UHC Navigate and PCP is from Clinic or patient will be charged as Specialist.",
     );
+  } else if (planValue.includes("localplus")) {
+    showRateGroupNotification(
+      "Make sure it is added as Cigna LocalPlus with the correct PO BOX",
+    );
   }
 };
 
@@ -1094,6 +1098,7 @@ for (let i = 0; i < verificationAndPE.length; i++) {
       verificationAndPE[1].style.background = "#32936f";
       notifyForRateGroup();
       notifyForNavigate();
+      notifyForLocalPlus();
       setTimeout(() => {
         verificationAndPE[0].innerText = "Verifcation+PE";
         verificationAndPE[0].style.backgroundColor = "#8ed6b0";
@@ -1143,6 +1148,7 @@ for (let i = 0; i < submitButton.length; i++) {
 
       notifyForRateGroup();
       notifyForNavigate();
+      notifyForLocalPlus();
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
