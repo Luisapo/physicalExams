@@ -1098,7 +1098,6 @@ for (let i = 0; i < verificationAndPE.length; i++) {
       verificationAndPE[1].style.background = "#32936f";
       notifyForRateGroup();
       notifyForNavigate();
-      notifyForLocalPlus();
       setTimeout(() => {
         verificationAndPE[0].innerText = "Verifcation+PE";
         verificationAndPE[0].style.backgroundColor = "#8ed6b0";
@@ -1148,7 +1147,6 @@ for (let i = 0; i < submitButton.length; i++) {
 
       notifyForRateGroup();
       notifyForNavigate();
-      notifyForLocalPlus();
     } else if (submitButton[i] === submitButton[1]) {
       textBoxes[1].style.color = "black";
 
