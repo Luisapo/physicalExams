@@ -237,7 +237,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "70/30 after ded",
       oop: "ind 3300 fam 6600",
       deductible: "ind 700 fam 1400",
-      dedMet: "please ask pt",
+      
     },
     "imperial standard silver 73% av": {
       sick: "40.00",
@@ -245,7 +245,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "60/40 after ded",
       oop: "ind 7400 fam 14800",
       deductible: "ind 3300 fam 6600",
-      dedMet: "please ask pt",
+      
     },
     "imperial standard bronze off exchange": {
       sick: "50.00",
@@ -253,7 +253,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "50/50 after ded",
       oop: "ind 10000 fam 20000",
       deductible: "ind 7500 fam 15000",
-      dedMet: "please ask pt",
+      
     },
     "imperial standard bronze on exchange": {
       sick: "50.00",
@@ -261,7 +261,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "50/50 after ded",
       oop: "ind 10000 fam 20000",
       deductible: "ind 7500 fam 15000",
-      dedMet: "please ask pt",
+     
     },
   };
 
@@ -2114,6 +2114,7 @@ const providerNamesNoMiddleInitial = [
   "CRUZ MARTINEZ, DRISDE I",
   "LOPEZ, ELIZABETH",
   "GUZMAN GARCIA, ALEX",
+  "WHITE, ANDREW C",
 ];
 
 const datalist = document.getElementById("contracted-list");
