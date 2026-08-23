@@ -900,10 +900,12 @@ goldKidneyCheckbox.addEventListener("change", () => {
     sickInputThree.readOnly = true;
     pcpInputThree.readOnly = true;
     dedinputThree.readOnly = true;
+    pastePortalButton.style.display = "none";
     contractedInputThree.classList.add("greyedOut");
     sickInputThree.classList.add("greyedOut");
     pcpInputThree.classList.add("greyedOut");
     dedinputThree.classList.add("greyedOut");
+    
   } else {
     goldKidneyClean();
   }
@@ -922,16 +924,16 @@ function goldKidneyClean() {
   contractedInputThree.value = "";
   sickInputThree.value = "";
   pcpInputThree.value = "";
-  dedinputThree.value = "";
-  goldKidneyCheckbox.checked = false;
+  dedinputThree.value = "";  
   contractedInputThree.readOnly = false;
   sickInputThree.readOnly = false;
   pcpInputThree.readOnly = false;
-  dedinputThree.readOnly = false;
+  dedinputThree.readOnly = false;  
   contractedInputThree.classList.remove("greyedOut");
   sickInputThree.classList.remove("greyedOut");
   pcpInputThree.classList.remove("greyedOut");
   dedinputThree.classList.remove("greyedOut");
+  pastePortalButton.style.display = "inline"
 }
 
 const monthlyNeededBenis = document.querySelectorAll(".sameMonthActive");
