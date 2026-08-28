@@ -370,7 +370,9 @@
                     <div id="template3">
                         <div class="contractedIns">
                             <label for="contracted3">CONTRACTED:</label>
-                            <input type="text" name="contracted3" id="contracted3">
+                            <input type="text" list="contracted-list" name="contracted3" id="contracted3">
+                            <datalist id="contracted-list">
+                            </datalist>
                         </div>
                         <div>
                             <label for="effectiveDate3">EFF:</label>
@@ -414,8 +416,7 @@
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">Is the provider {name of provider} contracted with this patient's plan?</span>
                             <input type="text" name="contracted4" list="contracted-list" id="contracted4">
-
-                            <datalist id="contracted-list">                                                             
+                            <datalist id="contracted-list">
                             </datalist>
                         </div>
                            <!-- Chat Question Modal Trigger -->

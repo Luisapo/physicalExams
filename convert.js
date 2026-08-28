@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 // Read JSON
-const data = JSON.parse(fs.readFileSync("copy.json", "utf8"));
+const data = JSON.parse(fs.readFileSync("new.json", "utf8"));
 
 // Convert object → array
 const rows = Object.values(data);

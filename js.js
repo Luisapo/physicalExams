@@ -145,6 +145,7 @@ const verifiedOnlineInputFour = document.getElementById("verifiedOnline4");
 const theCOB = document.getElementById("askCOB");
 const monthlyBenefits = document.getElementById("monthly-benefits");
 const monthlyBenefitsCheckBox = document.getElementById("monthlyBenefits");
+const surgAndLabOptions = document.getElementById("options-procedure");
 const acaExchangeStandardHealthCheckbox = document.getElementById(
   "acaExchangeStandardHealth",
 );
@@ -914,9 +915,6 @@ goldKidneyCheckbox.addEventListener("change", () => {
 uhcDualCheckBox.addEventListener("change", () => {
   if (uhcDualCheckBox.checked) {
     goldKidneyClean();
-  } else {
-    sickInputThree.value = "";
-    groupInputThree.value = "";
   }
 });
 
@@ -929,6 +927,7 @@ function goldKidneyClean() {
   sickInputThree.readOnly = false;
   pcpInputThree.readOnly = false;
   dedinputThree.readOnly = false;  
+  goldKidneyCheckbox.checked = false;
   contractedInputThree.classList.remove("greyedOut");
   sickInputThree.classList.remove("greyedOut");
   pcpInputThree.classList.remove("greyedOut");
@@ -1965,7 +1964,7 @@ const currentProviders = [
   { name: "Blair Ball", contracted: "YES" },
   { name: "Carlomagno C Briones", contracted: "YES" },
   { name: "Christine Briones", contracted: "YES" },
-  { name: "Claudia Romo", contracted: "YES" },
+  { name: "Claudia Ivone Romo", contracted: "YES" },
   { name: "Juliana Do Prado", contracted: "YES" },
   { name: "Drisde Cruz Martinez", contracted: "YES" },
   { name: "Elizabeth Lopez-Murray", contracted: "YES" },
@@ -1993,6 +1992,7 @@ const currentProviders = [
   { name: "Sandy Morales", contracted: "YES" },
   { name: "Seth Gillespie", contracted: "YES" },
   { name: "Stephanie Rodriguez", contracted: "YES" },
+  { name: "Luis Rodriguez", contracted: "YES" },
   { name: "Veronica Cristina Diaz Pulido", contracted: "YES" },
   { name: "Walter Rios-Corujo", contracted: "YES" },
   { name: "Xochitl Landeros", contracted: "YES" },
@@ -2005,6 +2005,7 @@ const currentProviders = [
   { name: "Stephanie Rodriguez", contracted: false, seeUnder: "Nina Celaya" },
   { name: "Frietz", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Alzuri", contracted: false, seeUnder: "Ricardo G Celaya" },
+  { name: "Luis Rodriguez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Olivares", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Perez", contracted: false, seeUnder: "Ricardo L Celaya" },
   { name: "Mendoza", contracted: false, seeUnder: "Ricardo G Celaya" },
@@ -2043,6 +2044,8 @@ const providerNamesNoMiddleInitial = [
   "Javier Padilla",
   "Jessica Cuevas",
   "Karin Montiel Lopez",
+  "Luis Rodriguez",
+  "Rodriguez, Luis",
   "Kassandra Barron GUzman",
   "Kimberly Mendoza",
   "Nina Celaya",
@@ -2523,3 +2526,18 @@ function extractDOBandDOSfunc(text) {
     lastPEValue = lastPhysicalServiceDate.value;
   }
 }
+
+const checkSickValue = () => {
+  const hasSlash = sickInputFour.value.includes("/");
+  const coveredOption = [...surgAndLabOptions.options].find(option=> option.value === "covered under ov");
+
+  if(hasSlash && coveredOption) {
+    coveredOption.remove();
+  }
+
+  if(!hasSlash && !coveredOption) {
+    surgAndLabOptions.insertAdjacentHTML("afterbegin", '<option value="covered under ov"></option>');
+  }
+};
+
+sickInputFour.addEventListener("input", checkSickValue);
