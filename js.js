@@ -199,6 +199,10 @@ const notifyForNavigate = () => {
     showRateGroupNotification(
       "Make sure it is added as Cigna LocalPlus with the correct PO BOX",
     );
+  }else if(planValue.includes("alliance")){
+    showRateGroupNotification("Make sure it is added as BCBS Alliance in case it is a BCBS");
+  }else if(planValue.includes("neighborhood")){
+    showRateGroupNotification("If it is a BCBS Neighborhood plan do NOT do verification, providers are NOT CONTRACTED");
   }
 };
 
@@ -213,7 +217,7 @@ const applyImperialCommercialAutofill = () => {
     theCOB: "not req",
     payorID: "IEXAZ",
     claimAddress: "P.O. Box 60567",
-    oopMet: "please ask pt",
+    oopMet: "",    
     group: "none",
     otherIns: "none",
     planType: "hmo",
@@ -238,6 +242,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "70/30 after ded",
       oop: "ind 3300 fam 6600",
       deductible: "ind 700 fam 1400",
+      dedMet: "",
       
     },
     "imperial standard silver 73% av": {
@@ -246,6 +251,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "60/40 after ded",
       oop: "ind 7400 fam 14800",
       deductible: "ind 3300 fam 6600",
+      dedMet: "",
       
     },
     "imperial standard bronze off exchange": {
@@ -254,6 +260,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "50/50 after ded",
       oop: "ind 10000 fam 20000",
       deductible: "ind 7500 fam 15000",
+      dedMet: "",
       
     },
     "imperial standard bronze on exchange": {
@@ -262,7 +269,7 @@ const applyImperialCommercialAutofill = () => {
       labs: "50/50 after ded",
       oop: "ind 10000 fam 20000",
       deductible: "ind 7500 fam 15000",
-     
+     dedMet: "",
     },
   };
 
