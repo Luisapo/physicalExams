@@ -2003,8 +2003,8 @@ const currentProviders = [
   { name: "Veronica Cristina Diaz Pulido", contracted: "YES" },
   { name: "Walter Rios-Corujo", contracted: "YES" },
   { name: "Xochitl Landeros", contracted: "YES" },
-  { name: "Yesenia E. Ochoa", contracted: "YES" },
-  { name: "Yajaira Acosta", contracted: "YES" },
+  { name: "Yesenia E. Ochoa", contracted: "YES" },  
+  { name: "Jessica Valladolid", contracted: "YES" },  
   { name: "Jorge Alzuri Hernandez", contracted: "YES" },
   { name: "Elias", contracted: false, seeUnder: "Carlomagno Briones" },
   { name: "Montiel", contracted: false, seeUnder: "Christine Briones" },
@@ -2019,6 +2019,7 @@ const currentProviders = [
   { name: "Do Prado", contracted: false, seeUnder: "Ricardo G Celaya" },
   { name: "Barron Guzman", contracted: false, seeUnder: "Carlomagno Briones" },
   { name: "Jensen", contracted: false, seeUnder: "Ricardo L Celaya" },
+  { name: "Jessica Valladolid", contracted: false, seeUnder: "Carlomagno Briones" },
 ];
 
 const providerNamesNoMiddleInitial = [
