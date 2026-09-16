@@ -385,7 +385,7 @@ cptChecker.addEventListener("input", function () {
 for (let i = 0; i < otherInsNoneButton.length; i++) {
   otherInsNoneButton[i].addEventListener("click", () => {
     if (otherInsNoneButton[i] === otherInsNoneButton[7]) {
-      hsahraInputFour.value = "NOT REQ";
+      hsahraInputFour.value = "NONE";
     } else if (otherInsNoneButton[i] === otherInsNoneButton[0]) {
       otherInsuranceInput.value = "NONE";
     } else if (otherInsNoneButton[i] === otherInsNoneButton[1]) {
