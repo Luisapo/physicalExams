@@ -499,6 +499,8 @@ fieldset:focus-within .verification-legend::before {
   grid-auto-flow: row;
 }
 
+
+
 #template4 {
   display: none;
   gap: 15px;
@@ -507,12 +509,34 @@ fieldset:focus-within .verification-legend::before {
   grid-auto-flow: row;
 }
 
+
 #template4 input {
   width: 200px;
 }
+
 #primarycareCommerical {
   width: 200px;
 }
+
+.accumulatorWrap {
+  display: grid;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    
+}
+
+input#indDed4,
+input#famDed4, 
+input#indDedMet4, 
+input#famDedMet4,
+input#indOop4,
+input#famOop4,
+input#indOopMet4,
+input#famOopMet4 {
+  width: 100%;
+}
+
 
 .invalid {
   border: 2px solid red;
@@ -719,3 +743,35 @@ input:checked + .slider:before {
 .chatQuestionsSection {
   display: none;
 }
+
+.contracted-lock {
+  margin: 0 0 4px 4px;
+  padding: 2px 6px;
+  border: 1px solid #687580;
+  border-radius: 5px;
+  background: #f5f7f9;
+  color: #263442;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.contracted-lock[aria-pressed="true"] {
+  background: #fff3cd;
+  border-color: #947000;
+  color: #664d03;
+}
+
+.contracted-lock:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.contracted-lock:focus-visible {
+  outline: 2px solid #357abd;
+  outline-offset: 2px;
+}
+
+input.contracted-locked {
+  border-color: #886601;
+}
+

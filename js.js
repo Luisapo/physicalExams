@@ -135,10 +135,16 @@ const primarycareCommericalInputFour = document.getElementById(
 const otherIns4Input = document.getElementById("otherIns4");
 const policyHolderInputFour = document.getElementById("policyHolder4");
 const groupInputFour = document.getElementById("group4");
-const oopInputFour = document.getElementById("oop4");
-const oopMetInputFour = document.getElementById("oopMet4");
-const deductibleInputFour = document.getElementById("deductible4");
-const dedMetInputFour = document.getElementById("dedMet4");
+
+const deductibleInputFour = document.getElementById("indDed4");
+const famDedInputFour = document.getElementById("famDed4");
+const dedMetInputFour = document.getElementById("indDedMet4");
+const famDedMetInputFour = document.getElementById("famDedMet4");
+const oopInputFour = document.getElementById("indOop4");
+const famOopInputFour = document.getElementById("famOop4");
+const oopMetInputFour = document.getElementById("indOopMet4");
+const famOopMetInputFour = document.getElementById("famOopMet4");
+
 const claimAddressInputFour = document.getElementById("claimAddress4");
 const payorIDInputFour = document.getElementById("payorID4");
 const verifiedOnlineInputFour = document.getElementById("verifiedOnline4");
@@ -152,6 +158,40 @@ const acaExchangeStandardHealthCheckbox = document.getElementById(
 const chatSection = document.querySelector(".chatQuestionsSection");
 const cptChecker = document.getElementById("dobForCPT");
 let rateGroupNotificationTimeout;
+
+// Locks preserve the current provider on Clear All, only until the page reloads.
+const createContractedLock = (input) => {
+  const button = document.getElementById(`${input.id}-lock`);  
+  const state = {
+    locked: false,    
+    refresh() {      
+      if (!input.value.trim() || input.readOnly) state.locked = false;
+      button.disabled = !input.value.trim() || input.readOnly;
+      button.setAttribute("aria-pressed", String(state.locked));
+
+      button.textContent = state.locked ? "🔒" : "🔓";
+      
+      button.title = state.locked
+        ? "Unlock and clear this provider"
+        : "Keep this provider when clearing the template";
+      
+      input.classList.toggle("contracted-locked", state.locked);
+    },
+  };
+  button.addEventListener("click", () => {
+    state.locked = !state.locked;    
+    if (!state.locked) {
+      input.value = "";
+    }
+    state.refresh();        
+  });
+  input.addEventListener("input", () => state.refresh());  
+  state.refresh();
+  return state;
+};
+
+const contractedLockThree = createContractedLock(contractedInputThree);
+const contractedLockFour = createContractedLock(contractedInputFour);
 
 let dobString = "";
 
@@ -232,44 +272,61 @@ const applyImperialCommercialAutofill = () => {
       sick: "0.00",
       procedures: "75/25",
       labs: "75/25",
-      oop: "ind 2200 fam 4400",
-      deductible: "0",
+      oopInd: "2200",
+      oopFam: "4400",
+      deductibleInd: "0",
+      deductibleFam: "0",
       dedMet: "0",
+      deductibleFamMet: "0",
     },
+
     "imperial standard silver 87% av": {
       sick: "20.00",
       procedures: "70/30 after ded",
       labs: "70/30 after ded",
-      oop: "ind 3300 fam 6600",
-      deductible: "ind 700 fam 1400",
+      oopInd: "3300",
+      oopFam: "6600",
+      deductibleInd: "700",
+      deductibleFam: "1400",
       dedMet: "",
+      deductibleFamMet: "",      
+      
       
     },
     "imperial standard silver 73% av": {
       sick: "40.00",
       procedures: "60/40 after ded",
       labs: "60/40 after ded",
-      oop: "ind 7400 fam 14800",
-      deductible: "ind 3300 fam 6600",
+      oopInd: "7400",
+      oopFam: "14800",
+      deductibleInd: "3300",
+      deductibleFam: "6600",
       dedMet: "",
+      deductibleFamMet: "",
       
     },
     "imperial standard bronze off exchange": {
       sick: "50.00",
       procedures: "50/50 after ded",
       labs: "50/50 after ded",
-      oop: "ind 10000 fam 20000",
-      deductible: "ind 7500 fam 15000",
+      oopInd: "10000",
+      oopFam: "20000",
+      deductibleInd: "7500",
+      deductibleFam: "15000",
       dedMet: "",
-      
+      deductibleFamMet: "",      
     },
+
     "imperial standard bronze on exchange": {
       sick: "50.00",
       procedures: "50/50 after ded",
       labs: "50/50 after ded",
-      oop: "ind 10000 fam 20000",
-      deductible: "ind 7500 fam 15000",
+      oopInd: "10000",
+      oopFam: "20000",
+      deductibleInd: "7500",
+      deductibleFam: "15000",
      dedMet: "",
+     deductibleFamMet: "",
     },
   };
 
@@ -281,9 +338,12 @@ const applyImperialCommercialAutofill = () => {
   sickInputFour.value = selectedValues.sick;
   proceduresInputFour.value = selectedValues.procedures;
   labsInputFour.value = selectedValues.labs;
-  oopInputFour.value = selectedValues.oop;
-  deductibleInputFour.value = selectedValues.deductible;
+  oopInputFour.value = selectedValues.oopInd;
+  famOopInputFour.value = selectedValues.oopFam;
+  deductibleInputFour.value = selectedValues.deductibleInd;
+  famDedInputFour.value = selectedValues.deductibleFam;
   dedMetInputFour.value = selectedValues.dedMet;
+  famDedMetInputFour.value = selectedValues.deductibleFamMet;
 
   theCOB.value = commonValues.theCOB;
   payorIDInputFour.value = commonValues.payorID;
@@ -325,7 +385,7 @@ cptChecker.addEventListener("input", function () {
 for (let i = 0; i < otherInsNoneButton.length; i++) {
   otherInsNoneButton[i].addEventListener("click", () => {
     if (otherInsNoneButton[i] === otherInsNoneButton[7]) {
-      primarycareCommericalInputFour.value = "NOT REQ";
+      hsahraInputFour.value = "NOT REQ";
     } else if (otherInsNoneButton[i] === otherInsNoneButton[0]) {
       otherInsuranceInput.value = "NONE";
     } else if (otherInsNoneButton[i] === otherInsNoneButton[1]) {
@@ -337,10 +397,12 @@ for (let i = 0; i < otherInsNoneButton.length; i++) {
     } else if (otherInsNoneButton[i] === otherInsNoneButton[4]) {
       pExamsInputFour.value = "COVERED AT 100%";
     } else if (otherInsNoneButton[i] === otherInsNoneButton[5]) {
-      immunizationsInputFour.value = "COVERED AT 100%";
+      immunizationsInputFour.value = "COVERED AT 100%";      
     } else if (otherInsNoneButton[i] === otherInsNoneButton[6]) {
-      hsahraInputFour.value = "NONE";
+      theCOB.value = "NOT REQ";
     } else if (otherInsNoneButton[i] === otherInsNoneButton[8]) {
+      primarycareCommericalInputFour.value = "NOT REQ";
+    } else if (otherInsNoneButton[i] === otherInsNoneButton[9]) {
       otherIns4Input.value = "NONE";
     }
   });
@@ -905,6 +967,7 @@ goldKidneyCheckbox.addEventListener("change", () => {
     pcpInputThree.value = "Not Required";
     uhcDualCheckBox.checked = false;
     contractedInputThree.readOnly = true;
+    contractedLockThree.refresh();
     sickInputThree.readOnly = true;
     pcpInputThree.readOnly = true;
     dedinputThree.readOnly = true;
@@ -926,11 +989,14 @@ uhcDualCheckBox.addEventListener("change", () => {
 });
 
 function goldKidneyClean() {
-  contractedInputThree.value = "";
+  if (!contractedLockThree.locked) {
+    contractedInputThree.value = "";
+  }
   sickInputThree.value = "";
   pcpInputThree.value = "";
   dedinputThree.value = "";  
   contractedInputThree.readOnly = false;
+  contractedLockThree.refresh();
   sickInputThree.readOnly = false;
   pcpInputThree.readOnly = false;
   dedinputThree.readOnly = false;  
@@ -996,9 +1062,7 @@ const flashInput = (inputElement, color = "red") => {
 monthlyBenefitsCheckBox.addEventListener("change", () => {
   if (monthlyBenefitsCheckBox.checked) {
     contractedInputFour.placeholder = "If left blank,it will not show";
-    sickInputFour.placeholder = "If left blank,it will not show";
-    dedMetInputFour.placeholder = "If left blank,it will not show";
-    deductibleInputFour.placeholder = "If left blank,it will not show";
+    sickInputFour.placeholder = "If left blank,it will not show";    
 
     noneNeededBenis.forEach((element) => {
       element.style.display = "none";
@@ -1008,9 +1072,7 @@ monthlyBenefitsCheckBox.addEventListener("change", () => {
       element.style.display = "block";
     });
     contractedInputFour.placeholder = "";
-    sickInputFour.placeholder = "";
-    dedMetInputFour.placeholder = "";
-    deductibleInputFour.placeholder = "";
+    sickInputFour.placeholder = "";    
   }
 });
 
@@ -1298,15 +1360,25 @@ const originalValues = {
   otherInsFour: primarycareCommericalInputFour.value,
   policyHolderFour: policyHolderInputFour.value,
   groupFour: groupInputFour.value,
-  oopFour: oopInputFour.value,
-  oopMetFour: oopMetInputFour.value,
-  deductibleFour: deductibleInputFour.value,
-  dedMetFour: dedMetInputFour.value,
+  
+  indDedFour: deductibleInputFour.value,
+  famDedFour: famDedInputFour.value,
+  indDedMetFour: dedMetInputFour.value,
+  famDedMetFour: famDedMetInputFour.value,
+
+  indOopFour: oopInputFour.value,  
+  famOopFour: famOopInputFour.value,
+  famOopMetFour: famOopMetInputFour.value,
+  indOopMetFour: oopMetInputFour.value,
+  
   claimAddressFour: claimAddressInputFour.value,
   payorIDFour: payorIDInputFour.value,
   verifiedOnlineFour: verifiedOnlineInputFour.value,
   theCOB: theCOB.value,
 };
+
+
+
 
 function resetInputValues() {
   // Reset ahcccs input boxes
@@ -1327,7 +1399,10 @@ function resetInputValues() {
   spokeInputTwo.value = originalValues.spokeTwo;
 
   // Reset medicare input boxes
-  contractedInputThree.value = originalValues.contractedThree;
+  if (!contractedLockThree.locked) {
+    contractedInputThree.value = originalValues.contractedThree;
+  }
+  contractedLockThree.refresh();
   effectiveDateInputThree.value = originalValues.effectiveDateThree;
   planInputThree.value = originalValues.planThree;
   groupInputThree.value = originalValues.groupThree;
@@ -1338,7 +1413,10 @@ function resetInputValues() {
   pcpInputThree.value = originalValues.primaryCarePhysicianThree;
 
   // Reset commercial input boxes
-  contractedInputFour.value = originalValues.contractedFour;
+  if (!contractedLockFour.locked) {
+    contractedInputFour.value = originalValues.contractedFour;
+  }
+  contractedLockFour.refresh();
   sickInputFour.value = originalValues.sickFour;
   hsahraInputFour.value = originalValues.hsahraFour;
   telehealthInputFour.value = originalValues.telehealthFour;
@@ -1356,12 +1434,19 @@ function resetInputValues() {
   otherIns4Input.value = originalValues.primarycareCommericalFour;
   policyHolderInputFour.value = originalValues.primarycareCommericalFour;
   groupInputFour.value = originalValues.primarycareCommericalFour;
-  oopInputFour.value = originalValues.primarycareCommericalFour;
-  oopMetInputFour.value = originalValues.primarycareCommericalFour;
-  deductibleInputFour.value = originalValues.primarycareCommericalFour;
-  dedMetInputFour.value = originalValues.primarycareCommericalFour;
-  claimAddressInputFour.value = originalValues.primarycareCommericalFour;
-  payorIDInputFour.value = originalValues.primarycareCommericalFour;
+
+  deductibleInputFour.value = originalValues.indDedFour;
+  famDedInputFour.value = originalValues.famDedFour;
+  dedMetInputFour.value = originalValues.indDedMetFour;
+  famDedMetInputFour.value = originalValues.famDedMetFour;
+  
+  oopInputFour.value = originalValues.indOopFour;
+  famOopInputFour.value = originalValues.famOopFour;
+  oopMetInputFour.value = originalValues.indOopMetFour;
+  famOopMetInputFour.value = originalValues.famOopMetFour;  
+  
+  claimAddressInputFour.value = originalValues.claimAddressFour;
+  payorIDInputFour.value = originalValues.payorIDFour;
   theCOB.value = originalValues.theCOB;
 }
 
@@ -1763,6 +1848,77 @@ const replacementVerification = () => {
   }
 };
 
+// Builds the DED/MET/OOP/OOP MET amount arrays (IND/FAM) shared by both verification text branches
+const getAccumulatorAmounts = () => {
+  let dedLimitAmounts = [];
+  let metLimitAmounts = [];
+  let oopLimitAmounts = [];
+  let oopMetLimitAmounts = [];
+
+  // --------------------
+  // DEDUCTIBLE LIMITS
+  // --------------------
+  if (deductibleInputFour.value.trim() !== "0" && deductibleInputFour.value.trim() !== "" && deductibleInputFour.value.trim() !== "0.00") {
+    dedLimitAmounts.push(`IND: ${deductibleInputFour.value.trim()}`);
+  }
+
+  if (famDedInputFour.value.trim() !== "0" && famDedInputFour.value.trim()  !== "" && famDedInputFour.value.trim() !== "0.00") {
+    dedLimitAmounts.push(`FAM: ${famDedInputFour.value.trim()}`);
+  }
+
+  // --------------------
+  // DEDUCTIBLE MET
+  // --------------------
+
+  if (deductibleInputFour.value.trim() !== "0" && deductibleInputFour.value.trim() !== "" && deductibleInputFour.value.trim() !== "0.00"  && dedMetInputFour.value.trim() !== "") {
+    metLimitAmounts.push(`IND: ${dedMetInputFour.value.trim()}`);
+  }
+
+
+  if (famDedInputFour.value.trim() !== "0" && famDedInputFour.value.trim() !== "" && famDedInputFour.value.trim() !== "0.00" &&  famDedMetInputFour.value.trim() !== "") {
+    metLimitAmounts.push(`FAM: ${famDedMetInputFour.value.trim()}`);
+  }
+
+  // --------------------
+  // OOP LIMIT
+  // --------------------
+
+  if (oopInputFour.value.trim() !== "0" && oopInputFour.value.trim() !== "" && oopInputFour.value.trim() !== "0.00") {
+    oopLimitAmounts.push(`IND: ${oopInputFour.value.trim()}`);
+  }
+
+  if (famOopInputFour.value.trim() !== "0" && famOopInputFour.value.trim() !== "" && famOopInputFour.value.trim() !== "0.00") {
+    oopLimitAmounts.push(`FAM: ${famOopInputFour.value.trim()}`);    
+  }
+
+  // --------------------
+  // OOP MET
+  // --------------------
+
+  if (oopInputFour.value.trim() !== "0" && oopInputFour.value.trim() !== "" && oopInputFour.value.trim() !== "0.00" && oopMetInputFour.value.trim() !== "") {
+    oopMetLimitAmounts.push(`IND: ${oopMetInputFour.value.trim()}`);
+  }
+
+  if (famOopInputFour.value.trim() !== "0" && famOopInputFour.value.trim() !== "" && famOopInputFour.value.trim() !== "0.00" && famOopMetInputFour.value.trim() !== "") {
+    oopMetLimitAmounts.push(`FAM: ${famOopMetInputFour.value.trim()}`);
+  }
+
+  if (dedLimitAmounts.length === 0) {
+    dedLimitAmounts.push(`NONE`);
+  }
+  if (metLimitAmounts.length === 0) {
+    metLimitAmounts.push(`NONE`);
+  }
+  if (oopLimitAmounts.length === 0) {
+    oopLimitAmounts.push(`NONE`);
+  }
+  if (oopMetLimitAmounts.length === 0) {
+    oopMetLimitAmounts.push(`NONE`);
+  }
+
+  return { dedLimitAmounts, metLimitAmounts, oopLimitAmounts, oopMetLimitAmounts };
+};
+
 const commercialVerificationText = () => {
   actualVerificationDate = dateVerified.value;
   actualVerificationDateFormatted =
@@ -1771,6 +1927,9 @@ const commercialVerificationText = () => {
     actualVerificationDate.substring(8, 10) +
     "/" +
     actualVerificationDate.substring(0, 4);
+
+  const { dedLimitAmounts, metLimitAmounts, oopLimitAmounts, oopMetLimitAmounts } =
+    getAccumulatorAmounts();
 
   let parts = [];
   parts.push(`${actualVerificationDateFormatted}`);
@@ -1783,14 +1942,7 @@ const commercialVerificationText = () => {
   if (sickInputFour.value.trim() !== "") {
     parts.push(`SICK: ${sickInputFour.value.trim()}`);
   }
-  if (
-    deductibleInputFour.value.trim() !== "" ||
-    dedMetInputFour.value.trim() !== ""
-  ) {
-    parts.push(
-      `DED: ${deductibleInputFour.value.trim()}/ MET: ${dedMetInputFour.value.trim()}`,
-    );
-  }
+  parts.push(`DED: ${dedLimitAmounts.join(" ")} / MET: ${metLimitAmounts.join(" ")}`);  
 
   if (monthlyBenefitsCheckBox.checked) {
     textBoxes[1].value = parts.join(" | ").toLocaleUpperCase();
@@ -1811,7 +1963,7 @@ const commercialVerificationText = () => {
 
     textBoxes[1].value = `${actualVerificationDateFormatted} ${
       getInitials.value
-    } CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()} | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()} | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()}${spokeAndRefSection} | EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()}     | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${otherIns4Input.value}  | DED: ${deductibleInputFour.value.trim()} / MET: ${dedMetInputFour.value.trim()} | OOP: ${oopInputFour.value.trim()} / MET: ${oopMetInputFour.value.trim()}      | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `.toLocaleUpperCase();
+    } CONTRACTED: ${contractedInputFour.value.trim()} | SICK: ${sickInputFour.value.trim()} | TELEHEALTH: ${telehealthInputFour.value.trim()} | PROCEDURES: ${proceduresInputFour.value.trim()} | DX-LABS: ${labsInputFour.value.trim()} | PE: ${pExamsInputFour.value.trim()} | FLU(90656/90662)/PREVENTIVE IMMUN: ${immunizationsInputFour.value.trim()} | COB: ${theCOB.value} | HSA/HRA: ${hsahraInputFour.value.trim()}${spokeAndRefSection} | EFF: ${effectiveDateInputFour.value.trim()} | PLAN TYPE: ${planTypeInputFour.value.trim()} |  NETWORK: ${networkInputFour.value.trim()}     | PCP: ${primarycareCommericalInputFour.value.trim()}  | POLICY HOLDER: ${policyHolderInputFour.value}  | GROUP#: ${groupInputFour.value.trim()} | OTHER INS: ${otherIns4Input.value} | DED: ${dedLimitAmounts.join(" ")} / MET: ${metLimitAmounts.join(" ")} |  OOP: ${oopLimitAmounts.join(" ")} / MET: ${oopMetLimitAmounts.join(" ")} | CLAIM ADDRESS: ${claimAddressInputFour.value.trim()} | PAYOR ID: ${payorIDInputFour.value.trim()}  |  VERIFIED: ${verifiedOnlineInputThree.value} `.toLocaleUpperCase();
   }
   if (acaExchangeStandardHealthCheckbox.checked) {
     textBoxes[1].value += " (COVID TEST NOT COVERED)";
@@ -2295,10 +2447,16 @@ function fillForm(data) {
     primarycareCommericalInputFour.value = data.pcp;
     groupInputFour.value = data.groupNumber;
     otherIns4Input.value = data.otherInsurance;
-    deductibleInputFour.value = `IND ${data.indDedAmount} FAM ${data.famDedAmount}`;
-    dedMetInputFour.value = `IND ${data.indDedMet} FAM ${data.famDedMet}`;
-    oopInputFour.value = `IND ${data.indOopAmount} FAM ${data.famOopAmount}`;
-    oopMetInputFour.value = `IND ${data.indOopMet} FAM ${data.famOopMet}`;
+
+    deductibleInputFour.value = `${data.indDedAmount}`;
+    famDedInputFour.value = `${data.famDedAmount}`;
+    dedMetInputFour.value = `${data.indDedMet}`;
+    famDedMetInputFour.value = `${data.famDedMet}`;
+    oopInputFour.value = `${data.indOopAmount}`;
+    famOopInputFour.value = `${data.famOopAmount}`;
+    oopMetInputFour.value = `${data.indOopMet}`;
+    famOopMetInputFour.value = `${data.famOopMet}`;
+
     policyHolderInputFour.value = data.policyHolder;
     claimAddressInputFour.value = data.poBox ? `PO Box ${data.poBox}` : "";
     payorIDInputFour.value = data.payerId;

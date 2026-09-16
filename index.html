@@ -370,7 +370,8 @@
                     <div id="template3">
                         <div class="contractedIns">
                             <label for="contracted3">CONTRACTED:</label>
-                            <input type="text" list="contracted-list" name="contracted3" id="contracted3">
+                            <button type="button" class="contracted-lock" id="contracted3-lock" aria-controls="contracted3" aria-pressed="false" disabled>🔓</button>
+                            <input type="text" list="contracted-list" name="contracted3" id="contracted3" aria-describedby="contracted3-reminder">                            
                             <datalist id="contracted-list">
                             </datalist>
                         </div>
@@ -415,7 +416,9 @@
                             <label for="contracted4">CONTRACTED:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">Is the provider {name of provider} contracted with this patient's plan?</span>
-                            <input type="text" name="contracted4" list="contracted-list" id="contracted4">
+                            <button type="button" class="contracted-lock" id="contracted4-lock" aria-controls="contracted4" aria-pressed="false" disabled>asdfasd</button>
+                            <input type="text" name="contracted4" list="contracted-list" id="contracted4" aria-describedby="contracted4-reminder">
+                            <small class="contracted-lock-reminder" id="contracted4-reminder" hidden>Kept on clear. Confirm this provider is contracted with the current insurance.</small>
                             <datalist id="contracted-list">
                             </datalist>
                         </div>
@@ -491,6 +494,7 @@
                             <label for="askCOB">COB:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">Can you tell me when the last time the patient updated the COB or if the patient needs to update it?</span>
+                            <button class="otherInsNone">NOT REQ</button></label>
                             <input type="text" name="askCOB" id="askCOB">
                         </div>                
                          
@@ -526,7 +530,14 @@
                             <label for="planType4">PLAN TYPE:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">What Plan type is this? PPO, POS, HMO?</span>
-                            <input type="text" name="planType4" id="planType4">
+                            <input type="text" list="options-insTypes" name="planType4" id="planType4">
+                            <datalist id="options-insTypes">
+                                    <option value="HMO"></option>
+                                    <option value="PPO"></option>
+                                    <option value="POS"></option>
+                                    <option value="EPO"></option>                                    
+                                    <option value="ASO"></option>
+                             </datalist>
                         </div>
                         <div class="productName sameMonthNotNeeded">
                             <label for="plan4">NETWORK:</label>
@@ -552,7 +563,14 @@
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">Is patient the policy holder? (if over 18) <br>
                                                        Is this patient a dependent? (if under 18)</span>
-                            <input type="text" name="policyHolder4" id="policyHolder4">
+                            <input type="text" name="policyHolder4" id="policyHolder4" list="policyHolder4Options">
+                            <datalist id="policyHolder4Options">
+                                <option value="Yes">
+                                <option value="Dependent">
+                                <option value="Spouse">
+                                <option value="Child">
+                                <option value="Other">
+                            </datalist>
                         </div>
                         <div class="groupNumber sameMonthNotNeeded">
                             <label for="group4">GROUP#:</label>
@@ -567,29 +585,43 @@
                             <button class="otherInsNone">NONE</button></label> 
                             <input type="text" name="otherIns4" id="otherIns4">
                         </div>
-                        <div class="deductibleAmount sameMonthActive">
-                            <label for="deductible4">DED:</label>
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">May I have the Deductible Amounts?</span>
-                            <input type="text" name="deductible4" id="deductible4">
+                        <div class="deductibleAmount sameMonthActive">                            
+                                <label for="deductible4">DED:</label>
+                                <span class="tooltip-icon">?</span>
+                                <span class="tooltip-text">May I have the Deductible Amounts?
+                                </span>                            
+                            <div class="accumulatorWrap">
+                                <input type="text" placeholder="Ind Ded" name="indDed" id="indDed4" class="accumulators">
+                                <input type="text" placeholder="Fam Ded" name="famDed" id="famDed4" class="accumulators">
+                            </div>
                         </div>
-                        <div class="outOfPocketMet sameMonthActive">
-                            <label for="dedMet4">DED MET:</label>
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">What is the met or accumulated amounts for the deductible?</span>
-                            <input type="text" name="dedMet4" id="dedMet4">
+                        <div class="outOfPocketMet sameMonthActive">                            
+                                <label for="dedMet4">DED MET:</label>
+                                <span class="tooltip-icon">?</span>
+                                <span class="tooltip-text">What is the met or accumulated amounts for the deductible?</span>                            
+                            <div class="accumulatorWrap">
+                                <input type="text" placeholder="Ind Met" name="dedMet" id="indDedMet4" class="accumulators">
+                                <input type="text" placeholder="Fam Met" name="dedMet" id="famDedMet4" class="accumulators">
+                            </div>
                         </div>
                         <div class="outOfPocket sameMonthNotNeeded">
                             <label for="oop4">OOP:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">May I have the Out of Pocket Amounts?</span>
-                            <input type="text" name="oop4" id="oop4">
+                             <div class="accumulatorWrap">  
+                                <input type="text" placeholder="Ind OOP" name="oop4" id="indOop4" class="accumulators">
+                                <input type="text" placeholder="Fam OOP" name="oop4" id="famOop4" class="accumulators">
+                            </div>
                         </div>
+
                         <div class="outOfPocketMet sameMonthNotNeeded">
                             <label for="oopMet">OOP MET:</label>
                             <span class="tooltip-icon">?</span>
                             <span class="tooltip-text">What is the met or accumulated amounts for the Out of Pocket?</span>
-                            <input type="text" name="oopMet" id="oopMet4">
+                            <div class="accumulatorWrap">  
+                            <input type="text" placeholder="Ind Met" name="IndOopMet" id="indOopMet4">
+                            <input type="text" placeholder="Fam Met" name="famOopMet" id="famOopMet4">
+                            </div>
                         </div>
                         <div class="claimAddress sameMonthNotNeeded">
                             <label for="claimAddress4">CLAIM ADDRESS:</label>
