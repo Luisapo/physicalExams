@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verification AI - HSA/HRA Test</title>
+</head>
+
+<body>
+
+<h1>HSA / HRA Rule Engine Test</h1>
+
+<pre id="results"></pre>
+
+<script type="module">
+
+import { determineHsaHra } from "./rules/hsaHraRules.js";
+
+
+const tests = [
+
+  {
+    name: "No HSA or HRA",
+
+    input: {
+      discussed: true,
+      type: "none"
+    }
+  },
+
+
+  {
+    name: "Patient has HSA",
+
+    input: {
+      discussed: true,
+      type: "hsa"
+    }
+  },
+
+
+  {
+    name: "HRA identified but balance missing",
+
+    input: {
+      discussed: true,
+      type: "hra"
+    }
+  },
+
+
+  {
+    name: "HRA with $50 balance",
+
+    input: {
+      discussed: true,
+      type: "hra",
+      balance: 50
+    }
+  },
+
+
+  {
+    name: "HRA with exactly $90 balance",
+
+    input: {
+      discussed: true,
+      type: "hra",
+      balance: 90
+    }
+  },
+
+
+  {
+    name: "HRA $500 but billing responsibility unknown",
+
+    input: {
+      discussed: true,
+      type: "hra",
+      balance: 500
+    }
+  },
+
+
+  {
+    name: "HRA $500 - insurance/HRA billed",
+
+    input: {
+      discussed: true,
+      type: "hra",
+      balance: 500,
+      billedTo: "insurance"
+    }
+  },
+
+
+  {
+    name: "HRA $500 - patient billed",
+
+    input: {
+      discussed: true,
+      type: "hra",
+      balance: 500,
+      billedTo: "patient"
+    }
+  },
+
+
+  {
+    name: "Rep cannot determine HSA/HRA",
+
+    input: {
+      discussed: true,
+      type: "unknown"
+    }
+  },
+
+
+  {
+    name: "HSA/HRA never discussed",
+
+    input: {
+      discussed: false
+    }
+  }
+
+];
+
+
+const output = tests.map(test => {
+
+  const result = determineHsaHra(test.input);
+
+  return `
+TEST: ${test.name}
+
+STATUS:
+${result.status}
+
+HSA/HRA:
+${result.value ?? "—"}
+
+EMR OVERRIDE:
+${result.emrOverride ?? "—"}
+
+FOLLOW-UP:
+${result.followUp ?? "—"}
+
+REASON:
+${result.reason}
+
+-------------------------------------------
+`;
+
+}).join("");
+
+
+document.getElementById("results").textContent = output;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verification AI - EMR Copay Box Test</title>
+</head>
+
+<body>
+
+<h1>EMR Copay Box Rule Engine Test</h1>
+
+<pre id="results"></pre>
+
+<script type="module">
+
+import { determineSick } from "./rules/sickRules.js";
+import { determineHsaHra } from "./rules/hsaHraRules.js";
+import { determineCopayBox } from "./rules/copayBoxRules.js";
+
+
+const tests = [
+
+  // ==========================================================
+  // 1. Normal $30 copay
+  // ==========================================================
+
+  {
+    name: "$30 copay - no deductible",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    deductibleMet: null,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 2. 80/20 AFTER DED - deductible NOT met
+  // ==========================================================
+
+  {
+    name: "80/20 AFTER DED - deductible not met",
+
+    sick: {
+      type: "coinsurance",
+      patientPercent: 20,
+      deductibleApplies: true
+    },
+
+    deductibleMet: false,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 3. 0.00 AFTER DED - deductible NOT met
+  //
+  // Important trap:
+  // Copay Box is NOT zero yet.
+  // ==========================================================
+
+  {
+    name: "0.00 AFTER DED - deductible not met",
+
+    sick: {
+      type: "deductible",
+      afterDeductible: {
+        type: "covered100"
+      }
+    },
+
+    deductibleMet: false,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 4. 0.00 AFTER DED - deductible IS met
+  // ==========================================================
+
+  {
+    name: "0.00 AFTER DED - deductible met",
+
+    sick: {
+      type: "deductible",
+      afterDeductible: {
+        type: "covered100"
+      }
+    },
+
+    deductibleMet: true,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 5. $30 AFTER DED - deductible NOT met
+  // ==========================================================
+
+  {
+    name: "$30 AFTER DED - deductible not met",
+
+    sick: {
+      type: "deductible",
+      afterDeductible: {
+        type: "copay",
+        amount: 30
+      }
+    },
+
+    deductibleMet: false,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 6. $30 AFTER DED - deductible met
+  // ==========================================================
+
+  {
+    name: "$30 AFTER DED - deductible met",
+
+    sick: {
+      type: "deductible",
+      afterDeductible: {
+        type: "copay",
+        amount: 30
+      }
+    },
+
+    deductibleMet: true,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 7. 80/20 AFTER DED - deductible met
+  //
+  // Benefit known, exact dollar amount unknown.
+  // ==========================================================
+
+  {
+    name: "80/20 AFTER DED - deductible met",
+
+    sick: {
+      type: "coinsurance",
+      patientPercent: 20,
+      deductibleApplies: true
+    },
+
+    deductibleMet: true,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 8. Straight 80/20 - no deductible
+  // ==========================================================
+
+  {
+    name: "80/20 - no deductible",
+
+    sick: {
+      type: "coinsurance",
+      patientPercent: 20,
+      deductibleApplies: false
+    },
+
+    deductibleMet: null,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 9. Covered 100% - no deductible
+  // ==========================================================
+
+  {
+    name: "Covered 100% - no deductible",
+
+    sick: {
+      type: "covered100",
+      deductibleApplies: false
+    },
+
+    deductibleMet: null,
+    oopMet: false,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 10. OOP met
+  //
+  // Even though normal SICK is $15,
+  // current responsibility is 0.00.
+  // ==========================================================
+
+  {
+    name: "$15 copay but OOP satisfied",
+
+    sick: {
+      type: "copay",
+      copayAmount: 15,
+      deductibleApplies: false
+    },
+
+    deductibleMet: null,
+    oopMet: true,
+    hra: null
+  },
+
+
+  // ==========================================================
+  // 11. HRA override
+  //
+  // SICK remains $30.
+  // Copay Box becomes $0.
+  // ==========================================================
+
+  {
+    name: "$30 SICK with qualifying HRA override",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    deductibleMet: null,
+    oopMet: false,
+
+    hra: {
+      discussed: true,
+      type: "hra",
+      balance: 500,
+      billedTo: "insurance"
+    }
+  },
+
+
+  // ==========================================================
+  // 12. Deductible status unknown
+  // ==========================================================
+
+  {
+    name: "80/20 AFTER DED - deductible status unknown",
+
+    sick: {
+      type: "coinsurance",
+      patientPercent: 20,
+      deductibleApplies: true
+    },
+
+    deductibleMet: null,
+    oopMet: false,
+    hra: null
+  },
+
+  {
+    name: "90/10 AFTER DED - deductible met",
+
+  sick: {
+    type: "coinsurance",
+    patientPercent: 10,
+    deductibleApplies: true
+  },
+
+    deductibleMet: true,
+    oopMet: false,
+    hra: null
+  },
+
+];
+
+
+const output = tests.map(test => {
+
+  const sickResult =
+    determineSick(test.sick);
+
+  const hraResult =
+    test.hra
+      ? determineHsaHra(test.hra)
+      : null;
+
+  const copayBoxResult =
+    determineCopayBox({
+      sickResult,
+      deductibleMet: test.deductibleMet,
+      oopMet: test.oopMet,
+      hraResult
+    });
+
+
+  return `
+TEST: ${test.name}
+
+SICK:
+${sickResult.value ?? "—"}
+
+HRA:
+${hraResult?.value ?? "—"}
+
+COPAY BOX STATUS:
+${copayBoxResult.status}
+
+EMR COPAY BOX:
+${copayBoxResult.value ?? "—"}
+
+REASON:
+${copayBoxResult.reason}
+
+-------------------------------------------
+`;
+
+}).join("");
+
+
+document.getElementById("results").textContent = output;
+
+</script>
+
+</body>
+</html>

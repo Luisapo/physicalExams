@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verification AI - COB Test</title>
+</head>
+
+<body>
+
+<h1>COB Rule Engine Test</h1>
+
+<pre id="results"></pre>
+
+<script type="module">
+
+import { determineCOB } from "./rules/cobRules.js";
+
+
+const tests = [
+
+  {
+    name: "Patient explicitly needs COB update",
+
+    input: {
+      discussed: true,
+      patientNeedsUpdate: true
+    }
+  },
+
+
+  {
+    name: "Current insurance is secondary",
+
+    input: {
+      discussed: true,
+      currentPlanSecondary: true
+    }
+  },
+
+
+  {
+    name: "Patient has another insurance",
+
+    input: {
+      discussed: true,
+      otherInsurance: "yes",
+      otherInsuranceInactive: false
+    }
+  },
+
+
+  {
+    name: "Other insurance exists but is inactive",
+
+    input: {
+      discussed: true,
+      otherInsurance: "yes",
+      otherInsuranceInactive: true
+    }
+  },
+
+
+  {
+    name: "Rep explicitly says COB update not required",
+
+    input: {
+      discussed: true,
+      patientNeedsUpdate: false,
+      lastUpdatedDate: "09/01/2026"
+    }
+  },
+
+
+  {
+    name: "Rep cannot see COB",
+
+    input: {
+      discussed: true,
+      repCanSeeCOB: false
+    }
+  },
+
+
+  {
+    name: "COB updated 3 months ago",
+
+    input: {
+      discussed: true,
+      lastUpdatedMonthsAgo: 3,
+      lastUpdatedDate: "06/18/2026"
+    }
+  },
+
+
+  {
+    name: "COB updated 8 months ago",
+
+    input: {
+      discussed: true,
+      lastUpdatedMonthsAgo: 8,
+      lastUpdatedDate: "01/18/2026"
+    }
+  },
+
+
+  {
+    name: "COB mentioned but answer unclear",
+
+    input: {
+      discussed: true
+    }
+  },
+
+
+  {
+    name: "COB never discussed",
+
+    input: {
+      discussed: false
+    }
+  }
+
+];
+
+
+const output = tests.map(test => {
+
+  const result = determineCOB(test.input);
+
+  return `
+TEST: ${test.name}
+
+STATUS:
+${result.status}
+
+COB:
+${result.value ?? "—"}
+
+FOLLOW-UP:
+${result.followUp ?? "—"}
+
+REASON:
+${result.reason}
+
+-------------------------------------------
+`;
+
+}).join("");
+
+
+document.getElementById("results").textContent = output;
+
+</script>
+
+</body>
+</html>

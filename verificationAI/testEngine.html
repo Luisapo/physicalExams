@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verification AI - Full Engine</title>
+</head>
+
+<body>
+
+<h1>Verification AI - Full Engine Test</h1>
+
+<pre id="results"></pre>
+
+
+<script type="module">
+
+import {
+  analyzeVerification
+} from "./verificationEngine.js";
+
+
+// ============================================================
+// SIMULATED VERIFICATION
+//
+// Think of this as what the AI will eventually extract
+// from the insurance call.
+// ============================================================
+
+const verification = {
+
+  // ----------------------------------------------------------
+  // SICK
+  //
+  // Rep says:
+  // "Patient is responsible for 20% after deductible."
+  // ----------------------------------------------------------
+
+sick: {
+  type: "copay",
+  copayAmount: 30,
+  deductibleApplies: false
+},
+
+  // ----------------------------------------------------------
+  // SURGERY
+  //
+  // Experienced-verifier rule:
+  // not explicitly asked because it inherits SICK.
+  // ----------------------------------------------------------
+
+  surgery: {
+    explicitlyDiscussed: false
+  },
+
+
+  // ----------------------------------------------------------
+  // DX LABS
+  //
+  // Same situation.
+  // ----------------------------------------------------------
+
+  dxLabs: {
+    explicitlyDiscussed: false
+  },
+
+
+  // ----------------------------------------------------------
+  // COB
+  //
+  // Rep says COB was updated recently.
+  // ----------------------------------------------------------
+
+cob: {
+  discussed: true,
+  lastUpdatedMonthsAgo: 8,
+  lastUpdatedDate: "01/18/2026"
+},
+
+  // ----------------------------------------------------------
+  // HSA / HRA
+  // ----------------------------------------------------------
+
+  hsaHra: {
+    discussed: true,
+    type: "none"
+  },
+
+
+  // ----------------------------------------------------------
+  // ACCUMULATORS
+  //
+  // Portal tells us deductible is NOT met.
+  // ----------------------------------------------------------
+
+  accumulators: {
+    deductibleMet: false,
+    oopMet: false
+  }
+
+};
+
+
+const result =
+  analyzeVerification(verification);
+
+
+document.getElementById("results").textContent =
+  JSON.stringify(result, null, 2);
+
+
+</script>
+
+</body>
+</html>

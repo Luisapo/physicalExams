@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verification AI - Service Test</title>
+</head>
+
+<body>
+
+<h1>Surgery / DX Labs Rule Engine Test</h1>
+
+<pre id="results"></pre>
+
+<script type="module">
+
+import { determineSick } from "./rules/sickRules.js";
+import { determineServiceBenefit } from "./rules/serviceRules.js";
+
+
+const tests = [
+
+  // ==========================================================
+  // TEST 1
+  // Experienced verifier inheritance:
+  // 80/20 after ded → Surgery also 80/20 after ded
+  // ==========================================================
+
+  {
+    name: "Inherit 80/20 AFTER DED from SICK",
+
+    sick: {
+      type: "coinsurance",
+      patientPercent: 20,
+      deductibleApplies: true
+    },
+
+    service: {
+      explicitlyDiscussed: false
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 2
+  // 0.00 after ded → covered under OV after ded
+  // ==========================================================
+
+  {
+    name: "Inherit covered 100% AFTER DED from SICK",
+
+    sick: {
+      type: "deductible",
+      afterDeductible: {
+        type: "covered100"
+      }
+    },
+
+    service: {
+      explicitlyDiscussed: false
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 3
+  // Fixed copay cannot automatically be inherited.
+  // ==========================================================
+
+  {
+    name: "$30 SICK copay but service not discussed",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: false
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 4
+  // Rep says same copay covers the service.
+  // ==========================================================
+
+  {
+    name: "Service covered under OV",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: true,
+      type: "copay",
+      copayAmount: 30,
+      sameAsOfficeVisit: true,
+      additionalToOfficeVisit: false
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 5
+  // Additional $30 per visit
+  // ==========================================================
+
+  {
+    name: "$30 additional copay PER VISIT",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: true,
+      type: "copay",
+      copayAmount: 30,
+      additionalToOfficeVisit: true,
+      frequency: "per_visit"
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 6
+  // Additional $30 but frequency unknown.
+  // ==========================================================
+
+  {
+    name: "$30 additional copay but frequency missing",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: true,
+      type: "copay",
+      copayAmount: 30,
+      additionalToOfficeVisit: true,
+      frequency: null
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 7
+  // > $99 department rule
+  // ==========================================================
+
+  {
+    name: "$150 service copay - MAX rule",
+
+    sick: {
+      type: "copay",
+      copayAmount: 30,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: true,
+      type: "copay",
+      copayAmount: 150,
+      additionalToOfficeVisit: true
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 8
+  // Separate coinsurance
+  // ==========================================================
+
+  {
+    name: "Separate 90/10 AFTER DED benefit",
+
+    sick: {
+      type: "copay",
+      copayAmount: 25,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: true,
+      type: "coinsurance",
+      patientPercent: 10,
+      deductibleApplies: true
+    }
+  },
+
+
+  // ==========================================================
+  // TEST 9
+  // Coinsurance known, deductible unknown.
+  // ==========================================================
+
+  {
+    name: "Service 20% coinsurance but deductible unknown",
+
+    sick: {
+      type: "copay",
+      copayAmount: 25,
+      deductibleApplies: false
+    },
+
+    service: {
+      explicitlyDiscussed: true,
+      type: "coinsurance",
+      patientPercent: 20,
+      deductibleApplies: null
+    }
+  }
+
+];
+
+
+const output = tests.map(test => {
+
+  const sickResult = determineSick(test.sick);
+
+  const serviceResult =
+    determineServiceBenefit(test.service, sickResult);
+
+  return `
+TEST: ${test.name}
+
+SICK:
+${sickResult.value ?? "—"}
+
+STATUS:
+${serviceResult.status}
+
+SOURCE:
+${serviceResult.source ?? "—"}
+
+SERVICE BENEFIT:
+${serviceResult.value ?? "—"}
+
+FOLLOW-UP:
+${serviceResult.followUp ?? "—"}
+
+REASON:
+${serviceResult.reason}
+
+-------------------------------------------
+`;
+
+}).join("");
+
+
+document.getElementById("results").textContent = output;
+
+</script>
+
+</body>
+</html>

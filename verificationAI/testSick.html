@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verification AI - SICK Test</title>
+</head>
+
+<body>
+
+  <h1>SICK Rule Engine Test</h1>
+
+  <pre id="results"></pre>
+
+  <script type="module">
+
+    import { determineSick } from "./rules/sickRules.js";
+
+    const tests = [
+
+      {
+        name: "$30 regular copay",
+        input: {
+          type: "copay",
+          copayAmount: 30,
+          deductibleApplies: false
+        }
+      },
+
+      {
+        name: "20% patient coinsurance after deductible",
+        input: {
+          type: "coinsurance",
+          patientPercent: 20,
+          deductibleApplies: true
+        }
+      },
+
+      {
+        name: "Covered 100% after deductible",
+        input: {
+          type: "deductible",
+          afterDeductible: {
+            type: "covered100"
+          }
+        }
+      },
+
+      {
+        name: "Deductible mentioned but outcome missing",
+        input: {
+          type: "deductible"
+        }
+      },
+
+      {
+        name: "30% coinsurance - deductible unknown",
+        input: {
+          type: "coinsurance",
+          patientPercent: 30,
+          deductibleApplies: null
+        }
+      }
+
+    ];
+
+
+    const output = tests.map(test => {
+
+      const result = determineSick(test.input);
+
+      return `
+TEST: ${test.name}
+
+STATUS:
+${result.status}
+
+SICK:
+${result.value ?? "—"}
+
+FOLLOW-UP:
+${result.followUp ?? "—"}
+
+REASON:
+${result.reason}
+
+-----------------------------------
+`;
+
+    }).join("");
+
+
+    document.getElementById("results").textContent = output;
+
+  </script>
+
+</body>
+</html>
