@@ -2157,7 +2157,7 @@ const currentProviders = [
   { name: "Xochitl Landeros", contracted: "YES" },
   { name: "Yesenia E. Ochoa", contracted: "YES" },  
   { name: "Jessica Valladolid", contracted: "YES" },  
-  { name: "Jorge Alzuri Hernandez", contracted: "YES" },
+  { name: "Jorge Alzuri Hernandez", contracted: "YES" },  
   { name: "Elias", contracted: false, seeUnder: "Carlomagno Briones" },
   { name: "Montiel", contracted: false, seeUnder: "Christine Briones" },
   { name: "Diaz", contracted: false, seeUnder: "Nina Celaya" },
@@ -2280,6 +2280,8 @@ const providerNamesNoMiddleInitial = [
   "LOPEZ, ELIZABETH",
   "GUZMAN GARCIA, ALEX",
   "WHITE, ANDREW C",
+  "Jessica Valladolid",
+  "Valladolid, Jessica",
 ];
 
 const datalist = document.getElementById("contracted-list");
