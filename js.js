@@ -2282,6 +2282,8 @@ const providerNamesNoMiddleInitial = [
   "WHITE, ANDREW C",
   "Jessica Valladolid",
   "Valladolid, Jessica",
+  "VALLADOLID, JESSICA",
+  "JESSICA VALLADOLID"
 ];
 
 const datalist = document.getElementById("contracted-list");
