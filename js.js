@@ -2175,6 +2175,7 @@ const currentProviders = [
 ];
 
 const providerNamesNoMiddleInitial = [
+  "Blair Andrew Ball",
   "Alex Guzman Garcia",
   "Aaron Jensen",
   "Andrew White",
