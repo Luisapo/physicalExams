@@ -2026,36 +2026,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  //-------------This little section flips between the two forms-------------//
 
-  const buttons = document.querySelectorAll(".arrow-button");
-  const computedStyle = window.getComputedStyle(form);
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", function () {
-      if (computedStyle.display !== "none") {
-        form.style.display = "none";
-        secondForm.style.display = "block";
-        secondForm.style.gridRow = 1;
-      } else {
-        form.style.display = "block";
-        secondForm.style.gridRow = 2;
-        secondForm.style.display = "none";
-      }
-    });
-  });
-
-  window.addEventListener("resize", function () {
-    // Check if the height is greater than 900 pixels
-    if (window.innerHeight > 900) {
-      form.style.display = "block";
-      secondForm.style.display = "block";
-    } else {
-      form.style.display = "block";
-      secondForm.style.gridRow = 2;
-      secondForm.style.display = "none";
-    }
-  });
 });
 
 const cleanSlatePE = () => {

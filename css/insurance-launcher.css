@@ -1,0 +1,180 @@
+/* Launcher and workspace layout only; template calculations remain unchanged. */
+body.insurance-workstation {
+  height: auto;
+  min-height: 100vh;
+  overflow: auto;
+  background-attachment: fixed;
+}
+
+.insurance-workstation .container-main {
+  display: block;
+  height: auto;
+  overflow: visible;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 20px 24px 72px;
+}
+
+.insurance-workstation #backgroundChanger {
+  position: static;
+  transform: none;
+  justify-content: center;
+  margin: 0 0 24px;
+}
+
+.workspace-heading {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #263442;
+}
+
+.insurance-launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.insurance-category {
+  --category-color: #216348;
+  --category-tint: #edf8f1;
+  padding: 16px;
+  border: 1px solid #cdd8d3;
+  border-top: 5px solid var(--category-color);
+  border-radius: 14px;
+  background: var(--category-tint);
+}
+
+.insurance-category[data-category="medicare"] {
+  --category-color: #245a99;
+  --category-tint: #edf4ff;
+}
+.insurance-category[data-category="advantage"] {
+  --category-color: #73438a;
+  --category-tint: #f6effa;
+}
+.insurance-category[data-category="commercial"] {
+  --category-color: #925017;
+  --category-tint: #fff5e8;
+}
+
+.insurance-category h2 {
+  color: var(--category-color);
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+.payer-links { display: grid; gap: 8px; }
+.payer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--category-color);
+  border-radius: 8px;
+  background: white;
+  color: var(--category-color);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.payer-link:hover { color: white; background: var(--category-color); }
+.payer-link:focus-visible { outline: 3px solid #162d47; outline-offset: 3px; }
+.launcher-help { margin: 12px 0 24px; text-align: center; color: #263442; font-size: 0.9rem; }
+
+.insurance-workstation .middleFormsForSmallWindow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+.insurance-workstation #physicalExams,
+.insurance-workstation #verifications {
+  display: block;
+  grid-row: auto;
+  min-width: 0;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+.insurance-workstation .my-field { width: 100%; margin: 0; min-width: 0; }
+.insurance-workstation .radio-options,
+.insurance-workstation .checkbox-options { flex-wrap: wrap; gap: 10px; }
+.insurance-workstation .buttons { flex-wrap: wrap; gap: 8px; }
+.insurance-workstation .verificationDate { flex-wrap: wrap; }
+.insurance-workstation .my-field input { max-width: 100%; }
+.insurance-workstation .data-validation > *,
+.insurance-workstation .verificationTemplates > div > div { min-width: 0; }
+.insurance-workstation .radio-selector:hover { font-size: medium; }
+
+@media (max-width: 1099px) {
+  .insurance-workstation .middleFormsForSmallWindow { grid-template-columns: minmax(0, 1fr); }
+  .insurance-workstation .my-field { max-width: 705px; margin: 0 auto; }
+  .insurance-launcher-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 540px) {
+  .insurance-workstation .container-main { padding: 16px 12px 72px; }
+  .insurance-launcher-grid { grid-template-columns: minmax(0, 1fr); }
+  .insurance-workstation .data-validation { grid-auto-flow: row; grid-auto-columns: 1fr; }
+  .insurance-workstation .verificationTemplates > div { grid-template-columns: minmax(0, 1fr); }
+  .insurance-workstation legend { width: auto; max-width: 100%; }
+}
+
+
+/* Animate actual content height, including movement of the templates below. */
+#insurance-launcher {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.6s ease, opacity 0.6s ease,
+    visibility 0s linear 0.6s;
+}
+
+/* Let the inner grid shrink below its content's natural height. */
+#insurance-launcher > .insurance-launcher-grid {
+  min-height: 0;
+  overflow: hidden;
+}
+
+#insurance-launcher.active {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #insurance-launcher { transition: none; }
+}
+
+
+#insurance-toggle {
+	background-color:#010508;	
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 23px;
+	text-decoration:none;
+  border-radius: 4px;
+  width: 100%;
+}
+#insurance-toggle:hover {
+	background-color:#0688fa;
+}
+#insurance-toggle:active {
+	position:relative;
+	top:1px;
+}
+
+

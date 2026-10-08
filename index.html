@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">    
     <link rel="icon" href="./images/verificationLogo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="./css/stylesheets.css">
+    <link rel="stylesheet" href="./verificationAI/mainPanel.css">
+    <link rel="stylesheet" href="./css/insurance-launcher.css">
     
     <title>Physical Exam Eligibility</title>
 </head>
-<body>
+<body class="insurance-workstation">
     <!-- <div class="video-container">
         <video autoplay muted id="background-video">
             <source src="" type="video/mp4">
@@ -28,35 +30,98 @@
 
     <div class="container-main">
 
-        
-            <button class="arrow-button" id="prevButton">&lt; Prev</button>            
-            <div class="middleFormsForSmallWindow">
         <div id="backgroundChanger">            
-<button class="color-picker"
+<button type="button" aria-label="Blue background" class="color-picker"
   data-bg="linear-gradient(white, rgb(20,70,156))"
   style="background: linear-gradient(white, rgb(20,70,156));">
 </button>
 
-<button class="color-picker"
+<button type="button" aria-label="Purple background" class="color-picker"
   data-bg="linear-gradient(white, #6d3580)"
   style="background: linear-gradient(white, #6d3580);">
 </button>
 
-<button class="color-picker"
+<button type="button" aria-label="Coral background" class="color-picker"
   data-bg="linear-gradient(white, #e4734f)"
   style="background: linear-gradient(white, #e4734f);">
 </button>
 
-<button class="color-picker"
+<button type="button" aria-label="Green background" class="color-picker"
   data-bg="linear-gradient(white, #41644a)"
   style="background: linear-gradient(white, #41644a);">
 </button>
 
-<button class="color-picker"
+<button type="button" aria-label="Black background" class="color-picker"
   data-bg="linear-gradient(white, #000000)"
   style="background: linear-gradient(white, #000000);">
 </button>
         </div>
+        <button type="button" id="insurance-toggle" class="toggle-btn" aria-controls="insurance-launcher" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.nextElementSibling.classList.toggle('active'))">
+  Insurances
+</button>
+        <section id="insurance-launcher" aria-labelledby="insurance-toggle">            
+            <div class="insurance-launcher-grid">
+                <section class="insurance-category" data-category="ahcccs" aria-labelledby="category-ahcccs">
+                    <h2 id="category-ahcccs">AHCCCS</h2>
+                    <div class="payer-links">
+                        <button type="button" class="payer-link" data-insurance-category="ahcccs" data-portal-url="https://provider.azcompletehealth.com/careconnect/home" aria-label="Arizona Complete Health: open portal in a new tab">Arizona Complete Health</button>
+                        <button type="button" class="payer-link" data-insurance-category="ahcccs" data-portal-url="https://eservices.uph.org/Account/Login?ReturnUrl=%2FMember" aria-label="Banner University Family Care: open portal in a new tab">Banner University Family Care</button>
+                        <button type="button" class="payer-link" data-insurance-category="ahcccs" data-portal-url="https://providerportal.healthchoiceaz.com/Account/Login?ReturnUrl=%2fEligibility" aria-label="Health Choice: open portal in a new tab">Health Choice</button>
+                        <button type="button" class="payer-link" data-insurance-category="ahcccs" data-portal-url="https://medicaid.aetna.com/MWP/landing/home" aria-label="Mercy Care Plan/DCS/RBHA: open portal in a new tab">Mercy Care Plan/DCS/RBHA</button> 
+                        <button type="button" class="payer-link" data-insurance-category="ahcccs" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="Molina Healthcare: open portal in a new tab">Molina Healthcare</button> 
+                        <button type="button" class="payer-link" data-insurance-category="ahcccs" data-portal-url="https://secure.uhcprovider.com/#/" aria-label="UHC Community Plan: open portal in a new tab">UHC Community Plan</button>
+                    </div>
+                </section>
+                <section class="insurance-category" data-category="medicare" aria-labelledby="category-medicare">
+                    <h2 id="category-medicare">Medicare Part B</h2>
+                    <div class="payer-links">
+                        <button type="button" class="payer-link" data-insurance-category="medicare" data-portal-url="https://eligibility.zirmed.com/DDE" aria-label="Medicare Part B: open portal in a new tab">Medicare Part B</button>
+                        <button type="button" class="payer-link" data-insurance-category="medicare" data-portal-url="https://noridianmedicareportal.com/group/end-user/eligibility" aria-label="Noridian: open portal in a new tab">Noridian</button>
+                    </div>
+                </section>
+                <section class="insurance-category" data-category="advantage" aria-labelledby="category-advantage">
+                    <h2 id="category-advantage">Medicare Advantage</h2>
+                    <div class="payer-links">                        
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://ava.alignmenthealthcare.com/ebspecialist" aria-label="Alignment Health">Alignment Health</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="Aetna Medicare">Aetna Medicare</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://provider.azcompletehealth.com/careconnect/home" aria-label="Allwell/Wellcare from Az Complete health">Allwell/Wellcare from Az Complete health</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://eservices.uph.org/Account/Login?ReturnUrl=%2FMember" aria-label="Banner Medicare Prime">Banner Medicare Prime</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://secure.uhcprovider.com/#/" aria-label="Banner Health Plans">Banner Health Plans Prime</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="Devoted Medicare Health Claims">Devoted Medicare Health Claims</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://provider.eternalhealth.com/BillingProvider#/BenefitsElegibility" aria-label="Eternal Health">Eternal Health</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://eligibility.zirmed.com/DDE" aria-label="Gold Kidney">Gold Kidney</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://providerportal.healthchoiceaz.com/Account/Login?ReturnUrl=%2fEligibility" aria-label="Health Choice Pathway">Health Choice Pathway</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="HealthSpring Medicare Advantage">HealthSpring Medicare Advantage</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="Humana Medicare Advantage">Humana Medicare Advantage</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="Humana Gold Plus Medicare">Humana Gold Plus Medicare</button>                        
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://medicaid.aetna.com/MWP/landing/home" aria-label="Mercy Care Advantage">Mercy Care Advantage</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://eligibility.zirmed.com/DDE" aria-label="Molina Medicare Advantage">Molina Medicare Advantage</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://secure-pportal.scanhealthplan.com/v3app/a/?6713520D04184E271C0D1D261C0E191A0C0A1C202400133E0600412100124D3C0D31001506311B1B1B0F293856463E170A041A2517177904161E115A1142751E005B10585011085D43705C515B43515740116C4B0362514859505042407D04560A115857094F1C0D2C0A1F545F43161701371B06320C015312031518785C5354434507160B0B43710C020B43070311176C14063556005C5B0644117B531C4A1C10121D0E522F745A54502F525D344774415415572158515141197923525A4C5C22402A2D57722F215E5A535C45/" aria-label="Scan Health Medicare">Scan Health Medicare</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://secure.uhcprovider.com/#/" aria-label="UHC Dual">UHC Dual</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://secure.uhcprovider.com/#/" aria-label="UHC Medicare Adv PPO">UHC Medicare Adv PPO</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://secure.uhcprovider.com/#/" aria-label="UHC Medicare Advantage">UHC Medicare Advantage</button>
+                        <button type="button" class="payer-link" data-insurance-category="advantage" data-portal-url="https://eservices.uph.org/Account/Login?ReturnUrl=%2FMember" aria-label="University Care Advantage">University Care Advantage</button>
+                    </div>
+                </section>
+                <section class="insurance-category" data-category="commercial" aria-labelledby="category-commercial">
+                    <h2 id="category-commercial">Commercial</h2>
+                    <div class="payer-links">
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="Aetna">Aetna</button>                        
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="ACA Standard Health">ACA Standard Health</button>
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://provider.azcompletehealth.com/careconnect/home" aria-label="Ambetter from health net">Ambetter from health net</button>
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://provider.myameriben.com/accounts/v8/ameriben/ProviderPortal/login" aria-label="Ameriben">Ameriben</button>
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://essentials.availity.com/static/web/onb/onboarding-ui-apps/navigation/#/loadApp/?appUrl=%2Fstatic%2Fweb%2Fpres%2Fweb%2Feligibility%2F" aria-label="BCBS Arizona">BCBS Arizona/Alliance</button>
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://cignaforhcp.cigna.com/app/login" aria-label="Cigna">Cigna/ CIGNA GW</button>
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://account.meritain.com/" aria-label="Meritain">Meritain</button>                                                
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://secure.uhcprovider.com/#/" aria-label="United Healthcare">UHC</button>
+                        <button type="button" class="payer-link" data-insurance-category="commercial" data-portal-url="https://provider.umr.com/" aria-label="UMR">UMR</button>                        
+                    </div>
+                </section>
+            </div>            
+        </section>
+        <h2 class="workspace-heading"></h2>
+        
+            <div class="middleFormsForSmallWindow">
                 <div id="physicalExams">
                     <fieldset class="my-field">
                         <legend class="CheckPhysicalLegend">Check Physical Exam Eligibility</legend>
@@ -665,7 +730,6 @@
                     </div>
                 
             </div>
-            <button class="arrow-button" id="nextButton">Next &gt;</button>
         </div>
 
     <!-- Chat Question Modal -->
@@ -772,7 +836,26 @@
     </div>
   </div>
 </div>
+<!-- <button id="ai-open" type="button">AI assistance</button>
+<dialog id="ai-panel" aria-labelledby="ai-panel-title">
+  <header class="ai-panel-header">
+    <h2 id="ai-panel-title">AI assistance · Commercial verification</h2>
+    <button id="ai-close" type="button">Close panel</button>
+  </header>
+  <p>Paste the call transcript below, review the suggested answers, and calculate. Then select which answers to apply to your Commercial template. Existing entries are kept unless you choose to replace them.</p>
+  <p id="ai-connection" role="status" aria-live="polite"></p>
+  <div id="ai-frame-host"></div>
+  <section id="ai-transfer" hidden aria-labelledby="ai-transfer-title">
+    <h3 id="ai-transfer-title">Apply reviewed answers</h3>
+    <p>Checked answers will fill or replace the matching fields. Unchecked answers keep your current entries. The EMR copay box stays in the review results.</p>
+    <div id="ai-field-choices"></div>
+    <button id="ai-apply" type="button">Apply selected answers</button>
+  </section>
+  <p id="ai-apply-status" role="status" aria-live="polite"></p>
+</dialog>
+<script type="module" src="./verificationAI/mainPanel.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js.js"></script>
+    <script src="insurance-launcher.js"></script>
 </body>
 </html>
